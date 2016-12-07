@@ -1,29 +1,56 @@
-#main-search{
-  font-size: 1rem;
-}
-#main-search input{
-  padding-left: 0.5rem;
-  border-radius: 0.3rem;
-  background-color: rgba(255,255,255,0.6);
-}
-#main-search .ion-ios-search{
-font-size: 1.3rem;
-}
-#main-slide{
+#main-search {
   position: fixed;
-  top: 0;
-}
-#main-slide.slider {
-  height: 9rem !important;
+  font-size: 1rem;
+  z-index: 1100;
 }
 
-#main-slide.slider img {
-  height: 8.6rem !important;
+#main-search input {
+  padding-left: 0.5rem;
+  border-radius: 0.3rem;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+#main-search .ion-ios-search {
+  font-size: 1.4rem;
+}
+
+#main-slide.slider, #main-slide.slider img {
+  height: 11rem !important;
+}
+
+.slider-pager-page {
+  position: relative;
+  z-index: 1000;
+  bottom: -0.8rem;
+  font-size: 0.6rem;
 }
 
 .slider-pager-page.active {
   color: #FF81B0;
 }
+
+.main-list {
+  padding: 0;
+}
+
+.main-list img {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+.main-list p {
+  color: #585858;
+  font-weight: 700;
+}
+
+.main-list-first {
+  padding-top: 0.8rem;
+}
+
+.main-hot-sale strong,.main-hot-sale .ion-ios-cart{
+  font-size: 1.6rem;
+}
+
 .tool-tip {
   position: absolute;
   z-index: 10000;
@@ -38,7 +65,7 @@ font-size: 1.3rem;
 
 }
 
-.tool-tip-message{
+.tool-tip-message {
   background-color: #FF81B0;
   color: #ffffff;
   text-align: center;
@@ -46,8 +73,8 @@ font-size: 1.3rem;
   border-radius: 0.8rem;
 }
 
-.tool-tip-message-success{
-  background-color: #33cd5f ;
+.tool-tip-message-success {
+  background-color: #33cd5f;
   color: #ffffff;
   text-align: center;
   padding: 0.3rem 1.2rem;
