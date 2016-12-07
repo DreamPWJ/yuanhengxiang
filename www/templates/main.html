@@ -1,11 +1,16 @@
 <ion-view hide-nav-bar="true">
   <ion-content overflow-scroll="false" class="positive-bg" has-bouncing="true">
     <div class="row text-center padding-vertical light row-center " id="main-search">
-      <span class="col-15">深圳 <i class="icon ion-ios-arrow-down"></i></span>
-      <input type="text" class="col-75">
+      <strong class="col-15">深圳 <i class="icon ion-arrow-down-b"></i></strong>
+      <input type="text" class="col-75" placeholder="  请输入关键字"/>
       <i class="col  icon ion-ios-search"></i>
     </div>
-
+    <ion-slide-box show-pager="true" does-continue="true" auto-play="true" slide-interval="3000"
+                   delegate-handle="slideboximgs" id="main-slide">
+      <ion-slide>
+        <img ng-src="" alt="" class="full-image"/>
+      </ion-slide>
+    </ion-slide-box>
   </ion-content>
 </ion-view>
 
