@@ -15,9 +15,27 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
-/*根据需要设置覆盖默认值*/
+/*任何在@import之前设置的编码都会被默认的变量复写掉  再重新编译Sass生成css文件 根据需要修改覆盖默认值*/
+
 $positive:#FF93BC !default;
 
+@mixin flex($fg: 1, $fs: null, $fb: null) {
+  -webkit-box-flex: $fg;
+  -webkit-flex: $fg $fs $fb;
+  -moz-box-flex: $fg;
+  -moz-flex: $fg $fs $fb;
+  -ms-flex: $fg $fs $fb;
+  flex: $fg $fs $fb;
+}
+
+.col-15 {
+  @include flex(0, 0, 15%);
+  max-width: 15%;
+}
+.col-85 {
+  @include flex(0, 0, 85%);
+  max-width: 85%;
+}
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
