@@ -32,6 +32,14 @@ $positive:#FF93BC !default;
   @include flex(0, 0, 15%);
   max-width: 15%;
 }
+.col-30 {
+  @include flex(0, 0, 30%);
+  max-width: 30%;
+}
+.col-70 {
+  @include flex(0, 0, 70%);
+  max-width: 70%;
+}
 .col-85 {
   @include flex(0, 0, 85%);
   max-width: 85%;
