@@ -1,15 +1,29 @@
-<ion-view>
-  <ion-nav-buttons side="left">
-    <button class="button back-button buttons  header-item " nav-direction=back native-ui-sref="tab.main" native-options="{type: 'slide',direction: 'right'}">
-      <i class="icon ion-ios-arrow-back"></i>
-    </button>
-  </ion-nav-buttons>
-  <ion-nav-title>
-    <h1 class="title"> 登录</h1>
-  </ion-nav-title>
+<ion-view hide-nav-bar="true">
   <ion-content overflow-scroll="false" id="userlogin">
+    <div class="row row-horizontal-around row-top  light account-top-bg">
+        <i class="col icon ion-ios-arrow-back" ng-click="$ionicGoBack()"></i>
+      <strong class="col text-center"> 登录</strong>
+      <a class="col  light text-right"  ng-href="" nav-direction=forward>注册</a>
+    </div>
+    <form name="loginForm">
+      <div class="list card">
+        <label class="item item-input">
+          <span class="input-label icon ion-android-phone-portrait"> 手机号 </span>
+          <input type="number" name="username" ng-model="user.username"
+                 ng-maxlength="11" required/>
+        </label>
 
+        <label class="item item-input">
+          <span class="input-label icon ion-unlocked "> 密码 </span>
+          <input type="number" ng-model="user.password" required/>
+        </label>
+      </div>
+      <div class="padding">
+        <button class="button button-positive full-image" ng-disabled="!loginForm.$valid" >登录</button>
 
+      </div>
+      <p class="text-right padding"><a ng-href="" nav-direction=forward class="positive">忘记密码?</a></p>
+    </form>
   </ion-content>
 
 </ion-view>
