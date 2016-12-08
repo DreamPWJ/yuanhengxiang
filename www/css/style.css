@@ -51,11 +51,11 @@
 }
 
 .grey {
-  color: #aaa;
+  color: #aaa!important;
 }
 
 .grey-bg {
-  background-color: #aaa;
+  background-color: #aaa!important;;
 }
 
 .bottom-0 {
@@ -137,8 +137,14 @@
 }
 
 .button.back-button {
+  width: 1.2rem;
   border: none;
 }
+
+.bar-light .button.back-button{
+  color:#aaa;
+}
+
 
 /* 去掉时候点击按钮灰色边框颜色*/
 .button.active, .button.activated {

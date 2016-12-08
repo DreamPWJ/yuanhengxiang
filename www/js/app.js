@@ -124,8 +124,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     $ionicConfigProvider.platform.ios.navBar.alignTitle('center');
     $ionicConfigProvider.platform.android.navBar.alignTitle('center');
 
-    $ionicConfigProvider.platform.ios.backButton.previousTitleText('').icon('ion-chevron-left');
-    $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-chevron-left');
+    $ionicConfigProvider.platform.ios.backButton.previousTitleText('').icon('ion-ios-arrow-back');
+    $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-ios-arrow-back');
 
     $ionicConfigProvider.platform.ios.views.transition('ios');
     $ionicConfigProvider.platform.android.views.transition('android');
@@ -174,6 +174,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           'tab-main': {
             templateUrl: 'templates/main.html',
             controller: 'MainCtrl'
+          }
+        }
+      })
+
+      //产品分类主页面
+      .state('tab.classify', {
+        url: '/classify',
+        nativeTransitions: null,
+        views: {
+          'tab-classify': {
+            templateUrl: 'templates/classify.html',
+            controller: 'ClassifyCtrl'
           }
         }
       })

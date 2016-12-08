@@ -347,15 +347,47 @@ angular.module('starter.services', [])
 
     }
   })
-  .service('MainService', function ($q, $http, YuanHenXiang) { //主页服务定义
+  .service('MainService', function ($q, $http, YuanHenXiang) { //首页服务定义
     return {
-      authLogin: function () {
+      getMainBanner: function (params) { //获取首页banner图片
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
         promise = $http({
-          method: 'POST',
+          method: 'GET',
           url: YuanHenXiang.api + "/Auth/Login",
-          data: data
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      }
+    }
+  })
+  .service('ClassifyService', function ($q, $http, YuanHenXiang) { //产品分类服务定义
+    return {
+      getClassify: function (params) { //产品分类类别 侧边栏
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: /*YuanHenXiang.api + */"www/json/classify.json",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getClassifyDetails: function (params) { //产品分类类别详情数据
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: /*YuanHenXiang.api + */"www/json/classify.json",
+          params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (err) {
@@ -654,6 +686,7 @@ angular.module('starter.services', [])
     }
   })
   .factory('AuthInterceptor', function () {//设置请求头信息的地方是$httpProvider.interceptors。也就是为请求或响应注册一个拦截器。使用这种方式首先需要定义一个服务
+
     return {
       request: function (config) {
         config.headers = config.headers || {};
@@ -661,8 +694,10 @@ angular.module('starter.services', [])
         if (token) {
           config.headers.authorization = token;
         }
-
         return config;
+      },
+      response: function (response) {
+
       },
       responseError: function (response) {
         // ...

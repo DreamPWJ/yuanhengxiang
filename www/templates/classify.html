@@ -1,0 +1,29 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons  header-item" nav-direction=back native-ui-sref="tab.main"
+            native-options="{type: 'slide',direction: 'right'}">
+      <i class="icon ion-ios-arrow-back"></i>
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">产品分类</h1>
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button class="button icon ion-ios-search no-border grey" ng-click=""></button>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="false" has-bouncing="true">
+    <div class="row row-no-padding" id="classify">
+      <div class="col-25">
+        <ion-list >
+          <ion-item class="stable-bg" >
+            <h2 > 奶粉尿裤</h2>
+          </ion-item>
+          <ion-item class="classify-selected">
+            <h2 >洗护哺育</h2>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="col-75"></div>
+    </div>
+  </ion-content>
+</ion-view>

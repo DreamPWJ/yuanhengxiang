@@ -7,13 +7,21 @@ angular.module('starter.controllers', [])
 
 
   //APP首页面
-  .controller('MainCtrl', function ($scope, $rootScope, CommonService,$ionicHistory) {
+  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory) {
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearHistory();
     })
   })
+  //产品分类主页面
+  .controller('ClassifyCtrl', function ($scope, $rootScope, CommonService, ClassifyService) {
+    //获取产品分类
+    $scope.getClassify=function () {
+      ClassifyService.getClassify().success(function (data) {
+      })
+    }
 
+  })
   //登录页面
   .controller('LoginCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
     $scope.user = {};//提前定义用户对象
@@ -26,7 +34,7 @@ angular.module('starter.controllers', [])
     }
   })
   //我的设置页面
-  .controller('AccountCtrl', function ($scope, $rootScope, CommonService) {
+  .controller('AccountCtrl', function ($scope, $rootScope, CommonService, AccountService) {
     $scope.settings = {
       enableFriends: true
     };
