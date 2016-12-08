@@ -49,8 +49,25 @@
 
 .main-hot-sale strong,.main-hot-sale .ion-ios-cart{
   font-size: 1.6rem;
+  font-weight: 600;
+}
+#main-scroll{
+  width: 130%;
 }
 
+#main-scroll>span{
+  display: inline-block;
+  width: 30%;
+}
+#main-scroll>span>p{
+  color: #000000;
+  height: 40px;
+
+}
+#main-scroll>span>img{
+  display: block;
+  margin: auto;
+}
 .tool-tip {
   position: absolute;
   z-index: 10000;
