@@ -11,19 +11,98 @@
   <ion-nav-buttons side="right">
     <button class="button icon ion-ios-search no-border grey" ng-click=""></button>
   </ion-nav-buttons>
-  <ion-content overflow-scroll="false" has-bouncing="true">
+  <ion-content overflow-scroll="false" has-bouncing="true" locking="false">
     <div class="row row-no-padding" id="classify">
-      <div class="col-25">
-        <ion-list >
-          <ion-item class="stable-bg" >
-            <h2 > 奶粉尿裤</h2>
-          </ion-item>
-          <ion-item class="classify-selected">
-            <h2 >洗护哺育</h2>
+      <div class="col-25 stable-bg">
+        <ion-list class="list-borderless " >
+          <ion-item ng-class="{false:'stable-bg',true:'classify-selected'}[classifyindex==$index]" ng-click="getClassifyDetails($index)"  ng-repeat="item in classifyinfo">
+            <h2> {{item}}</h2>
           </ion-item>
         </ion-list>
       </div>
-      <div class="col-75"></div>
+      <div class="col-75">
+        <div class="row row-no-padding text-center row-wrap">
+          <p class="stable-bg  full-image text-left classify-details-bar"> 奶粉系列</p>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>           <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+        </div>
+        <div class="row row-no-padding text-center row-wrap">
+          <p class="stable-bg  full-image text-left classify-details-bar"> 奶粉系列</p>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>           <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+
+        </div>
+        <div class="row row-no-padding text-center row-wrap">
+          <p class="stable-bg  full-image text-left classify-details-bar"> 奶粉系列</p>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+          <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>           <span class="col-33">
+               <img ng-src="img/main/1.png" alt=""/>
+               <p>伊利</p>
+             </span>
+
+        </div>
+      </div>
+    </div>
     </div>
   </ion-content>
 </ion-view>

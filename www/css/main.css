@@ -76,6 +76,7 @@
   margin: auto;
 }
 
+
 #classify .col-25 .item {
   text-align: center;
   padding-left: 0;
@@ -83,7 +84,12 @@
 
 .classify-selected h2 {
   border-left: 5px solid #FF93BC !important;
-  line-height: 25px
+  color:#FF93BC;
+}
+
+.classify-details-bar{
+   padding: 0.3rem 0.8rem;
+  font-weight: 700;
 }
 
 .tool-tip {

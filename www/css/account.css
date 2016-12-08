@@ -1,0 +1,66 @@
+.account .userinfo {
+  padding: 0.8rem;
+  height: 7rem;
+}
+
+.userinfo img {
+  border: 3px solid rgba(255, 147, 188, 0.6);
+  border-radius: 0.3rem;
+}
+
+.account .userinfo strong > i {
+  padding-left: 0.8rem;
+  font-weight: 100;
+  font-size: 0.5rem;
+}
+
+.userinfo .userinfo-details {
+  padding-left: 1.3rem;
+}
+
+.userinfo-details p > span {
+  display: inline-block;
+  color: #ffffff;
+  margin-top: 0.5rem;
+  border: 1px solid #ffffff;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.2rem;
+}
+
+.userinfo-list img {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.userinfo-border-rb {
+  border-right: 1px solid rgba(221, 221, 221, 0.3);
+  border-bottom: 1px solid rgba(221, 221, 221, 0.3);
+}
+
+.userinfo-border-r {
+  border-right: 1px solid rgba(221, 221, 221, 0.3);
+}
+
+.userinfo-border-b {
+  border-bottom: 1px solid rgba(221, 221, 221, 0.3);
+}
+
+.userinfo-list a p {
+  color: #585858;
+}
+
+.shoppingcart-list .row strong,.shoppingcart-list .row i{
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.shoppingcart-footer-bar{
+  margin: 0;
+  padding: 0;
+  height: 3rem;
+}
+
+.shoppingcart-footer-bar button{
+  height: 100%;
+  border-radius: 0;
+}

@@ -190,6 +190,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       })
 
+      //购物车页面
+      .state('tab.shoppingcart', {
+        url: '/shoppingcart',
+        nativeTransitions: null,
+        views: {
+          'tab-shoppingcart': {
+            templateUrl: 'templates/shoppingcart.html',
+            controller: 'ShoppingCartCtrl'
+          }
+        }
+      })
+
       //我的账号
       .state('tab.account', {
         url: '/account',

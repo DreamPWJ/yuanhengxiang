@@ -15,11 +15,22 @@ angular.module('starter.controllers', [])
   })
   //产品分类主页面
   .controller('ClassifyCtrl', function ($scope, $rootScope, CommonService, ClassifyService) {
+    $scope.classifyinfo=['奶粉尿裤','洗护哺育','辅食营养','孕妈专区','家纺服饰','童装童鞋'];
+    $scope.classifyindex=0;//选中产品分类标示
+    CommonService.customModal($scope, 'templates/search.html');
     //获取产品分类
     $scope.getClassify=function () {
       ClassifyService.getClassify().success(function (data) {
       })
     }
+    //点击产品分类获取产品分类详情
+    $scope.getClassifyDetails=function (index) {
+      $scope.classifyindex = index;
+    }
+    })
+
+  //购物车主界面
+  .controller('ShoppingCartCtrl', function ($scope, $rootScope, CommonService) {
 
   })
   //登录页面
