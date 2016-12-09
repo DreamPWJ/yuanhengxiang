@@ -12,6 +12,9 @@ angular.module('starter.controllers', [])
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearHistory();
     })
+
+    $scope.scrollWidth=window.innerWidth+'px';
+    $scope.scrollContentWidth=document.querySelector("#main-scroll").clientWidth+'px';
   })
   //产品分类主页面
   .controller('ClassifyCtrl', function ($scope, $rootScope, CommonService, ClassifyService) {
@@ -27,6 +30,9 @@ angular.module('starter.controllers', [])
     $scope.getClassifyDetails=function (index) {
       $scope.classifyindex = index;
     }
+
+    $scope.scrollHeight=(window.innerHeight-44-49)+'px';
+    $scope.scrollContentHeight=document.querySelector("#classify-scroll-content").clientHeight+'px';
     })
 
   //购物车主界面
