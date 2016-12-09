@@ -7,7 +7,7 @@ angular.module('starter.controllers', [])
 
 
   //APP首页面
-  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory) {
+  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory,$ionicScrollDelegate) {
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearHistory();
@@ -15,6 +15,7 @@ angular.module('starter.controllers', [])
 
     $scope.scrollWidth=window.innerWidth+'px';
     $scope.scrollContentWidth=document.querySelector("#main-scroll").clientWidth+'px';
+
   })
   //产品分类主页面
   .controller('ClassifyCtrl', function ($scope, $rootScope, CommonService, ClassifyService) {

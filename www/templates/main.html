@@ -1,5 +1,5 @@
 <ion-view hide-nav-bar="true">
-  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" >
+  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true"  delegate-handle="main-content">
     <div class="row text-center padding-vertical light row-center " id="main-search">
       <strong class="col-15">深圳 <i class="icon ion-arrow-down-b"></i></strong>
       <input type="text" class="col-75" placeholder="  请输入关键字"/>
@@ -56,7 +56,7 @@
           class="col icon ion-ios-cart positive text-right"></i></p>
       </ion-item>
       <ion-item>
-        <ion-scroll ng-style="{width:scrollWidth}" direction="x" zooming="true" overflow-scroll="false"  scrollbar-x="false" class="main-scroll">
+        <ion-scroll ng-style="{width:scrollWidth}" delegate-handle="main-scroll"  direction="x" zooming="true" overflow-scroll="false"  scrollbar-x="false" has-bouncing="true" class="main-scroll">
           <div  ng-style="{width:scrollContentWidth}" id="main-scroll">
             <span>
               <img ng-src="img/main/1.png" class="full-image" alt=""/>
