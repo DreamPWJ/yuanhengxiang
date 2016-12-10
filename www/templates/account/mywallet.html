@@ -1,0 +1,22 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons  header-item" ng-click="$ionicGoBack()">
+      <i class="icon ion-ios-arrow-back"></i>
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">我的钱包</h1>
+  </ion-nav-title>
+  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="mywallet">
+    <form name="mywallet">
+       <div class="row-wrap text-center light-bg">
+         <img class="col" ng-src="img/account/coupon@1.png" alt="">
+         <strong  class=" col grey ">我的余额</strong>
+         <h2  class=" col positive">￥3600.00</h2>
+       </div>
+      <div class="padding">
+        <a ng-click="mywalletSubmit()" ng-disabled="!mywallet.$valid" class="button button-positive full-image ">提现</a>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

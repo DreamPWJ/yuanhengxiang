@@ -1,0 +1,41 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons  header-item" ng-click="$ionicGoBack()">
+      <i class="icon ion-ios-arrow-back"></i>
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">{{!isfailureVolumeflg?'我的':'失效'}}优惠卷</h1>
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <a ng-click="failureVolume()" class="button button-small grey button-clear">{{isfailureVolumeflg?'有效':'失效'}}卷
+    </a>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="mycoupon">
+   <ion-list class="card" >
+     <ion-item class=" item-thumbnail-left ">
+       <img ng-src="img/main/cp@5.jpg" alt="">
+       <h2 class="padding-top">贝亲洗发沐浴二合一套装</h2>
+       <p >好奇金装清爽洁净婴儿湿巾80抽*3包</p>
+       <p class="period-of-validity">有效期：2016.10.17-2016.11.17</p>
+       <img ng-show="isfailureVolumeflg" ng-src="img/account/choice@2.png" alt="">
+     </ion-item>
+     <p></p>
+     <ion-item class=" item-thumbnail-left">
+       <img ng-src="img/main/cp@5.jpg" alt="">
+       <h2 class="padding-top">贝亲洗发沐浴二合一套装</h2>
+       <p >好奇金装清爽洁净婴儿湿巾80抽*3包</p>
+       <p class="period-of-validity">有效期：2016.10.17-2016.11.17</p>
+       <img ng-show="isfailureVolumeflg"  ng-src="img/account/choice@2.png" alt="">
+     </ion-item>
+     <p></p>
+     <ion-item class=" item-thumbnail-left ">
+       <img ng-src="img/main/cp@5.jpg" alt="">
+       <h2 class="padding-top">贝亲洗发沐浴二合一套装</h2>
+       <p >好奇金装清爽洁净婴儿湿巾80抽*3包</p>
+       <p class="period-of-validity">有效期：2016.10.17-2016.11.17</p>
+       <img ng-show="isfailureVolumeflg"  ng-src="img/account/choice@2.png" alt="">
+     </ion-item>
+   </ion-list>
+  </ion-content>
+</ion-view>

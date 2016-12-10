@@ -51,11 +51,11 @@
 }
 
 .grey {
-  color: #aaa!important;
+  color: #aaa !important;
 }
 
 .grey-bg {
-  background-color: #aaa!important;;
+  background-color: #aaa !important;;
 }
 
 .bottom-0 {
@@ -141,10 +141,9 @@
   border: none;
 }
 
-.bar-light .button.back-button{
-  color:#aaa;
+.bar-light .button.back-button {
+  color: #aaa;
 }
-
 
 /* 去掉时候点击按钮灰色边框颜色*/
 .button.active, .button.activated {
@@ -198,6 +197,13 @@
   transition: all ease-in-out 250ms;
 }
 
-.input-label{
-  width: 28%!important;
+.input-label {
+  width: 28% !important;
 }
+
+.nowrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

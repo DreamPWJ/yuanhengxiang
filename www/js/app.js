@@ -278,6 +278,33 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'OrganizingDataCtrl'
       })
 
+      //我的钱包页面
+      .state('mywallet', {
+        url: '/mywallet',
+        templateUrl: 'templates/account/mywallet.html',
+        controller: 'MyWalletCtrl'
+      })
+
+      //我的优惠卷页面
+      .state('mycoupon', {
+        url: '/mycoupon',
+        templateUrl: 'templates/account/mycoupon.html',
+        controller: 'MyCouponCtrl'
+      })
+
+      //邀请记录页面
+      .state('invitationlist', {
+        url: '/invitationlist',
+        templateUrl: 'templates/account/invitationlist.html',
+        controller: 'InvitationListCtrl'
+      })
+
+      //我的积分页面
+      .state('myntegral', {
+        url: '/myntegral',
+        templateUrl: 'templates/account/myntegral.html',
+        controller: 'MyNtegralCtrl'
+      })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/main');
 

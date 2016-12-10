@@ -104,7 +104,7 @@ angular.module('starter.controllers', [])
 
   //地址管理页面
   .controller('AddressManageCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
-    $scope.addresslist=['广东省 深圳市 南山区 高薪科技园北区 深南小巷','广东省 深圳市 南山区2 高薪科技园北区 深南小巷','广东省 深圳市 南山区3 高薪科技园北区 深南小巷']
+    $scope.addresslist = ['广东省 深圳市 南山区 高薪科技园北区 深南小巷', '广东省 深圳市 南山区2 高薪科技园北区 深南小巷', '广东省 深圳市 南山区3 高薪科技园北区 深南小巷']
     $scope.getAddressList = function () {
       AccountService.login().success(function (data) {
       }).error(function () {
@@ -112,16 +112,21 @@ angular.module('starter.controllers', [])
       })
     }
     //选中地址编辑地址
-    $scope.selectAddress=function (index) {
+    $scope.selectAddress = function (index) {
       //选中第几个数组
-      $scope.selectindex=index;
+      $scope.selectindex = index;
     }
+    //删除选择的地址
+    $scope.deleteAddress = function (index) {
+      $scope.addresslist.splice(index, 1)
+    }
+
   })
 
   //添加地址页面
   .controller('AddAddressCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
     //地址信息
-    $scope.addrinfo={};
+    $scope.addrinfo = {};
     //获取省市县
     $scope.getAddressPCCList = function () {
       AccountService.login().success(function (data) {
@@ -131,20 +136,46 @@ angular.module('starter.controllers', [])
     }
 
     //保存地址
-    $scope.addressSave=function () {
+    $scope.addressSave = function () {
 
     }
 
   })
   //完善资料页面
-  .controller('OrganizingDataCtrl', function ($scope, $rootScope, $state, CommonService,AccountService) {
+  .controller('OrganizingDataCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
     //用户信息
-    $scope.userinfo={};
+    $scope.userinfo = {};
     //完善资料保存
-    $scope.organizingdataSave=function () {
+    $scope.organizingdataSave = function () {
 
     }
   })
+  //我的钱包页面
+  .controller('MyWalletCtrl', function ($scope, $rootScope, $state, CommonService) {
+    //提现
+    $scope.mywalletSubmit = function () {
+
+    }
+  })
+
+  //我的优惠卷页面
+  .controller('MyCouponCtrl', function ($scope, $rootScope, $state, CommonService) {
+    //失效卷标示
+    $scope.isfailureVolumeflg=false;
+    //失效卷
+    $scope.failureVolume=function () {
+      $scope.isfailureVolumeflg=$scope.isfailureVolumeflg?false:true;
+    }
+  })
+  //邀请记录页面
+  .controller('InvitationListCtrl', function ($scope, $rootScope, $state, CommonService) {
+
+  })
+  //我的积分页面
+  .controller('MyNtegralCtrl', function ($scope, $rootScope, $state, CommonService) {
+
+  })
+
   //联系我们页面
   .controller('ContactUsCtrl', function ($scope, $rootScope, $state, CommonService) {
 
