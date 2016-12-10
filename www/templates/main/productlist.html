@@ -1,0 +1,162 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons  header-item" ng-click="$ionicGoBack()">
+      <i class="icon ion-ios-arrow-back"></i>
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">产品列表</h1>
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button class="button icon ion-ios-search no-border grey" ng-click="modal.show()"></button>
+  </ion-nav-buttons>
+
+  <ion-tabs id="productlist-tab" class="tabs-light tabs-top tabs-striped tabs-color-positive" delegate-handle="my-handle-productlist">
+    <ion-tab title="综合" on-select="selectedTab(0)">
+    </ion-tab>
+    <ion-tab title="销量" on-select="selectedTab(1)">
+    </ion-tab>
+    <ion-tab title="价格" on-select="selectedTab(2)">
+    </ion-tab>
+  </ion-tabs>
+  <ion-slide-box show-pager="false" on-slide-changed="slideChanged($index)" delegate-handle="slidebox-productlist"
+                 id="productlist">
+    <ion-slide>
+      <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <!--        <ion-refresher on-refresh="getSaleOrderList(0)" pulling-text="下拉刷新"></ion-refresher>-->
+        <p></p>
+        <ion-list>
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车这样车罩 轻便型</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@1.jpg" alt="">
+            <h2>婴幼儿配方奶粉3段</h2>
+            <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@5.jpg" alt="">
+            <h2>婴幼儿配方奶粉3段</h2>
+            <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车这样车罩 轻便型</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@1.jpg" alt="">
+            <h2>婴幼儿配方奶粉3段</h2>
+            <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@5.jpg" alt="">
+            <h2>婴幼儿配方奶粉3段</h2>
+            <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+        </ion-list>
+        <!--        <ion-infinite-scroll  on-infinite="getSaleOrderList()" ng-if="sellparamstotal > sellparamspage" immediate-check="false">
+                </ion-infinite-scroll>-->
+      </ion-content>
+    </ion-slide>
+    <ion-slide>
+      <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <p></p>
+        <ion-list>
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@1.jpg" alt="">
+            <h2>婴幼儿配方奶粉3段</h2>
+            <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车这样车罩 轻便型</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@5.jpg" alt="">
+            <h2>婴幼儿配方奶粉3段</h2>
+            <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车这样车罩 轻便型</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+        </ion-list>
+
+      </ion-content>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <p></p>
+        <ion-list>
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@5.jpg" alt="">
+            <h2>婴幼儿配方奶粉3段</h2>
+            <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@1.jpg" alt="">
+            <h2>婴幼儿配方奶粉3段</h2>
+            <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+          <ion-item class="item-thumbnail-left main-hot-sale">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车这样车罩 轻便型</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <i
+              class="col icon ion-ios-cart positive text-right"></i></p>
+          </ion-item>
+
+
+        </ion-list>
+      </ion-content>
+    </ion-slide>
+  </ion-slide-box>
+
+
+</ion-view>

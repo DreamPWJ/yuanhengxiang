@@ -75,7 +75,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           CommonService.platformPrompt("网络异常 无法连接服务器", 'close');
         })
         //添加JS 屏幕监听事件 禁止APP 横屏
-        if(screenOrientation){
+        if (screenOrientation) {
           screenOrientation.setOrientation('portrait');
         }
 
@@ -190,6 +190,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       })
 
+      //产品列表
+      .state('productlist', {
+        url: '/productlist',
+        templateUrl: 'templates/main/productlist.html',
+        controller: 'ProductListCtrl'
+
+      })
       //购物车页面
       .state('tab.shoppingcart', {
         url: '/shoppingcart',

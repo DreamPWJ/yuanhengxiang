@@ -35,7 +35,18 @@ angular.module('starter.controllers', [])
     $scope.scrollHeight = (window.innerHeight - 44 - 49) + 'px';
     $scope.scrollContentHeight = document.querySelector("#classify-scroll-content").clientHeight + 'px';
   })
+  //产品列表页面
+  .controller('ProductListCtrl', function ($scope, $rootScope, CommonService, ClassifyService,$ionicTabsDelegate,$ionicSlideBoxDelegate) {
+    CommonService.customModal($scope, 'templates/search.html');
+    $scope.slideChanged = function (index) {
+      $ionicTabsDelegate.$getByHandle('my-handle-productlist').select(index);
+    };
 
+    $scope.selectedTab = function ( index) {
+      //滑动的索引和速度
+      $ionicSlideBoxDelegate.$getByHandle("slidebox-productlist").slide(index)
+    }
+  })
   //购物车主界面
   .controller('ShoppingCartCtrl', function ($scope, $rootScope, CommonService) {
 
