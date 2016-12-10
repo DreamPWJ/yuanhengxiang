@@ -45,6 +45,10 @@
   border-bottom: 1px solid rgba(221, 221, 221, 0.3);
 }
 
+.userinfo-list a {
+  text-decoration: none;
+}
+
 .userinfo-list a p {
   color: #585858;
 }
@@ -74,4 +78,7 @@
   background-image:url("../img/account/account-bg.jpg");
   background-size: cover;
 
+}
+.account-top-bg strong{
+  padding-top: 0.3rem;
 }

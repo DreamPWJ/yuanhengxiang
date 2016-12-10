@@ -1,28 +1,28 @@
 <ion-view hide-nav-bar="true">
-  <ion-content overflow-scroll="false" id="userlogin">
+  <ion-content overflow-scroll="false" class="stable-bg" id="userlogin">
     <div class="row row-horizontal-around row-top  light account-top-bg">
         <i class="col icon ion-ios-arrow-back" ng-click="$ionicGoBack()"></i>
-      <strong class="col text-center"> 登录</strong>
-      <a class="col  light text-right"  ng-href="" nav-direction=forward>注册</a>
+      <strong class="col-70 text-center"> 登录</strong>
+      <a class="col  light text-center subdued"  ng-href="#/register" nav-direction=forward>注册</a>
     </div>
     <form name="loginForm">
-      <div class="list card">
-        <label class="item item-input">
+      <div class="list">
+        <label class="item item-input padding-top">
           <span class="input-label icon ion-android-phone-portrait"> 手机号 </span>
-          <input type="number" name="username" ng-model="user.username"
+          <input type="number" name="username" placeholder="请输入手机号码" ng-model="user.username"
                  ng-maxlength="11" required/>
         </label>
 
         <label class="item item-input">
           <span class="input-label icon ion-unlocked "> 密码 </span>
-          <input type="number" ng-model="user.password" required/>
+          <input type="number" placeholder="请输入密码" ng-model="user.password" required/>
         </label>
       </div>
       <div class="padding">
-        <button class="button button-positive full-image" ng-disabled="!loginForm.$valid" >登录</button>
+        <button class="button button-positive full-image" ng-disabled="!loginForm.$valid"  ng-click="loginSubmit()">登录</button>
 
       </div>
-      <p class="text-right padding"><a ng-href="" nav-direction=forward class="positive">忘记密码?</a></p>
+      <p class="text-right padding"><a ng-href="#/resetpassword" class="subdued positive" nav-direction=forward class="positive">忘记密码?</a></p>
     </form>
   </ion-content>
 

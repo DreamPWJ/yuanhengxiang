@@ -1,0 +1,26 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons  header-item" ng-click="$ionicGoBack()">
+      <i class="icon ion-ios-arrow-back"></i>
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">反馈建议</h1>
+  </ion-nav-title>
+  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true">
+    <form name="helpfeedback">
+      <ion-list>
+        <ion-item class="item-divider item-borderless">
+          建议描述
+        </ion-item>
+        <ion-item class="item-input item-borderless">
+          <textarea rows="8" ng-model="helpfeedback.content" placeholder="欢迎反馈建议..." ng-maxlength="2000"
+                    required></textarea>
+        </ion-item>
+      </ion-list>
+      <div class="padding">
+        <a ng-click="helpfeedbackSubmit()" ng-disabled="!helpfeedback.$valid" class="button button-positive full-image ">确认提交</a>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

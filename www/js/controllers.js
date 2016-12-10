@@ -7,34 +7,34 @@ angular.module('starter.controllers', [])
 
 
   //APP首页面
-  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory,$ionicScrollDelegate) {
+  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, $ionicScrollDelegate) {
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearHistory();
     })
 
-    $scope.scrollWidth=window.innerWidth+'px';
-    $scope.scrollContentWidth=document.querySelector("#main-scroll").clientWidth+'px';
+    $scope.scrollWidth = window.innerWidth + 'px';
+    $scope.scrollContentWidth = document.querySelector("#main-scroll").clientWidth + 'px';
 
   })
   //产品分类主页面
   .controller('ClassifyCtrl', function ($scope, $rootScope, CommonService, ClassifyService) {
-    $scope.classifyinfo=['奶粉尿裤','洗护哺育','辅食营养','孕妈专区','家纺服饰','童装童鞋'];
-    $scope.classifyindex=0;//选中产品分类标示
+    $scope.classifyinfo = ['奶粉尿裤', '洗护哺育', '辅食营养', '孕妈专区', '家纺服饰', '童装童鞋'];
+    $scope.classifyindex = 0;//选中产品分类标示
     CommonService.customModal($scope, 'templates/search.html');
     //获取产品分类
-    $scope.getClassify=function () {
+    $scope.getClassify = function () {
       ClassifyService.getClassify().success(function (data) {
       })
     }
     //点击产品分类获取产品分类详情
-    $scope.getClassifyDetails=function (index) {
+    $scope.getClassifyDetails = function (index) {
       $scope.classifyindex = index;
     }
 
-    $scope.scrollHeight=(window.innerHeight-44-49)+'px';
-    $scope.scrollContentHeight=document.querySelector("#classify-scroll-content").clientHeight+'px';
-    })
+    $scope.scrollHeight = (window.innerHeight - 44 - 49) + 'px';
+    $scope.scrollContentHeight = document.querySelector("#classify-scroll-content").clientHeight + 'px';
+  })
 
   //购物车主界面
   .controller('ShoppingCartCtrl', function ($scope, $rootScope, CommonService) {
@@ -42,18 +42,62 @@ angular.module('starter.controllers', [])
   })
   //登录页面
   .controller('LoginCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
-    $scope.user = {};//提前定义用户对象
+    $scope.user = {};//定义用户对象
     $scope.loginSubmit = function () {
       AccountService.login($scope.user).success(function (data) {
         CommonService.getStateName();   //跳转页面
       }).error(function () {
-        CommonService.platformPrompt("登录失败!", 'close');
+        CommonService.platformPrompt("登录失败", 'close');
       })
     }
   })
+
   //我的设置页面
   .controller('AccountCtrl', function ($scope, $rootScope, CommonService, AccountService) {
     $scope.settings = {
       enableFriends: true
     };
-  });
+  })
+  //注册页面
+  .controller('RegisterCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+    $scope.user = {};//定义用户对象
+    $scope.registerSubmit = function () {
+      AccountService.login($scope.user).success(function (data) {
+      }).error(function () {
+        CommonService.platformPrompt("注册失败", 'close');
+      })
+    }
+  })
+
+  //重置密码页面
+  .controller('ResetPasswordCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+    $scope.user = {};//定义用户对象
+    $scope.registerSubmit = function () {
+      AccountService.login($scope.user).success(function (data) {
+      }).error(function () {
+        CommonService.platformPrompt("重置密码失败", 'close');
+      })
+    }
+  })
+
+  //修改密码页面
+  .controller('ChangePasswordCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+    $scope.user = {};//定义用户对象
+    $scope.changepasswordSubmit = function () {
+      AccountService.login($scope.user).success(function (data) {
+      }).error(function () {
+        CommonService.platformPrompt("修改密码失败", 'close');
+      })
+    }
+  })
+
+  //反馈建议页面
+  .controller('HelpFeedbackCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+    $scope.helpfeedback = {};//定义对象
+    $scope.helpfeedbackSubmit = function () {
+      AccountService.login($scope.helpfeedback).success(function (data) {
+      }).error(function () {
+        CommonService.platformPrompt("反馈建议提交失败", 'close');
+      })
+    }
+  })

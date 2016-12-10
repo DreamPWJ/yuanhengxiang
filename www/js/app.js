@@ -222,6 +222,34 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'LoginCtrl'
       })
 
+      //注册页面
+      .state('register', {
+        url: '/register',
+        templateUrl: 'templates/account/register.html',
+        controller: 'RegisterCtrl'
+      })
+
+      //重置密码页面
+      .state('resetpassword', {
+        url: '/resetpassword',
+        templateUrl: 'templates/account/resetpassword.html',
+        controller: 'ResetPasswordCtrl'
+      })
+
+      //修改密码页面
+      .state('changepassword', {
+        url: '/changepassword',
+        templateUrl: 'templates/account/changepassword.html',
+        controller: 'ChangePasswordCtrl'
+      })
+
+      //反馈建议页面
+      .state('helpfeedback', {
+        url: '/helpfeedback',
+        templateUrl: 'templates/account/helpfeedback.html',
+        controller: 'HelpFeedbackCtrl'
+      })
+
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/main');
 
