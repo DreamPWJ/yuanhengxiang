@@ -197,3 +197,7 @@
   -webkit-transition: all ease-in-out 250ms;
   transition: all ease-in-out 250ms;
 }
+
+.input-label{
+  width: 28%!important;
+}

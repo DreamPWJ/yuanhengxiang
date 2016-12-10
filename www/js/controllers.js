@@ -101,3 +101,51 @@ angular.module('starter.controllers', [])
       })
     }
   })
+
+  //地址管理页面
+  .controller('AddressManageCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+    $scope.addresslist=['广东省 深圳市 南山区 高薪科技园北区 深南小巷','广东省 深圳市 南山区2 高薪科技园北区 深南小巷','广东省 深圳市 南山区3 高薪科技园北区 深南小巷']
+    $scope.getAddressList = function () {
+      AccountService.login().success(function (data) {
+      }).error(function () {
+        CommonService.platformPrompt("获取地址管理列表失败", 'close');
+      })
+    }
+    //选中地址编辑地址
+    $scope.selectAddress=function (index) {
+      //选中第几个数组
+      $scope.selectindex=index;
+    }
+  })
+
+  //添加地址页面
+  .controller('AddAddressCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+    //地址信息
+    $scope.addrinfo={};
+    //获取省市县
+    $scope.getAddressPCCList = function () {
+      AccountService.login().success(function (data) {
+      }).error(function () {
+        CommonService.platformPrompt("获取添加地址省市县失败", 'close');
+      })
+    }
+
+    //保存地址
+    $scope.addressSave=function () {
+
+    }
+
+  })
+  //完善资料页面
+  .controller('OrganizingDataCtrl', function ($scope, $rootScope, $state, CommonService,AccountService) {
+    //用户信息
+    $scope.userinfo={};
+    //完善资料保存
+    $scope.organizingdataSave=function () {
+
+    }
+  })
+  //联系我们页面
+  .controller('ContactUsCtrl', function ($scope, $rootScope, $state, CommonService) {
+
+  })

@@ -1,0 +1,30 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons  header-item" ng-click="$ionicGoBack()">
+      <i class="icon ion-ios-arrow-back"></i>
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">地址管理</h1>
+  </ion-nav-title>
+  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="addressmanage">
+    <ion-list class="list-borderless">
+      <ion-item>
+        <h2 class="text-center"><a ng-href="#/addaddress" class="grey subdued"><i class="icon ion-compose"></i> 添加新地址</a></h2>
+      </ion-item>
+      <p></p>
+      <div ng-repeat="item in addresslist">
+        <ion-item >
+          <div class="row"><i class="col-10 icon ion-disc " ng-class="{false:'grey',true:'positive'}[selectindex==$index]" ></i>
+            <p ng-click="selectAddress($index)" class="padding-right"> {{item}}</p>
+            <i class="col-10  icon ion-ios-compose-outline text-center"></i>
+            <i class=" col-10 icon ion-ios-trash-outline  text-center"></i>
+          </div>
+        </ion-item>
+        <p></p>
+      </div>
+
+    </ion-list>
+
+  </ion-content>
+</ion-view>

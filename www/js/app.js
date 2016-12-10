@@ -250,6 +250,34 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'HelpFeedbackCtrl'
       })
 
+      //地址管理页面
+      .state('addressmanage', {
+        url: '/addressmanage',
+        templateUrl: 'templates/account/addressmanage.html',
+        controller: 'AddressManageCtrl'
+      })
+
+      //添加地址页面
+      .state('addaddress', {
+        url: '/addaddress',
+        templateUrl: 'templates/account/addaddress.html',
+        controller: 'AddAddressCtrl'
+      })
+
+      //联系我们页面
+      .state('contactus', {
+        url: '/contactus',
+        templateUrl: 'templates/account/contactus.html',
+        controller: 'ContactUsCtrl'
+      })
+
+      //完善资料页面
+      .state('organizingdata', {
+        url: '/organizingdata',
+        templateUrl: 'templates/account/organizingdata.html',
+        controller: 'OrganizingDataCtrl'
+      })
+
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/main');
 
