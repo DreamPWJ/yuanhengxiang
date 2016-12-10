@@ -71,6 +71,7 @@
 
 .account-top-bg{
   height: 8rem!important;
-  background-color: #FF93BC;
+  background-image:url("../img/account/account-bg.jpg");
+  background-size: cover;
 
 }

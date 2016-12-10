@@ -15,14 +15,14 @@
 }
 
 #main-slide.slider, #main-slide.slider img {
-  height: 11rem !important;
+  height: 13rem !important;
 }
 
 .slider-pager-page {
   position: relative;
   z-index: 1000;
   bottom: -0.8rem;
-  font-size: 0.6rem;
+  font-size: 0.6rem!important;
 }
 
 .slider-pager-page.active {
@@ -49,7 +49,7 @@
 
 .main-hot-sale strong, .main-hot-sale .ion-ios-cart {
   font-size: 1.6rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .main-scroll {
