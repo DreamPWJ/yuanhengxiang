@@ -74,6 +74,8 @@
 #main-scroll > span > img {
   display: block;
   margin: auto;
+  width: 4rem;
+  height: 4rem;
 }
 
 
@@ -91,7 +93,12 @@
    padding: 0.3rem 0.8rem;
   font-weight: 700;
 }
-
+#classify-scroll-content img{
+  width: 70%!important;
+}
+#classify-scroll-content p{
+  color: #585858;
+}
 .tool-tip {
   position: absolute;
   z-index: 10000;
