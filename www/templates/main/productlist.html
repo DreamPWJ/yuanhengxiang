@@ -11,13 +11,13 @@
     <button class="button icon ion-ios-search no-border grey" ng-click="modal.show()"></button>
   </ion-nav-buttons>
 
-  <ion-tabs id="productlist-tab" class="tabs-light tabs-top tabs-striped tabs-color-positive" delegate-handle="my-handle-productlist">
-    <ion-tab title="综合" on-select="selectedTab(0)">
-    </ion-tab>
-    <ion-tab title="销量" on-select="selectedTab(1)">
-    </ion-tab>
-    <ion-tab title="价格" on-select="selectedTab(2)">
-    </ion-tab>
+  <ion-tabs id="productlist-tab" class="tabs-light tabs-top  " delegate-handle="my-handle-productlist">
+    <div class="row row-horizontal-around text-center">
+      <span class="col-20" ng-click="selectedTab(0)">综合 <i class="icon ion-arrow-down-b"></i></span>
+      <span class="col-20" ng-click="selectedTab(1)">销量</span>
+      <span class="col-20" ng-click="selectedTab(2)">价格 <i class="icon ion-arrow-up-b"></i></span>
+    </div>
+
   </ion-tabs>
   <ion-slide-box show-pager="false" on-slide-changed="slideChanged($index)" delegate-handle="slidebox-productlist"
                  id="productlist">
