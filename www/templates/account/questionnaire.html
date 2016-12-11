@@ -8,6 +8,20 @@
     <h1 class="title">问卷调查</h1>
   </ion-nav-title>
   <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true">
+    <ion-list>
+      <ion-item class="item-divider light-bg">1 . 您觉得哪家品牌的奶粉最好 ?</ion-item>
+      <ion-radio ng-model="choice" name="choice"  ng-value="'001'" ng-change="">伊利</ion-radio>
+      <ion-radio ng-model="choice" name="choice"   ng-value="'002'" ng-change="">蒙牛</ion-radio>
+      <ion-radio ng-model="choice" name="choice"  ng-value="'003'" ng-change="">贝因美</ion-radio>
+      <p></p>
+      <ion-item class="item-divider light-bg">1 . 您觉得哪家品牌的奶粉最好 ?</ion-item>
+      <ion-radio ng-model="choice1" name="choice1" ng-value="'001'" ng-change="">伊利</ion-radio>
+      <ion-radio ng-model="choice1" name="choice1" ng-value="'002'" ng-change="">蒙牛</ion-radio>
+      <ion-radio ng-model="choice1" name="choice1" ng-value="'003'" ng-change="">贝因美</ion-radio>
+    </ion-list>
+    <div class="padding">
+      <button class="button button-positive full-image" ng-click="">提交</button>
 
+    </div>
   </ion-content>
 </ion-view>

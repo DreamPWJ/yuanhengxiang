@@ -7,7 +7,81 @@
   <ion-nav-title>
     <h1 class="title">每日签到</h1>
   </ion-nav-title>
-  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true">
+  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="signin">
+    <div class="row row-center light signin-header">
+      <span ui-sref="" class="col text-right">如何赚积分</span>
+      <span class="col text-center"><span class="signin-day positive">
+        <p>已签到</p><p>50次</p> </span></span>
+      <span ui-sref="" class="col text-left">如何花积分</span>
+    </div>
+    <p class="text-center"><span class="integral-num">当前3650积分</span></p>
 
+    <div class="card">
+      <p class="row row-horizontal-around row-center text-center stable-bg"><span class="col-10">  <i
+        class="icon ion-ios-arrow-back grey" style="font-size: 1.5rem"></i></span>
+        <strong class="col">2016年12月份</strong>
+        <span class="col-10"> <i class="icon ion-ios-arrow-forward grey" style="font-size: 1.5rem"></i></span></p>
+      <div id="sign-date">
+        <p class="row text-center">
+          <strong class="col">一</strong>
+          <strong class="col">二</strong>
+          <strong class="col">三</strong>
+          <strong class="col">四</strong>
+          <strong class="col">五</strong>
+          <strong class="col positive">六</strong>
+          <strong class="col positive">七</strong></p>
+        <p class="row text-center">
+          <span class="col grey">25</span>
+          <span class="col grey">26</span>
+          <span class="col grey">27</span>
+          <span class="col grey">28</span>
+          <span class="col grey">29</span>
+          <span class="col positive">30</span>
+          <span class="col positive">31</span></p>
+        <p class="row text-center">
+          <span class="col ">1</span>
+          <span class="col  active">2</span>
+          <span class="col active">3</span>
+          <span class="col active">4</span>
+          <span class="col ">5</span>
+          <span class="col positive">6</span>
+          <span class="col positive">7</span></p>
+        <p class="row text-center">
+          <span class="col ">8</span>
+          <span class="col  ">9</span>
+          <span class="col ">10</span>
+          <span class="col ">11</span>
+          <span class="col active">12</span>
+          <span class="col positive">13</span>
+          <span class="col positive">14</span></p>
+        <p class="row text-center">
+          <span class="col active">15</span>
+          <span class="col  ">16</span>
+          <span class="col ">17</span>
+          <span class="col ">18</span>
+          <span class="col ">19</span>
+          <span class="col positive">20</span>
+          <span class="col positive">21</span></p>
+        <p class="row text-center">
+          <span class="col ">22</span>
+          <span class="col  ">23</span>
+          <span class="col ">24</span>
+          <span class="col active">25</span>
+          <span class="col ">26</span>
+          <span class="col positive">27</span>
+          <span class="col positive">28</span></p>
+        <p class="row text-center">
+          <span class="col ">29</span>
+          <span class="col  ">30</span>
+          <span class="col active">31</span>
+          <span class="col grey">1</span>
+          <span class="col grey">2</span>
+          <span class="col positive">3</span>
+          <span class="col positive">4</span></p>
+        <div class="padding">
+          <a ng-href="#/login" nav-direction=forward class="button button-positive full-image ">退出登录</a>
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>
