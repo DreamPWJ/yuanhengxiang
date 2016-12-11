@@ -1,7 +1,7 @@
 <ion-view hide-nav-bar="true">
   <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true"  delegate-handle="main-content">
     <div class="row text-center  light row-center " id="main-search">
-      <strong class="col-15">深圳 <i class="icon ion-arrow-down-b"></i></strong>
+      <span class="col-15">深圳 <i class="icon ion-arrow-down-b"></i></span>
       <input type="text" class="col-75" placeholder="  请输入关键字"/>
       <i class="col  icon ion-ios-search"></i>
     </div>
@@ -11,83 +11,83 @@
         <img ng-src="img/banner/banner.jpg" alt="" class="full-image"/>
       </ion-slide>
       <ion-slide>
-        <img ng-src="img/banner/1.png" alt="" class="full-image"/>
+        <img ng-src="img/banner/banner.jpg" alt="" class="full-image"/>
       </ion-slide>
       <ion-slide>
-        <img ng-src="img/banner/2.png" alt="" class="full-image"/>
+        <img ng-src="img/banner/banner.jpg" alt="" class="full-image"/>
       </ion-slide>
     </ion-slide-box>
     <div class="main-list row light-bg text-center main-list-first">
-      <a ng-href="" nav-direction=forward class="col"><img ng-src="img/main/milk.png" alt="">
+      <a ng-href="#/productlist" nav-direction=forward class="col subdued"><img ng-src="img/main/milk.png" alt="">
         <p>奶粉专区</p>
       </a>
-      <a ng-href="" nav-direction=forward class="col"><img ng-src="img/main/articles.png" alt="">
+      <a ng-href="#/productlist" nav-direction=forward class="col subdued"><img ng-src="img/main/articles.png" alt="">
         <p>宝宝用品</p>
       </a>
-      <a ng-href="" nav-direction=forward class="col"><img ng-src="img/main/diapers.png" alt="">
+      <a ng-href="#/productlist" nav-direction=forward class="col subdued"><img ng-src="img/main/diapers.png" alt="">
         <p>尿裤湿巾</p>
       </a>
-      <a ng-href="" nav-direction=forward class="col"><img ng-src="img/main/nutrition.png" alt="">
+      <a ng-href="#/productlist" nav-direction=forward class="col subdued"><img ng-src="img/main/nutrition.png" alt="">
         <p>营养桶食</p>
       </a>
     </div>
     <div class="main-list row light-bg text-center">
-      <a ng-href="" nav-direction=forward class="col"><img ng-src="img/main/baby.png" alt="">
+      <a ng-href="#/productlist" nav-direction=forward class="col subdued"><img ng-src="img/main/baby.png" alt="">
         <p>童车童装</p>
       </a>
-      <a ng-href="" nav-direction=forward class="col"><img ng-src="img/main/toys.png" alt="">
+      <a ng-href="#/productlist" nav-direction=forward class="col subdued"><img ng-src="img/main/toys.png" alt="">
         <p>玩具乐器</p>
       </a>
-      <a ng-href="" nav-direction=forward class="col"><img ng-src="img/main/dorm.png" alt="">
+      <a ng-href="#/productlist" nav-direction=forward class="col subdued"><img ng-src="img/main/dorm.png" alt="">
         <p>寝居服饰</p>
       </a>
-      <a ng-href="" nav-direction=forward class="col"><img ng-src="img/main/mother.png" alt="">
+      <a ng-href="#/productlist" nav-direction=forward class="col subdued"><img ng-src="img/main/mother.png" alt="">
         <p>孕妈中心</p>
       </a>
     </div>
     <p></p>
     <ion-list>
       <ion-item class="text-center"><strong>热卖产品</strong></ion-item>
-      <ion-item class="item-thumbnail-left main-hot-sale">
+      <a ng-href="#/productdetails" nav-direction=forward  class="item item-thumbnail-left main-hot-sale">
         <img ng-src="img/main/cp@2.jpg" alt="">
         <h2>婴幼儿配方奶粉3段</h2>
         <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
         <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span>00</span></span> <i
           class="col icon ion-ios-cart positive text-right"></i></p>
-      </ion-item>
+      </a>
       <ion-item>
         <ion-scroll ng-style="{width:scrollWidth}" delegate-handle="main-scroll"  direction="x" zooming="true" overflow-scroll="false"  scrollbar-x="false" has-bouncing="true" class="main-scroll">
           <div  ng-style="{width:scrollContentWidth}" id="main-scroll">
-            <span>
+            <a ng-href="#/productdetails" nav-direction=forward >
               <img ng-src="img/main/cp@3.jpg" class="full-image" alt=""/>
               <p class="text-wrap">宓驰婴儿推车超轻便可做可躺折叠</p>
               <p class="row row-center"><strong class="energized">￥49.88</strong><i
                 class="col icon ion-ios-cart positive text-right"></i></p>
-            </span>
-            <span>
+            </a>
+            <a ng-href="#/productdetails" nav-direction=forward >
               <img ng-src="img/main/cp@1.jpg" class="full-image" alt="">
               <p class="text-wrap">爱得利奶瓶宽口径婴儿奶瓶带吸管手</p>
               <p class="row row-center"><strong class="energized">￥49.88</strong><i
                 class="col icon ion-ios-cart positive text-right"></i></p>
-            </span>
-            <span>
+            </a>
+            <a ng-href="#/productdetails" nav-direction=forward >
               <img ng-src="img/main/toys.png" class="full-image" alt="">
               <p class="text-wrap">Little Tikes美国小太克儿童玩具</p>
               <p class="row row-center"><strong class="energized">￥49.88</strong><i
                 class="col icon ion-ios-cart positive text-right"></i></p>
-            </span>
-            <span>
+            </a>
+            <a ng-href="#/productdetails" nav-direction=forward >
               <img ng-src="img/main/cp@5.jpg" class="full-image" alt="">
               <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段</p>
               <p class="row row-center"><strong class="energized">￥49.88</strong><i
                 class="col icon ion-ios-cart positive text-right"></i></p>
-            </span>
-            <span>
+            </a>
+            <a ng-href="#/productdetails" nav-direction=forward >
               <img ng-src="img/main/cp@5.jpg" class="full-image" alt="">
               <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段</p>
               <p class="row row-center"><strong class="energized">￥49.88</strong><i
                 class="col icon ion-ios-cart positive text-right"></i></p>
-            </span>
+            </a>
           </div>
 
         </ion-scroll>
@@ -96,27 +96,27 @@
     <p></p>
     <ion-list>
       <ion-item class="text-center"><strong>推荐产品</strong></ion-item>
-      <ion-item class="item-thumbnail-left main-hot-sale">
+      <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale">
         <img ng-src="img/main/cp@3.jpg" alt="">
         <h2>都市型婴儿四轮推车遮阳车</h2>
         <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车这样车罩 轻便型</p>
         <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span>00</span></span> <i
           class="col icon ion-ios-cart positive text-right"></i></p>
-      </ion-item>
-      <ion-item class="item-thumbnail-left main-hot-sale">
+      </a>
+      <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale">
         <img ng-src="img/main/cp@1.jpg" alt="">
         <h2>婴幼儿配方奶粉3段</h2>
         <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
         <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span>00</span></span> <i
           class="col icon ion-ios-cart positive text-right"></i></p>
-      </ion-item>
-      <ion-item class="item-thumbnail-left main-hot-sale">
+      </a>
+      <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale">
         <img ng-src="img/main/cp@5.jpg" alt="">
         <h2>婴幼儿配方奶粉3段</h2>
         <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
         <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span>00</span></span> <i
           class="col icon ion-ios-cart positive text-right"></i></p>
-      </ion-item>
+      </a>
     </ion-list>
   </ion-content>
 </ion-view>

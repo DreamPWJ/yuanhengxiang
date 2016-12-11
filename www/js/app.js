@@ -46,7 +46,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             ionic.Platform.exitApp();
           } else {
             $rootScope.backButtonPressedOnceToExit = true;
-            $cordovaToast.showShortCenter('再按返回退出博绿网');
+            $cordovaToast.showShortCenter('再次按返回退出元亨祥商城');
             setTimeout(function () {
               $rootScope.backButtonPressedOnceToExit = false;
             }, 2000);
@@ -72,7 +72,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         $rootScope.$on('$cordovaNetwork:offline', function (event, networkState) {
           var offlineState = networkState;
           //提醒用户的网络异常
-          CommonService.platformPrompt("网络异常 无法连接服务器", 'close');
+          CommonService.platformPrompt("网络异常 无法连接元亨祥服务器", 'close');
         })
         //添加JS 屏幕监听事件 禁止APP 横屏
         if (screenOrientation) {
@@ -195,6 +195,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         url: '/productlist',
         templateUrl: 'templates/main/productlist.html',
         controller: 'ProductListCtrl'
+
+      })
+
+      //产品详情
+      .state('productdetails', {
+        url: '/productdetails',
+        templateUrl: 'templates/main/productdetails.html',
+        controller: 'ProductDetailsCtrl'
 
       })
       //购物车页面

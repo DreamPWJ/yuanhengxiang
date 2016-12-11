@@ -38,14 +38,22 @@ angular.module('starter.controllers', [])
   //产品列表页面
   .controller('ProductListCtrl', function ($scope, $rootScope, CommonService, ClassifyService,$ionicTabsDelegate,$ionicSlideBoxDelegate) {
     CommonService.customModal($scope, 'templates/search.html');
+    $scope.tabIndex=0;//当前tabs页
     $scope.slideChanged = function (index) {
+      $scope.tabIndex=index;
       $ionicTabsDelegate.$getByHandle('my-handle-productlist').select(index);
     };
 
-    $scope.selectedTab = function ( index) {
+    $scope.selectedTab = function (index) {
+      $scope.tabIndex=index;
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-productlist").slide(index)
     }
+  })
+  //产品详情页面
+  .controller('ProductDetailsCtrl', function ($scope, $rootScope, CommonService, ClassifyService,$ionicSlideBoxDelegate) {
+    CommonService.customModal($scope, 'templates/search.html');
+
   })
   //购物车主界面
   .controller('ShoppingCartCtrl', function ($scope, $rootScope, CommonService) {

@@ -13,9 +13,10 @@
 
   <ion-tabs id="productlist-tab" class="tabs-light tabs-top  " delegate-handle="my-handle-productlist">
     <div class="row row-horizontal-around text-center">
-      <span class="col-20" ng-click="selectedTab(0)">综合 <i class="icon ion-arrow-down-b"></i></span>
-      <span class="col-20" ng-click="selectedTab(1)">销量</span>
-      <span class="col-20" ng-click="selectedTab(2)">价格 <i class="icon ion-arrow-up-b"></i></span>
+      <span class="col-15 {{tabIndex==0?'active':''}}" ng-click="selectedTab(0)">综合 <i
+        class="icon ion-arrow-down-b"></i></span>
+      <span class="col-15 {{tabIndex==1?'active':''}}" ng-click="selectedTab(1)">销量</span>
+      <span class="col-15 {{tabIndex==2?'active':''}}" ng-click="selectedTab(2)">价格 <i class="icon ion-arrow-up-b"></i></span>
     </div>
 
   </ion-tabs>
@@ -151,7 +152,6 @@
               class="energized">00</span></span> <i
               class="col icon ion-ios-cart positive text-right"></i></p>
           </ion-item>
-
 
         </ion-list>
       </ion-content>
