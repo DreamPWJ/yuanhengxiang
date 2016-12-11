@@ -14,7 +14,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         //状态栏颜色设置
         // org.apache.cordova.statusbar required
         if ($ionicPlatform.is('ios')) {
-          StatusBar.styleLightContent();
+          StatusBar.styleDefault();
+          StatusBar.overlaysWebView(false);//ios状态栏内容上移
+          //StatusBar.styleLightContent();
         }
         if ($ionicPlatform.is('android')) {
           StatusBar.backgroundColorByHexString("#FF93BC");
@@ -340,6 +342,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         url: '/myntegral',
         templateUrl: 'templates/account/myntegral.html',
         controller: 'MyNtegralCtrl'
+      })
+
+      //每日签到页面
+      .state('signin', {
+        url: '/signin',
+        templateUrl: 'templates/account/signin.html',
+        controller: 'SignInCtrl'
+      })
+
+      //问卷调查页面
+      .state('questionnaire', {
+        url: '/questionnaire',
+        templateUrl: 'templates/account/questionnaire.html',
+        controller: 'QuestionnaireCtrl'
       })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/main');

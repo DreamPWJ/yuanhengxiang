@@ -232,3 +232,11 @@ angular.module('starter.controllers', [])
   .controller('ContactUsCtrl', function ($scope, $rootScope, $state, CommonService) {
 
   })
+  //每日签到页面
+  .controller('SignInCtrl', function ($scope, $rootScope, $state, CommonService) {
+
+  })
+  //问卷调查页面
+  .controller('QuestionnaireCtrl', function ($scope, $rootScope, $state, CommonService) {
+
+  })
