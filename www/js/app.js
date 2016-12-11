@@ -216,6 +216,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
+      //提交订单核对订单
+      .state('revieworder', {
+        url: '/revieworder',
+        templateUrl: 'templates/main/revieworder.html',
+        controller: 'ReviewOrderCtrl'
+
+      })
+
+      //我的订单
+      .state('myorder', {
+        url: '/myorder',
+        templateUrl: 'templates/account/myorder.html',
+        controller: 'MyOrderCtrl'
+
+      })
 
       //我的账号
       .state('tab.account', {
@@ -300,6 +315,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'MyWalletCtrl'
       })
 
+      //我的收入页面
+      .state('myincome', {
+        url: '/myincome',
+        templateUrl: 'templates/account/myincome.html',
+        controller: 'MyIncomeCtrl'
+      })
       //我的优惠卷页面
       .state('mycoupon', {
         url: '/mycoupon',

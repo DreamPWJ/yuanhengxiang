@@ -17,6 +17,19 @@ angular.module('starter.controllers', [])
     $scope.scrollContentWidth = document.querySelector("#main-scroll").clientWidth + 'px';
 
   })
+
+  //登录页面
+  .controller('LoginCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+    $scope.user = {};//定义用户对象
+    $scope.loginSubmit = function () {
+      AccountService.login($scope.user).success(function (data) {
+        CommonService.getStateName();   //跳转页面
+      }).error(function () {
+        CommonService.platformPrompt("登录失败", 'close');
+      })
+    }
+  })
+
   //产品分类主页面
   .controller('ClassifyCtrl', function ($scope, $rootScope, CommonService, ClassifyService) {
     $scope.classifyinfo = ['奶粉尿裤', '洗护哺育', '辅食营养', '孕妈专区', '家纺服饰', '童装童鞋'];
@@ -36,22 +49,21 @@ angular.module('starter.controllers', [])
     $scope.scrollContentHeight = document.querySelector("#classify-scroll-content").clientHeight + 'px';
   })
   //产品列表页面
-  .controller('ProductListCtrl', function ($scope, $rootScope, CommonService, ClassifyService,$ionicTabsDelegate,$ionicSlideBoxDelegate) {
+  .controller('ProductListCtrl', function ($scope, $rootScope, CommonService, ClassifyService, $ionicSlideBoxDelegate) {
     CommonService.customModal($scope, 'templates/search.html');
-    $scope.tabIndex=0;//当前tabs页
+    $scope.tabIndex = 0;//当前tabs页
     $scope.slideChanged = function (index) {
-      $scope.tabIndex=index;
-      $ionicTabsDelegate.$getByHandle('my-handle-productlist').select(index);
+      $scope.tabIndex = index;
     };
 
     $scope.selectedTab = function (index) {
-      $scope.tabIndex=index;
+      $scope.tabIndex = index;
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-productlist").slide(index)
     }
   })
   //产品详情页面
-  .controller('ProductDetailsCtrl', function ($scope, $rootScope, CommonService, ClassifyService,$ionicSlideBoxDelegate) {
+  .controller('ProductDetailsCtrl', function ($scope, $rootScope, CommonService) {
     CommonService.customModal($scope, 'templates/search.html');
 
   })
@@ -59,18 +71,25 @@ angular.module('starter.controllers', [])
   .controller('ShoppingCartCtrl', function ($scope, $rootScope, CommonService) {
 
   })
-  //登录页面
-  .controller('LoginCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
-    $scope.user = {};//定义用户对象
-    $scope.loginSubmit = function () {
-      AccountService.login($scope.user).success(function (data) {
-        CommonService.getStateName();   //跳转页面
-      }).error(function () {
-        CommonService.platformPrompt("登录失败", 'close');
-      })
-    }
+
+  //提交订单核对订单
+  .controller('ReviewOrderCtrl', function ($scope, $rootScope, CommonService) {
+
   })
 
+  //我的订单
+  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService,$ionicSlideBoxDelegate) {
+    $scope.tabIndex = 0;//当前tabs页
+    $scope.slideChanged = function (index) {
+      $scope.tabIndex = index;
+    };
+
+    $scope.selectedTab = function (index) {
+      $scope.tabIndex = index;
+      //滑动的索引和速度
+      $ionicSlideBoxDelegate.$getByHandle("slidebox-myorderlist").slide(index)
+    }
+  })
   //我的设置页面
   .controller('AccountCtrl', function ($scope, $rootScope, CommonService, AccountService) {
     $scope.settings = {
@@ -177,13 +196,27 @@ angular.module('starter.controllers', [])
     }
   })
 
+  //我的收入
+  .controller('MyIncomeCtrl', function ($scope, $rootScope, CommonService,$ionicSlideBoxDelegate) {
+    $scope.tabIndex = 0;//当前tabs页
+    $scope.slideChanged = function (index) {
+      $scope.tabIndex = index;
+    };
+
+    $scope.selectedTab = function (index) {
+      $scope.tabIndex = index;
+      //滑动的索引和速度
+      $ionicSlideBoxDelegate.$getByHandle("slidebox-myincomelist").slide(index)
+    }
+  })
+
   //我的优惠卷页面
   .controller('MyCouponCtrl', function ($scope, $rootScope, $state, CommonService) {
     //失效卷标示
-    $scope.isfailureVolumeflg=false;
+    $scope.isfailureVolumeflg = false;
     //失效卷
-    $scope.failureVolume=function () {
-      $scope.isfailureVolumeflg=$scope.isfailureVolumeflg?false:true;
+    $scope.failureVolume = function () {
+      $scope.isfailureVolumeflg = $scope.isfailureVolumeflg ? false : true;
     }
   })
   //邀请记录页面

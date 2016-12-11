@@ -1,0 +1,48 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons  header-item" ng-click="$ionicGoBack()">
+      <i class="icon ion-ios-arrow-back"></i>
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">核对订单</h1>
+  </ion-nav-title>
+  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="revieworder">
+    <ion-list>
+      <a ng-href="#/addressmanage" class="item item-icon-left item-icon-right item-borderless address">
+        <i class="icon ion-ios-location-outline"></i>
+        <h2>萧十一郎 <span class="padding-left">15888725383</span></h2>
+        <p class="text-wrap">广东省 深圳市 南山区 高新科技园北区 深南大道北侧 高新大道88号 腾讯大厦16层</p>
+        <i class="icon ion-ios-arrow-right grey"></i>
+      </a>
+      <ion-item ng-show="false">
+        <h2 class="text-center"><a ng-href="#/addaddress" class="grey subdued"><i class="icon ion-compose"></i>
+          添加新地址</a></h2>
+      </ion-item>
+    </ion-list>
+    <p></p>
+    <ion-list>
+      <ion-item class="item-divider light-bg">商品清单</ion-item>
+      <ion-item class="item-thumbnail-left  shoppingcart-list">
+        <img ng-src="img/main/1.png" alt="" ui-sref="productdetails" nav-direction=forward>
+        <h2>婴幼儿配方奶粉3段</h2>
+        <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
+        <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+          class="energized">00</span></span> <span class="item-note">数量 : 1件</span></p>
+      </ion-item>
+      <ion-item class="item-thumbnail-left  shoppingcart-list">
+        <img ng-src="img/main/1.png" alt="" ui-sref="productdetails" nav-direction=forward>
+        <h2>婴幼儿配方奶粉3段</h2>
+        <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
+        <p class="row row-center"><span class="col-75"><strong class="energized">￥98.</strong><span
+          class="energized">00</span></span> <span class="item-note">数量 : 2件</span></p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar class="shoppingcart-footer-bar">
+    <div class="row row-no-padding row-center  ">
+      <span class="col-60 padding-left">总金额 : <strong class="assertive">￥360.00</strong></span>
+      <button ui-sref="myorder" class="col button  button-assertive"><strong>提交订单</strong> </button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,167 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons  header-item" ng-click="$ionicGoBack()">
+      <i class="icon ion-ios-arrow-back"></i>
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">我的订单</h1>
+  </ion-nav-title>
+  <ion-tabs id="myorderlist-tab" class="tabs-light tabs-top  " delegate-handle="my-handle-myorderlistlist">
+    <div class="row row-horizontal-around text-center">
+      <span class="col-15 {{tabIndex==0?'active':''}}" ng-click="selectedTab(0)">未支付 </span>
+      <span class="col-15 {{tabIndex==1?'active':''}}" ng-click="selectedTab(1)">已支付</span>
+      <span class="col-15 {{tabIndex==2?'active':''}}" ng-click="selectedTab(2)">已签收</span>
+      <span class="col-15 {{tabIndex==3?'active':''}}" ng-click="selectedTab(3)">退单 </span>
+    </div>
+
+  </ion-tabs>
+  <ion-slide-box show-pager="false" on-slide-changed="slideChanged($index)" delegate-handle="slidebox-myorderlist"
+                 id="myorderlist">
+    <ion-slide>
+      <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <!--        <ion-refresher on-refresh="getSaleOrderList(0)" pulling-text="下拉刷新"></ion-refresher>-->
+        <p></p>
+        <ion-list>
+          <ion-item class="row">
+            <h2 class="col">2016.12.11 14:57</h2>
+            <h2 class="col positive text-right">等待买家支付</h2>
+          </ion-item>
+          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale stable-bg">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车车罩</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <span class="item-note">数量 : 1件</span></p>
+          </a>
+          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale stable-bg">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车车罩</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <span class="item-note">数量 : 1件</span></p>
+          </a>
+          <ion-item class="item-divider light-bg text-right item-borderless">
+            <h2 class="grey">共 2 件商品 合计: <span class="assertive"> 1800.00 元</span></h2>
+          </ion-item>
+          <ion-item class="row row-horizontal-around item-borderless">
+            <button class="col-20 col-offset-50 button button-positive button-outline button-small ">取消订单</button>
+            <button class="col-20  button button-positive button-outline button-small">付款</button>
+          </ion-item>
+        </ion-list>
+        <p></p>
+        <ion-list>
+          <ion-item class="row">
+            <h2 class="col">2016.12.11 14:57</h2>
+            <h2 class="col positive text-right">等待买家支付</h2>
+          </ion-item>
+          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale stable-bg">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车车罩</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <span class="item-note">数量 : 1件</span></p>
+          </a>
+
+          <ion-item class="item-divider light-bg text-right item-borderless">
+            <h2 class="grey">共 1 件商品 合计: <span class="assertive"> 1800.00 元</span></h2>
+          </ion-item>
+          <ion-item class="row row-horizontal-around item-borderless">
+            <button class="col-20 col-offset-50 button button-positive button-outline button-small ">取消订单</button>
+            <button class="col-20  button button-positive button-outline button-small">付款</button>
+          </ion-item>
+        </ion-list>
+        <!--        <ion-infinite-scroll  on-infinite="getSaleOrderList()" ng-if="sellparamstotal > sellparamspage" immediate-check="false">
+                </ion-infinite-scroll>-->
+      </ion-content>
+    </ion-slide>
+    <ion-slide>
+      <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <p></p>
+        <ion-list>
+          <ion-item class="row">
+            <h2 class="col">2016.12.11 14:57</h2>
+            <h2 class="col positive text-right">买家已支付</h2>
+          </ion-item>
+          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale stable-bg">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车车罩</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <span class="item-note">数量 : 1件</span></p>
+          </a>
+
+          <ion-item class="item-divider light-bg text-right item-borderless">
+            <h2 class="grey">共 1 件商品 合计: <span class="assertive"> 1800.00 元</span></h2>
+          </ion-item>
+          <ion-item class="row row-horizontal-around item-borderless">
+            <button class="col-20 col-offset-50 button button-positive button-outline button-small ">取消订单</button>
+            <button class="col-20  button button-positive button-outline button-small">付款</button>
+          </ion-item>
+        </ion-list>
+        <p></p>
+        <ion-list>
+          <ion-item class="row">
+            <h2 class="col">2016.12.11 14:57</h2>
+            <h2 class="col positive text-right">买家已支付</h2>
+          </ion-item>
+          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale stable-bg">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车车罩</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <span class="item-note">数量 : 1件</span></p>
+          </a>
+
+          <ion-item class="item-divider light-bg text-right item-borderless">
+            <h2 class="grey">共 1 件商品 合计: <span class="assertive"> 1800.00 元</span></h2>
+          </ion-item>
+          <ion-item class="row row-horizontal-around item-borderless">
+            <button class="col-20 col-offset-50 button button-positive button-outline button-small ">取消订单</button>
+            <button class="col-20  button button-positive button-outline button-small">付款</button>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <p></p>
+
+        <ion-list>
+          <ion-item class="row">
+            <h2 class="col">2016.12.11 14:57</h2>
+            <h2 class="col positive text-right">买家已签收</h2>
+          </ion-item>
+          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale stable-bg">
+            <img ng-src="img/main/cp@3.jpg" alt="">
+            <h2>都市型婴儿四轮推车遮阳车</h2>
+            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车车罩</p>
+            <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
+              class="energized">00</span></span> <span class="item-note">数量 : 1件</span></p>
+          </a>
+
+          <ion-item class="item-divider light-bg text-right item-borderless">
+            <h2 class="grey">共 1 件商品 合计: <span class="assertive"> 1800.00 元</span></h2>
+          </ion-item>
+          <ion-item class="row row-horizontal-around item-borderless">
+            <button class="col-20 col-offset-50 button button-positive button-outline button-small ">取消订单</button>
+            <button class="col-20  button button-positive button-outline button-small">付款</button>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-slide>
+    <ion-slide>
+      <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <p></p>
+        <div ng-if="true" class="isNotDataHint">
+          <i class="icon ion-sad"></i>
+          <p>暂无退货单</p>
+        </div>
+
+        </ion-list>
+      </ion-content>
+    </ion-slide>
+  </ion-slide-box>
+
+</ion-view>
