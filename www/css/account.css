@@ -58,16 +58,7 @@
   font-weight: 500;
 }
 
-.shoppingcart-footer-bar {
-  margin: 0;
-  padding: 0;
-  height: 3rem;
-}
 
-.shoppingcart-footer-bar button {
-  height: 3rem;
-  border-radius: 0;
-}
 
 .col.ion-ios-arrow-back {
   font-size: 1.6rem;

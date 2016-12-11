@@ -11,8 +11,73 @@
     <button class="button icon ion-ios-search no-border grey" ng-click="modal.show()"></button>
   </ion-nav-buttons>
   <ion-content overflow-scroll="false" class="stable-bg" id="productdetails">
-
+    <ion-slide-box show-pager="true" does-continue="true" auto-play="true" slide-interval="3000"
+                   delegate-handle="slideboximgs" id="productdetails-slide">
+      <ion-slide>
+        <img ng-src="img/main/productdetails.png" alt="" class="full-image"/>
+      </ion-slide>
+      <ion-slide>
+        <img ng-src="img/main/productdetails.png" alt="" class="full-image"/>
+      </ion-slide>
+      <ion-slide>
+        <img ng-src="img/main/productdetails.png" alt="" class="full-image"/>
+      </ion-slide>
+    </ion-slide-box>
+    <ion-list>
+      <ion-item>
+        <h2 class="text-wrap">惠氏启赋段婴幼儿配方奶粉江浙沪皖包邮母婴批发出售 包邮其他地区2运费8元</h2>
+        <h2 class="padding-top"><span class="price assertive"><i>￥</i><span>496.</span><i>00</i></span>
+          <del class="original-price">原价:￥685.00</del>
+        </h2>
+      </ion-item>
+      <p></p>
+      <a ng-href="" class="item item-icon-left item-icon-right item-borderless">
+        <i class="icon ion-location positive"></i>
+        <h2><span class="grey">送至</span> 上海浦东新区(外环线内)</h2>
+        <i class="icon ion-ios-arrow-right grey"></i>
+      </a>
+      <p></p>
+      <a ng-href="" class="item  item-icon-right item-borderless">
+        <h2 class="grey">评价</h2>
+        <i class="icon ion-ios-arrow-right grey"></i>
+      </a>
+      <div class="item item-avatar">
+        <img ng-src="img/account/header.png" alt="用户头像">
+        <h2>萧十一郎 <span class="item-note">2016.12.11</span></h2>
+        <p class="text-wrap">二月，我們度過了和家人相聚的春節，今日，恰好進入雨水節氣，潤物細無聲，春天來了，恰逢春雨的滋潤，春天的腳步也更快了，藉著大地向上升騰的陽氣，草木花樹也在一夜間冒出了新芽</p>
+      </div>
+      <a ng-href="" class="item   text-center">
+        <h2 class="positive">查看全部评论 <i class="icon ion-ios-arrow-right "></i></h2>
+      </a>
+      <p></p>
+      <a ng-href="" class="item  item-icon-right item-borderless">
+        <h2 class="grey">商品详情</h2>
+        <i class="icon ion-ios-arrow-right grey"></i>
+      </a>
+      <div class="item item-image">
+        <img ng-src="img/main/productdetails.png" alt="商品详情图片">
+      </div>
+      <div class="item item-image">
+        <img ng-src="img/main/productdetails.png" alt="商品详情图片">
+      </div>
+    </ion-list>
   </ion-content>
 
+  <ion-tabs class="tabs-icon-top tabs-color-active-positive tabs-light productdetails-footer-bar ">
 
+    <!--购物车 Tab -->
+    <ion-tab title="购物车" icon-off="ion-ios-cart-outline" icon-on="ion-ios-cart" badge-style="badge-positive" badge="2">
+    </ion-tab>
+
+    <!-- 收藏Tab -->
+    <ion-tab title="收藏" icon-off="ion-ios-star-outline" icon-on="ion-ios-star">
+    </ion-tab>
+
+    <!-- 首页 Tab -->
+    <ion-tab title="首页" icon-off="ion-ios-home-outline" icon-on="ion-home" href="#/tab/main">
+    </ion-tab>
+
+    <button class="tab col-40 button  button-positive ">加入购物车</button>
+
+  </ion-tabs>
 </ion-view>
