@@ -16,6 +16,15 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 /*任何在@import之前设置的编码都会被默认的变量复写掉  再重新编译Sass生成css文件 根据需要修改覆盖默认值*/
+.col-5 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 5%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 5%;
+  -ms-flex: 0 0 5%;
+  flex: 0 0 5%;
+  max-width: 5%; }
+
 .col-15 {
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 15%;
@@ -34,6 +43,42 @@ $dark:                            #444 !default;
   flex: 0 0 30%;
   max-width: 30%; }
 
+.col-35 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 35%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 35%;
+  -ms-flex: 0 0 35%;
+  flex: 0 0 35%;
+  max-width: 35%; }
+
+.col-45 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 45%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 45%;
+  -ms-flex: 0 0 45%;
+  flex: 0 0 45%;
+  max-width: 45%; }
+
+.col-55 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 55%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 55%;
+  -ms-flex: 0 0 55%;
+  flex: 0 0 55%;
+  max-width: 55%; }
+
+.col-65 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 65%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 65%;
+  -ms-flex: 0 0 65%;
+  flex: 0 0 65%;
+  max-width: 65%; }
+
 .col-70 {
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 70%;
@@ -51,6 +96,15 @@ $dark:                            #444 !default;
   -ms-flex: 0 0 85%;
   flex: 0 0 85%;
   max-width: 85%; }
+
+.col-95 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 95%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 95%;
+  -ms-flex: 0 0 95%;
+  flex: 0 0 95%;
+  max-width: 95%; }
 
 /*!
   Ionicons, v2.0.1
