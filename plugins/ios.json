@@ -1,0 +1,73 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.telerik.plugins.nativepagetransitions": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-file-opener2": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-imagepicker": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-screen-orientation": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "phonegap-plugin-barcodescanner": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        }
+    }
+}
