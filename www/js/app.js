@@ -15,7 +15,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         // org.apache.cordova.statusbar required
         if ($ionicPlatform.is('ios')) {
           StatusBar.styleDefault();
-          StatusBar.overlaysWebView(false);//ios状态栏内容上移
+          //  StatusBar.overlaysWebView(false);//ios状态栏内容上移
           //StatusBar.styleLightContent();
         }
         if ($ionicPlatform.is('android')) {

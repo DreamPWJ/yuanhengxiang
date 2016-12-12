@@ -206,4 +206,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+/*  ios没有导航bar状态栏兼容处理*/
+.platform-ios .no-nav-header{
+   padding-top: 20px;
+}
