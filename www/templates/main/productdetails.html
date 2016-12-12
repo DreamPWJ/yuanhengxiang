@@ -74,10 +74,10 @@
     </ion-tab>
 
     <!-- 首页 Tab -->
-    <ion-tab title="首页" icon-off="ion-ios-home-outline" icon-on="ion-home" href="#/tab/main">
+    <ion-tab title="首页" icon-off="ion-ios-home-outline" icon-on="ion-home" nav-direction=back href="#/tab/main">
     </ion-tab>
 
-    <button ui-sref="tab.shoppingcart" class="tab col-40 button  button-positive ">加入购物车</button>
+    <button nav-direction=forward  native-ui-sref="tab.shoppingcart" native-options="{type: 'slide',direction: 'left'}" class="tab col-40 button  button-positive ">加入购物车</button>
 
   </ion-tabs>
 </ion-view>
