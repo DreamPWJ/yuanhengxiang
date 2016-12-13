@@ -22,7 +22,7 @@ gulp.task('default', ['mergeMiniJsCss','minifyCss','minifyJs','minImages','copyH
 
 /* 自动添加css兼容前缀任务*/
 gulp.task('autoprefixer', function () {
-  gulp.src('./www/css/**/*.css')
+  gulp.src(['./www/css/**/*.css','!./www/css/ionic.app.css','!./www/css/ionic.app.min.css'])
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'Android >= 4.0'],//last 2 versions: 主流浏览器的最新两个版本   Android for Android WebView.
       cascade: true, //是否美化属性值 默认：true 像这样：
