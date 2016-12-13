@@ -84,9 +84,6 @@
   padding: 0;
 }
 
-.item .text-wrap {
-  white-space: normal !important;
-}
 
 /*修改覆盖ActionSheet框默认样式*/
 .action-s .button {
@@ -206,7 +203,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+ .text-wrap {
+  white-space: normal !important;
+}
 /*  ios没有导航bar状态栏兼容处理*/
-.platform-ios .no-nav-header{
-   padding-top: 20px;
+.platform-ios.platform-cordova  .no-nav-header{
+  margin-top: 20px;
 }
