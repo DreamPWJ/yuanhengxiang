@@ -685,10 +685,18 @@ angular.module('starter.services', [])
       }
     }
   })
-  .factory('AuthInterceptor', function () {//设置请求头信息的地方是$httpProvider.interceptors。也就是为请求或响应注册一个拦截器。使用这种方式首先需要定义一个服务
+  .factory('MyInterceptor', function ($injector) {//设置请求头信息的地方是$httpProvider.interceptors。也就是为请求或响应注册一个拦截器。使用这种方式首先需要定义一个服务
 
     return {
-      request: function (config) {
+      request: function (config) {////通过实现 request 方法拦截请求: 该方法会在 $http 发送请求道后台之前执行
+        if (config.url.toString().indexOf('http://') === 0) {
+          //http请求Loading加载动画
+          $injector.get('$ionicLoading').show({
+            template: '<ion-spinner icon="bubbles" class="spinner-positive' +
+            '"></ion-spinner><p>'
+          });
+        }
+        //授权
         config.headers = config.headers || {};
         var token = localStorage.getItem('token');
         if (token) {
@@ -696,11 +704,23 @@ angular.module('starter.services', [])
         }
         return config;
       },
-      response: function (response) {
-
+      requestError: function (config) {//通过实现 requestError 方法拦截请求异常: 请求发送失败或者被拦截器拒绝
+        if (response.config.url.toString().indexOf('http://') === 0) {
+          $injector.get('$ionicLoading').hide();
+        }
+        return config;
       },
-      responseError: function (response) {
-        // ...
+      response: function (response) {//通过实现 response 方法拦截响应: 该方法会在 $http 接收到从后台过来的响应之后执行
+        if (response.config.url.toString().indexOf('http://') === 0) {
+          $injector.get('$ionicLoading').hide();
+        }
+        return response;
+      },
+      responseError: function (response) {////通过实现 responseError 方法拦截响应异常:后台调用失败 响应异常拦截器可以帮助我们恢复后台调用
+        if (response.config.url.toString().indexOf('http://') === 0) {
+          $injector.get('$ionicLoading').hide();
+        }
+        return response;
       }
     };
   })
