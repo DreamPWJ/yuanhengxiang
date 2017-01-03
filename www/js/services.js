@@ -705,7 +705,7 @@ angular.module('starter.services', [])
         return config;
       },
       requestError: function (config) {//通过实现 requestError 方法拦截请求异常: 请求发送失败或者被拦截器拒绝
-        if (response.config.url.toString().indexOf('http://') === 0) {
+        if (config.url.toString().indexOf('http://') === 0) {
           $injector.get('$ionicLoading').hide();
         }
         return config;
