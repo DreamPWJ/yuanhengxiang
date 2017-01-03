@@ -177,7 +177,7 @@
 }
 
 .tool-tip {
-  position: absolute;
+  position: fixed;
   z-index: 10000;
   top: 55px;
   width: 100%;
