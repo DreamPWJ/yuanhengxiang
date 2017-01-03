@@ -32,16 +32,16 @@
   height: 2.5rem;
 }
 
-.userinfo-border-rb {
+.border-rb {
   border-right: 1px solid rgba(221, 221, 221, 0.3);
   border-bottom: 1px solid rgba(221, 221, 221, 0.3);
 }
 
-.userinfo-border-r {
+.border-r {
   border-right: 1px solid rgba(221, 221, 221, 0.3);
 }
 
-.userinfo-border-b {
+.border-b {
   border-bottom: 1px solid rgba(221, 221, 221, 0.3);
 }
 
