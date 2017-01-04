@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
   .config(function ($httpProvider) { //统一配置设置
     //服务注册到$httpProvider.interceptors中  用于接口授权
-     $httpProvider.interceptors.push('MyInterceptor');
+    $httpProvider.interceptors.push('MyInterceptor');
     /* $httpProvider.defaults.headers.common['Authorization'] = localStorage.getItem('token');*/
   })
 
@@ -69,7 +69,79 @@ angular.module('starter.controllers', [])
   })
   //购物车主界面
   .controller('ShoppingCartCtrl', function ($scope, $rootScope, CommonService) {
+    $scope.shoppingcar = {
+      isSelectAll: false,//是否全部选择
+      showDelete: false,//删除按钮是否显示
+      num: [],//购买数据
+      totalPrice: 0,//总价格
+    };
+    //模拟数据
+    $scope.shoppingcartdata = [{
+      img: 'img/main/1.png',
+      title: '婴幼儿配方奶粉3段1',
+      description: '100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g',
+      price: '49.01',
+      num: 1,
+      checked: false
+    }, {
+      img: 'img/main/1.png',
+      title: '婴幼儿配方奶粉3段2',
+      description: '100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g',
+      price: '46.02',
+      num: 2,
+      checked: false
+    }, {
+      img: 'img/main/1.png',
+      title: '婴幼儿配方奶粉3段3',
+      description: '100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g',
+      price: '40.03',
+      num: 3,
+      checked: false
+    }, {
+      img: 'img/main/1.png',
+      title: '婴幼儿配方奶粉3段4',
+      description: '100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g',
+      price: '44.04',
+      num: 4,
+      checked: false
+    }]
 
+
+    // 监控数组是否变化，动态修改总价
+    $scope.$watch("shoppingcartdata", function () {
+      getTotal();
+    }, true);
+
+    //添加数量
+    $scope.add = function ($index) {
+
+      $scope.shoppingcartdata[$index].num++;
+    }
+    // 减少数量
+    $scope.minus = function ($index) {
+      if($scope.shoppingcartdata[$index].num==0)return;
+      $scope.shoppingcartdata[$index].num--;
+    }
+    // 计算总价
+    var getTotal = function () {
+      $scope.shoppingcar.totalPrice = 0;
+      angular.forEach($scope.shoppingcartdata, function (item, index) {
+        if (item.checked) {//选中的购物商品
+          $scope.shoppingcar.totalPrice = $scope.shoppingcar.totalPrice + item.num * item.price;
+        }
+      })
+      return $scope.shoppingcar.totalPrice;
+    }
+    //全部选择
+    $scope.selectAll = function (isSelectAll) {
+      angular.forEach($scope.shoppingcartdata, function (item, index) {
+        item.checked = isSelectAll;
+      })
+    }
+    //删除购物车
+    $scope.deleteShoppingCart=function (index) {
+      $scope.shoppingcartdata.splice(index,1)
+    }
   })
 
   //提交订单核对订单
@@ -78,7 +150,7 @@ angular.module('starter.controllers', [])
   })
 
   //我的订单
-  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService,$ionicSlideBoxDelegate) {
+  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService, $ionicSlideBoxDelegate) {
     $scope.tabIndex = 0;//当前tabs页
     $scope.slideChanged = function (index) {
       $scope.tabIndex = index;
@@ -197,7 +269,7 @@ angular.module('starter.controllers', [])
   })
 
   //我的收入
-  .controller('MyIncomeCtrl', function ($scope, $rootScope, CommonService,$ionicSlideBoxDelegate) {
+  .controller('MyIncomeCtrl', function ($scope, $rootScope, CommonService, $ionicSlideBoxDelegate) {
     $scope.tabIndex = 0;//当前tabs页
     $scope.slideChanged = function (index) {
       $scope.tabIndex = index;

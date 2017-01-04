@@ -239,3 +239,7 @@
 .platform-ios.platform-cordova  .no-nav-header{
   margin-top: 20px;
 }
+
+.item-thumbnail-left {
+  padding-bottom: 0
+}

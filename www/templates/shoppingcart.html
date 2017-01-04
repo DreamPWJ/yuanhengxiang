@@ -9,70 +9,43 @@
     <h1 class="title">购物车</h1>
   </ion-nav-title>
   <ion-nav-buttons side="right">
-    <button class="button no-border grey" ng-click="">编辑</button>
+    <button class="button no-border grey" ng-click="shoppingcar.showDelete = !shoppingcar.showDelete;">编辑</button>
   </ion-nav-buttons>
-  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true">
-    <ion-list class="list-borderless">
+  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="shoppingcar">
+    <ion-list class="list-borderless" show-delete="shoppingcar.showDelete">
       <p></p>
-      <ion-item class="item-thumbnail-left  shoppingcart-list">
-        <img ng-src="img/main/1.png" alt="" ui-sref="productdetails" nav-direction=forward>
-        <h2>婴幼儿配方奶粉3段</h2>
-        <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
-        <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
-          class="energized">00</span></span> <i
-          class="col icon ion-ios-plus-outline grey text-right"></i></p>
-      </ion-item>
-      <p></p>
-      <ion-item class="item-thumbnail-left  shoppingcart-list">
-        <img ng-src="img/main/1.png" alt="" ui-sref="productdetails">
-        <h2>婴幼儿配方奶粉3段</h2>
-        <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
-        <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
-          class="energized">00</span></span> <i
-          class="col icon ion-ios-plus-outline grey text-right"></i></p>
-      </ion-item>
-      <p></p>
-      <ion-item class="item-thumbnail-left  shoppingcart-list">
-        <img ng-src="img/main/1.png" alt="" ui-sref="productdetails">
-        <h2>婴幼儿配方奶粉3段</h2>
-        <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
-        <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
-          class="energized">00</span></span> <i
-          class="col icon ion-ios-plus-outline grey text-right"></i></p>
-      </ion-item>
-      <p></p>
-      <ion-item class="item-thumbnail-left  shoppingcart-list">
-        <img ng-src="img/main/1.png" alt="" ui-sref="productdetails">
-        <h2>婴幼儿配方奶粉3段</h2>
-        <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
-        <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
-          class="energized">00</span></span> <i
-          class="col icon ion-ios-plus-outline grey text-right"></i></p>
-      </ion-item>
-      <p></p>
-      <ion-item class="item-thumbnail-left  shoppingcart-list">
-        <img ng-src="img/main/1.png" alt="" ui-sref="productdetails">
-        <h2>婴幼儿配方奶粉3段</h2>
-        <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
-        <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
-          class="energized">00</span></span> <i
-          class="col icon ion-ios-plus-outline grey text-right"></i></p>
-      </ion-item>
-      <p></p>
-      <ion-item class="item-thumbnail-left  shoppingcart-list">
-        <img ng-src="img/main/1.png" alt="" ui-sref="productdetails">
-        <h2>婴幼儿配方奶粉3段</h2>
-        <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
-        <p class="row row-center"><span class="col-75"><strong class="energized">￥49.</strong><span
-          class="energized">00</span></span> <i
-          class="col icon ion-ios-plus-outline grey text-right"></i></p>
-      </ion-item>
+      <div ng-repeat="item in shoppingcartdata">
+        <ion-item class="item-thumbnail-left  item-checkbox  item-remove-animate shoppingcart-list">
+          <ion-delete-button class="ion-minus-circled"
+                             ng-click="deleteShoppingCart($index)">
+          </ion-delete-button>
+          <img ng-src="{{item.img}}" alt="" ui-sref="productdetails" nav-direction=forward>
+
+          <h2>{{item.title}}</h2>
+          <p class="text-wrap">{{item.description}}</p>
+          <p class="row row-center"><span class="col-65"><strong
+            class="energized">￥{{item.price.split('.')[0] }}.</strong><span
+            class="energized">{{item.price.split('.')[1]}}</span></span>
+            <i class="col icon ion-ios-minus-outline grey text-right" ng-click="minus($index)"></i>
+            <input type="number" min="1"  class="col text-center" ng-model="item.num"/>
+            <i class="col icon ion-ios-plus-outline grey text-right" ng-click="add($index)"></i></p>
+          <label class="checkbox">
+            <input type="checkbox" ng-checked="false" ng-model="item.checked">
+          </label>
+        </ion-item>
+        <p></p>
+      </div>
     </ion-list>
   </ion-content>
   <ion-footer-bar class="shoppingcart-footer-bar">
     <div class="row row-no-padding row-center ">
-      <span class="col-20 padding-left"><i class="icon ion-ios-circle-outline"></i> 全选</span>
-      <span class="col">合计 : <strong class="assertive">￥360.00</strong></span>
+      <label class="row  row-center col-25 padding-left all-select checkbox">
+        <input type="checkbox" ng-model="isSelectAll" ng-click="selectAll(isSelectAll)"/>
+        <span class="padding-left">全选</span>
+
+      </label>
+      <span class="col text-center">合计 : <strong
+        class="assertive">{{shoppingcar.totalPrice |currency:'￥'}}</strong></span>
       <button ui-sref="revieworder" class="col button  button-assertive"><strong>去结算</strong> <i>(10)</i></button>
     </div>
   </ion-footer-bar>

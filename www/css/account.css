@@ -215,3 +215,37 @@
   right: 0;
   bottom: 0;
 }
+
+#shoppingcar .item-complex .item-content {
+  padding-right: 16px;
+  padding-left: 136px;
+  padding-bottom: 0;
+
+}
+
+#shoppingcar .button-icon.icon:before {
+  font-size: 24px;
+}
+
+#shoppingcar .item-complex .item-content img {
+  margin-left: 25px;
+}
+
+
+#shoppingcar .checkbox {
+  left: 0;
+  width: 2.5rem;
+}
+
+#shoppingcar .checkbox input,.shoppingcart-footer-bar .checkbox input {
+  width: 20px;
+  height: 20px;
+}
+
+#shoppingcar .checkbox input:after,.shoppingcart-footer-bar .checkbox input:after{
+  width: 10px;
+  height: 5px;
+}
+.all-select{
+  vertical-align: middle;
+}
