@@ -27,7 +27,7 @@
             class="energized">￥{{item.price.split('.')[0] }}.</strong><span
             class="energized">{{item.price.split('.')[1]}}</span></span>
             <i class="col icon ion-ios-minus-outline grey text-right" ng-click="minus($index)"></i>
-            <input type="number" min="1"  class="col text-center" ng-model="item.num"/>
+            <input type="number" min="1"  class="col text-right" ng-model="item.num"/>
             <i class="col icon ion-ios-plus-outline grey text-right" ng-click="add($index)"></i></p>
           <label class="checkbox">
             <input type="checkbox" ng-checked="false" ng-model="item.checked">
@@ -46,7 +46,7 @@
       </label>
       <span class="col text-center">合计 : <strong
         class="assertive">{{shoppingcar.totalPrice |currency:'￥'}}</strong></span>
-      <button ui-sref="revieworder" class="col button  button-assertive"><strong>去结算</strong> <i>(10)</i></button>
+      <button ui-sref="revieworder" class="col button  button-assertive"><strong>去结算</strong> <i ng-if="shoppingcar.totalnum!=0">({{shoppingcar.totalnum}})</i></button>
     </div>
   </ion-footer-bar>
 </ion-view>

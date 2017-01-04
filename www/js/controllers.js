@@ -72,8 +72,8 @@ angular.module('starter.controllers', [])
     $scope.shoppingcar = {
       isSelectAll: false,//是否全部选择
       showDelete: false,//删除按钮是否显示
-      num: [],//购买数据
-      totalPrice: 0,//总价格
+      totalnum: 0,//总购买数量
+      totalPrice: 0//总价格
     };
     //模拟数据
     $scope.shoppingcartdata = [{
@@ -114,7 +114,6 @@ angular.module('starter.controllers', [])
 
     //添加数量
     $scope.add = function ($index) {
-
       $scope.shoppingcartdata[$index].num++;
     }
     // 减少数量
@@ -125,9 +124,11 @@ angular.module('starter.controllers', [])
     // 计算总价
     var getTotal = function () {
       $scope.shoppingcar.totalPrice = 0;
+      $scope.shoppingcar.totalnum=0;
       angular.forEach($scope.shoppingcartdata, function (item, index) {
         if (item.checked) {//选中的购物商品
-          $scope.shoppingcar.totalPrice = $scope.shoppingcar.totalPrice + item.num * item.price;
+          $scope.shoppingcar.totalPrice = $scope.shoppingcar.totalPrice + item.num * item.price;//总价格
+          $scope.shoppingcar.totalnum+=item.num;//总数量
         }
       })
       return $scope.shoppingcar.totalPrice;
