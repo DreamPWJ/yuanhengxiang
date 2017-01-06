@@ -118,17 +118,17 @@ angular.module('starter.controllers', [])
     }
     // 减少数量
     $scope.minus = function ($index) {
-      if($scope.shoppingcartdata[$index].num==0)return;
+      if ($scope.shoppingcartdata[$index].num == 0)return;
       $scope.shoppingcartdata[$index].num--;
     }
     // 计算总价
     var getTotal = function () {
       $scope.shoppingcar.totalPrice = 0;
-      $scope.shoppingcar.totalnum=0;
+      $scope.shoppingcar.totalnum = 0;
       angular.forEach($scope.shoppingcartdata, function (item, index) {
         if (item.checked) {//选中的购物商品
           $scope.shoppingcar.totalPrice = $scope.shoppingcar.totalPrice + item.num * item.price;//总价格
-          $scope.shoppingcar.totalnum+=item.num;//总数量
+          $scope.shoppingcar.totalnum += item.num;//总数量
         }
       })
       return $scope.shoppingcar.totalPrice;
@@ -140,8 +140,8 @@ angular.module('starter.controllers', [])
       })
     }
     //删除购物车
-    $scope.deleteShoppingCart=function (index) {
-      $scope.shoppingcartdata.splice(index,1)
+    $scope.deleteShoppingCart = function (index) {
+      $scope.shoppingcartdata.splice(index, 1)
     }
   })
 
@@ -284,7 +284,7 @@ angular.module('starter.controllers', [])
   })
 
   //我的优惠卷页面
-  .controller('MyCouponCtrl', function ($scope, $rootScope, $state, CommonService) {
+  .controller('MyCouponCtrl', function ($scope, CommonService) {
     //失效卷标示
     $scope.isfailureVolumeflg = false;
     //失效卷
@@ -293,23 +293,39 @@ angular.module('starter.controllers', [])
     }
   })
   //邀请记录页面
-  .controller('InvitationListCtrl', function ($scope, $rootScope, $state, CommonService) {
+  .controller('InvitationListCtrl', function ($scope, CommonService) {
 
   })
   //我的积分页面
-  .controller('MyNtegralCtrl', function ($scope, $rootScope, $state, CommonService) {
+  .controller('MyNtegralCtrl', function ($scope, CommonService) {
 
   })
 
   //联系我们页面
-  .controller('ContactUsCtrl', function ($scope, $rootScope, $state, CommonService) {
+  .controller('ContactUsCtrl', function ($scope, CommonService) {
 
   })
   //每日签到页面
-  .controller('SignInCtrl', function ($scope, $rootScope, $state, CommonService) {
+  .controller('SignInCtrl', function ($scope, CommonService) {
+    //构造一个日期对象：
+    var date = new Date();
+    //获取年份
+    $scope.year = date.getFullYear();
+    //获取当前月份
+    $scope.mouth = date.getMonth() + 1;
+    //获取今天当月的第几天数
+    $scope.daycount = date.getDate();
+    //今天是星期几
+    $scope.week = "日一二三四五六".charAt(new Date().getDay());
+    //获取当月总共有多少天
+    $scope.getDaysInOneMonth = function (year, month) {
+      month = parseInt(month, 10);
+      var d = new Date(year, month, 0);
+      $scope.monthdays = d.getDate();
+    }
 
   })
   //问卷调查页面
-  .controller('QuestionnaireCtrl', function ($scope, $rootScope, $state, CommonService) {
+  .controller('QuestionnaireCtrl', function ($scope, CommonService) {
 
   })

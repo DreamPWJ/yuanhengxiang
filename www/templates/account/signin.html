@@ -9,17 +9,17 @@
   </ion-nav-title>
   <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="signin">
     <div class="row row-center light signin-header">
-      <span ui-sref="" class="col text-right">如何赚积分</span>
+      <span  class="col text-right">如何赚积分</span>
       <span class="col text-center"><span class="signin-day positive">
         <p>已签到</p><p>50次</p> </span></span>
-      <span ui-sref="" class="col text-left">如何花积分</span>
+      <span class="col text-left">如何花积分</span>
     </div>
     <p class="text-center"><span class="integral-num">当前3650积分</span></p>
 
     <div class="card">
       <p class="row row-horizontal-around row-center text-center stable-bg"><span class="col-10">  <i
         class="icon ion-ios-arrow-back grey" style="font-size: 1.5rem"></i></span>
-        <strong class="col">2016年12月份</strong>
+        <strong class="col">{{year}}年{{mouth}}月份</strong>
         <span class="col-10"> <i class="icon ion-ios-arrow-forward grey" style="font-size: 1.5rem"></i></span></p>
       <div id="sign-date">
         <p class="row text-center">
@@ -29,7 +29,7 @@
           <strong class="col">四</strong>
           <strong class="col">五</strong>
           <strong class="col positive">六</strong>
-          <strong class="col positive">七</strong></p>
+          <strong class="col positive">日</strong></p>
         <p class="row text-center">
           <span class="col grey">25</span>
           <span class="col grey">26</span>
