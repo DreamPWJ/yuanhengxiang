@@ -161,14 +161,9 @@
   border-color: rgba(221, 221, 221, 0.3) !important;
 }
 
-.button.back-button {
-  width: 1.2rem;
-  border: none;
-}
-
-.bar-light .button.back-button  i:before{
+.buttons.buttons-left .ion-ios-arrow-back:before{
   color: #aaa;
-  font-size: 1.5rem;
+  font-size: 1.8rem!important;
 }
 
 /* 去掉时候点击按钮灰色边框颜色*/
