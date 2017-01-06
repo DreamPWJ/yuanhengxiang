@@ -244,3 +244,8 @@
 .item-thumbnail-left {
   padding-bottom: 0
 }
+
+.tab-item  .iconfont {
+  padding-top: 0.5rem;
+  font-size: 1.5rem;
+}
