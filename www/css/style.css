@@ -166,8 +166,9 @@
   border: none;
 }
 
-.bar-light .button.back-button {
+.bar-light .button.back-button  i:before{
   color: #aaa;
+  font-size: 1.5rem;
 }
 
 /* 去掉时候点击按钮灰色边框颜色*/
