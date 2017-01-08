@@ -186,8 +186,26 @@ angular.module('starter.controllers', [])
   //注册页面
   .controller('RegisterCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
     $scope.user = {};//定义用户对象
+    $scope.paracont = "获取验证码"; //初始发送按钮中的文字
+    $scope.paraclass = false; //控制验证码的disable
+    $scope.checkphone = function (mobilephone) {//检查手机号
+      AccountService.checkMobilePhone($scope, mobilephone);
+    }
+
+    $scope.getVerifyCode = function () {
+      event.preventDefault();
+      event.stopPropagation();
+      if ($scope.paraclass) { //按钮可用
+        //60s倒计时
+        AccountService.countDown($scope);
+        AccountService.getVerifyCode({mobile: "18863302302", isFindPwd: "1"}).success(function (data) {
+          console.log(data);
+        })
+      }
+    }
     $scope.registerSubmit = function () {
-      AccountService.login($scope.user).success(function (data) {
+      AccountService.register({mobile: "18863302302", password: "123"}).success(function (data) {
+        console.log(data);
       }).error(function () {
         CommonService.platformPrompt("注册失败", 'close');
       })
