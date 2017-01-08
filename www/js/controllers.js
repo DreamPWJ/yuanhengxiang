@@ -327,7 +327,7 @@ angular.module('starter.controllers', [])
   })
 
   //修改密码页面
-  .controller('ChangePasswordCtrl', function ($scope, $rootScope, $state, CommonService, AccountService,EncodingService) {
+  .controller('ChangePasswordCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService) {
     $scope.user = {};//定义用户对象
     $scope.paracont = "获取验证码"; //初始发送按钮中的文字
     $scope.paraclass = true; //控制验证码的disable
@@ -337,7 +337,10 @@ angular.module('starter.controllers', [])
       if ($scope.paraclass) { //按钮可用
         //60s倒计时
         AccountService.countDown($scope);
-        AccountService.getVerifyCode({mobile: localStorage.getItem("login_name"), isFindPwd: "2"}).success(function (data) {
+        AccountService.getVerifyCode({
+          mobile: localStorage.getItem("login_name"),
+          isFindPwd: "2"
+        }).success(function (data) {
           if (data.status == 1) {
 
           }
@@ -350,11 +353,15 @@ angular.module('starter.controllers', [])
         CommonService.platformPrompt("两次输入密码不一致", 'close');
         return;
       }
-      $scope.user.mid = localStorage.getItem("mid");
-      $scope.user.newPwd = EncodingService.md5($scope.user.newPwd);
-      $scope.user.reNewPwd = EncodingService.md5($scope.user.reNewPwd);
-      console.log($scope.user);
-      AccountService.editPassword($scope.user).success(function (data) {
+      $scope.params = {
+        newPwd: EncodingService.md5($scope.user.newPwd),
+        reNewPwd: EncodingService.md5($scope.user.reNewPwd),
+        verify: $scope.user.verify,
+      }
+
+/*      console.log(CommonService.authParams($scope.params));*/
+      AccountService.editPassword(CommonService.authParams($scope.params)).success(function (data) {
+        console.log(data);
         if (data.status == 1) {
           $state.go("tab.account")
         }

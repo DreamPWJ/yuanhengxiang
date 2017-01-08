@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 //service在使用this指针，而factory直接返回一个对象
-  .service('CommonService', function ($ionicPopup, $ionicPopover, $rootScope, $state, $ionicModal, $cordovaCamera, $cordovaImagePicker, $ionicPlatform, $ionicActionSheet, $ionicHistory, $timeout, $cordovaToast, $cordovaGeolocation, $cordovaBarcodeScanner, $ionicViewSwitcher, $ionicLoading, AccountService, WeiXinService) {
+  .service('CommonService', function ($ionicPopup, $ionicPopover, $rootScope, $state, $ionicModal, $cordovaCamera, $cordovaImagePicker, $ionicPlatform, $ionicActionSheet, $ionicHistory, $timeout, $cordovaToast, $cordovaGeolocation, $cordovaBarcodeScanner, $ionicViewSwitcher, $ionicLoading, AccountService, WeiXinService, EncodingService) {
     return {
       platformPrompt: function (msg, stateurl) {
         if ($ionicPlatform.is('android') || $ionicPlatform.is('ios')) {
@@ -345,7 +345,22 @@ angular.module('starter.services', [])
           _self.type = null;
         }, 3000);
       },
+      authParams: function (json) { //接口身份认证参数签名加密封装
+        json.mid = localStorage.getItem("mid");//用户id
+        json.token = localStorage.getItem("token");//用户token
+        // 将参数按照参数名ASCII码从小到大排序（字典序）
+        var dicJson = Object.keys(json).sort();
+        //使用URL键值对的格式（即key1=value1&key2=value2…）拼接成字符串
+        var signTemp = ""
+        angular.forEach(dicJson, function (key) {
+          signTemp += key + "=" + json[key] + "&"
+        })
+        console.log(signTemp.substring(0, signTemp.length - 1));
+        json.signature = EncodingService.md5(signTemp.substring(0, signTemp.length - 1));
+        console.log(json);
+        return json;
 
+      },
 
     }
   })
