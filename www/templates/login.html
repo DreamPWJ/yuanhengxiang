@@ -1,7 +1,8 @@
 <ion-view hide-nav-bar="true">
   <ion-content overflow-scroll="false" class="stable-bg no-nav-header" id="userlogin">
     <div class="row row-horizontal-around row-top  light account-top-bg">
-        <i class="col icon ion-ios-arrow-left" ui-sref="tab.main"></i>
+        <i class="col icon ion-ios-arrow-left"  nav-direction=back native-ui-sref="tab.main"
+           native-options="{type: 'slide',direction: 'right'}"></i>
       <strong class="col-70 text-center"> 登录</strong>
       <a class="col  light text-center subdued"  ng-href="#/register" nav-direction=forward>注册</a>
     </div>
