@@ -249,3 +249,9 @@
 .all-select{
   vertical-align: middle;
 }
+
+.col.ion-ios-arrow-left{
+  font-size: 1.8rem !important;
+  padding-top: 0;
+  padding-left: 0.5rem;
+}
