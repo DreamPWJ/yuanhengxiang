@@ -7,10 +7,10 @@ angular.module('starter.services', [])
           try {
             $cordovaToast.showLongCenter(msg);
           } catch (e) {
-            this.showAlert("标题", msg, stateurl);
+            this.showAlert("元亨祥", msg, stateurl);
           }
         } else {
-          this.showAlert("标题", msg, stateurl);
+          this.showAlert("元亨祥", msg, stateurl);
         }
       },
       showAlert: function (title, template, stateurl) {
@@ -20,7 +20,7 @@ angular.module('starter.services', [])
           title: title,
           template: template,
           okText: '确定',
-          okType: 'button-calm'
+          okType: 'button-positive'
         });
         alertPopup.then(function (res) {
           if (stateurl == null || stateurl == '') {
@@ -40,7 +40,7 @@ angular.module('starter.services', [])
           template: template,
           okText: okText,
           cancelText: cancelText,
-          okType: 'button-calm',
+          okType: 'button-positive',
           cancelType: 'button-assertive'
         });
 
@@ -123,7 +123,7 @@ angular.module('starter.services', [])
 
       ionicLoadingShow: function (content) {
         $ionicLoading.show({
-          template: '<ion-spinner icon="bubbles" class="spinner-calm"></ion-spinner><p>' + (content ? content : '') + '</p>',
+          template: '<ion-spinner icon="bubbles" class="spinner-positive"></ion-spinner><p>' + (content ? content : '') + '</p>',
           animation: 'fade-in',
           showBackdrop: false
 
@@ -297,7 +297,7 @@ angular.module('starter.services', [])
             localStorage.setItem("latitude", position.coords.latitude);//纬度
             callback.call(this);
           }, function (err) {
-           // CommonService.platformPrompt("获取定位失败", 'close');
+            // CommonService.platformPrompt("获取定位失败", 'close');
           });
       },
       isLogin: function (flag) {//判断是否登录
@@ -305,7 +305,7 @@ angular.module('starter.services', [])
           if (flag) {
             $state.go('login');
           } else {
-            this.showConfirm('标题', '温馨提示:此功能需要登录才能使用,请先登录', '登录', '关闭', 'login');
+            this.showConfirm('元亨祥', '温馨提示:此功能需要登录才能使用,请先登录', '登录', '关闭', 'login');
             return;
           }
           return false;
@@ -353,10 +353,10 @@ angular.module('starter.services', [])
       getCurrentCityName: function (params) { //获取首页地理位置城市名称
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
-        promise=$http({
+        promise = $http({
           method: 'GET',
           url: " http://restapi.amap.com/v3/geocode/regeo",
-          params:params
+          params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (data) {
@@ -373,7 +373,7 @@ angular.module('starter.services', [])
         var promise = deferred.promise
         promise = $http({
           method: 'GET',
-          url:YuanHenXiang.api + "www/json/classify.json",
+          url: YuanHenXiang.api + "www/json/classify.json",
           params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
@@ -387,7 +387,7 @@ angular.module('starter.services', [])
         var promise = deferred.promise
         promise = $http({
           method: 'GET',
-          url:YuanHenXiang.api + "www/json/classify.json",
+          url: YuanHenXiang.api + "www/json/classify.json",
           params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
@@ -400,13 +400,13 @@ angular.module('starter.services', [])
   })
   .service('AccountService', function ($q, $http, YuanHenXiang, $cordovaFileTransfer, $state, $cordovaToast, $interval, $timeout, $ionicPopup, $ionicLoading, $cordovaFile, $cordovaFileOpener2) {
     return {
-      login: function (datas) { //登录
+      login: function (params) { //登录
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
         promise = $http({
           method: 'POST',
-          url: YuanHenXiang.api + "/user/login",
-          data: datas
+          url: YuanHenXiang.api + "/Login/login",
+          data: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (err) {
@@ -500,7 +500,7 @@ angular.module('starter.services', [])
           template: updatecontent, //从服务端获取更新的内容
           cancelText: '稍后再说',
           okText: '立刻更新',
-          okType: 'button-calm',
+          okType: 'button-positive',
           cancelType: 'button-assertive'
         });
         confirmPopup.then(function (res) {
@@ -552,6 +552,14 @@ angular.module('starter.services', [])
 
   .service('WeiXinService', function ($q, $http, YuanHenXiang) { //微信 JS SDK 接口服务定义
     return {
+      isWeiXin: function isWeiXin() { //判断是否是微信内置浏览器
+        var ua = window.navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+          return true;
+        } else {
+          return false;
+        }
+      },
       //获取微信签名
       getWCSignature: function (params) {
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
@@ -582,13 +590,36 @@ angular.module('starter.services', [])
         });
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       },
-      isWeiXin: function isWeiXin() { //判断是否是微信内置浏览器
-        var ua = window.navigator.userAgent.toLowerCase();
-        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-          return true;
-        } else {
-          return false;
-        }
+
+      //获取微信支付统一下单接口参数
+      getweixinPayData: function (params) {
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: "http://www.6weiyi.com/jinlele/weixin/weixinPay/" + parseInt(new Date().getTime() / 1000) + "/0.01/商品微信支付测试/okhnkvvnLaxUQxAeH6v8SUcu9jZQ"
+          //url: JinLeLe.api + "/weixin/weixinPay/" + params.orderNo + "/" + params.totalprice + "/" + params.descrip + "/" + params.openid
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      weixinPay: function (data) {//微信原生SDK支付
+        var params = {
+          partnerid: data.appId,     //公众号名称，由商户传入
+          prepayid: data.package.replace("prepay_id=", ""), // prepay id
+          noncestr: data.nonceStr, //随机串
+          timestamp: data.timeStamp, //时间戳，自1970年以来的秒数
+          sign: data.paySign //微信签名
+        };
+        alert(JSON.stringify(params))
+        Wechat.sendPaymentRequest(params, function () {
+          alert("Success");
+        }, function (reason) {
+          alert("Failed: " + reason);
+        });
       },
       /*    所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用（同一个url仅需调用一次，对于变化url的SPA的web app可在每次url变化时进行调用,
        目前Android微信客户端不支持pushState的H5新特性，所以使用pushState来实现web app的页面会导致签名失败，此问题会在Android6.2中修复*/
@@ -966,7 +997,9 @@ angular.module('starter.services', [])
         if (config.url.toString().indexOf('http://') === 0) {
           //http请求Loading加载动画
           $injector.get('$ionicLoading').show({
-            template: '<ion-spinner icon="bubbles" class="spinner-positive"></ion-spinner><p>'
+            template: '<ion-spinner icon="bubbles" class="spinner-positive"></ion-spinner><p>',
+            animation: 'fade-in',
+            showBackdrop: false
           });
         }
         //授权

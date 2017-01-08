@@ -3,11 +3,30 @@ angular.module('starter.controllers', [])
     //服务注册到$httpProvider.interceptors中  用于接口授权
     $httpProvider.interceptors.push('MyInterceptor');
     /* $httpProvider.defaults.headers.common['Authorization'] = localStorage.getItem('token');*/
+    //$http模块POST请求类型编码转换 统一配置
+    $httpProvider.defaults.transformRequest = function (obj) {
+      var str = [];
+      for (var p in obj) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]))
+      }
+      return str.join("&")
+    }
+    $httpProvider.defaults.headers.post = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    $httpProvider.defaults.headers.put = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
   })
 
 
   //APP首页面
-  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, $ionicScrollDelegate) {
+  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, WeiXinService, $ionicScrollDelegate) {
+    /*    WeiXinService.getweixinPayData().success(function (data) {
+     WeiXinService.weixinPay(data);
+     })*/
     //获取定位信息
     $scope.cityName = "深圳";//默认地址
     CommonService.getLocation(function () {
@@ -33,11 +52,30 @@ angular.module('starter.controllers', [])
   })
 
   //登录页面
-  .controller('LoginCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+  .controller('LoginCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService) {
     $scope.user = {};//定义用户对象
     $scope.loginSubmit = function () {
-      AccountService.login($scope.user).success(function (data) {
-        CommonService.getStateName();   //跳转页面
+
+      if (ionic.Platform.isWebView()) { //获取设备UUID
+        $scope.user.udid = $cordovaDevice.getUUID();
+      } else {
+        $scope.user.udid = "43a561a7658ae5b1";
+      }
+      AccountService.login({
+        mobile: $scope.user.mobile,
+        password: $scope.user.password,
+        udid: $scope.user.udid
+      }).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          CommonService.getStateName();   //跳转页面
+          var info = data.data.info;
+          localStorage.setItem("login_name", info.login_name);
+          localStorage.setItem("mid", info.mid)
+          localStorage.setItem("token", info.token)
+        }
+        CommonService.platformPrompt(data.info, 'close');
+
       }).error(function () {
         CommonService.platformPrompt("登录失败", 'close');
       })
@@ -184,7 +222,7 @@ angular.module('starter.controllers', [])
     };
   })
   //注册页面
-  .controller('RegisterCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+  .controller('RegisterCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService, $cordovaDevice) {
     $scope.user = {};//定义用户对象
     $scope.paracont = "获取验证码"; //初始发送按钮中的文字
     $scope.paraclass = false; //控制验证码的disable
@@ -198,14 +236,35 @@ angular.module('starter.controllers', [])
       if ($scope.paraclass) { //按钮可用
         //60s倒计时
         AccountService.countDown($scope);
-        AccountService.getVerifyCode({mobile: "18863302302", isFindPwd: "1"}).success(function (data) {
+        AccountService.getVerifyCode({mobile: $scope.user.mobile, isFindPwd: "1"}).success(function (data) {
           console.log(data);
+          if (data.status == 1) {
+
+          } else {
+            CommonService.platformPrompt(data.info, 'close');
+          }
+
         })
       }
     }
     $scope.registerSubmit = function () {
-      AccountService.register({mobile: "18863302302", password: "123"}).success(function (data) {
+      if (ionic.Platform.isWebView()) { //获取设备UUID
+        var uuid = $cordovaDevice.getUUID();
+      } else {
+        var uuid = "43a561a7658ae5b1";
+      }
+      AccountService.register({
+        mobile: $scope.user.mobile,
+        password: EncodingService.md5($scope.user.password),
+        verify: $scope.user.verify,
+        udid: uuid
+      }).success(function (data) {
         console.log(data);
+        if (data.status == 1) {
+
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
       }).error(function () {
         CommonService.platformPrompt("注册失败", 'close');
       })
