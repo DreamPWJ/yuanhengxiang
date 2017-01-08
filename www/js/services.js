@@ -277,7 +277,7 @@ angular.module('starter.services', [])
         }
 
       },
-      getLocation: function () { //获取当前经纬度
+      getLocation: function (callback) { //获取当前经纬度
         //是否是微信
         if (WeiXinService.isWeiXin()) {
           //通过config接口注入权限验证配置
@@ -293,10 +293,11 @@ angular.module('starter.services', [])
         $cordovaGeolocation
           .getCurrentPosition(posOptions)
           .then(function (position) {
-            localStorage.setItem("latitude", position.coords.latitude);
-            localStorage.setItem("longitude", position.coords.longitude);
+            localStorage.setItem("longitude", position.coords.longitude);//经度
+            localStorage.setItem("latitude", position.coords.latitude);//纬度
+            callback.call(this);
           }, function (err) {
-            CommonService.platformPrompt("获取定位失败", 'close');
+           // CommonService.platformPrompt("获取定位失败", 'close');
           });
       },
       isLogin: function (flag) {//判断是否登录
@@ -349,17 +350,17 @@ angular.module('starter.services', [])
   })
   .service('MainService', function ($q, $http, YuanHenXiang) { //首页服务定义
     return {
-      getMainBanner: function (params) { //获取首页banner图片
+      getCurrentCityName: function (params) { //获取首页地理位置城市名称
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
-        promise = $http({
+        promise=$http({
           method: 'GET',
-          url: YuanHenXiang.api + "/Auth/Login",
-          params: params
-        }).success(function (data) {
+          url: " http://restapi.amap.com/v3/geocode/regeo",
+          params:params
+        }).success(function (data, status, headers, config) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
-        }).error(function (err) {
-          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        }).error(function (data, status, headers, config) {
+          deferred.reject(data);// 声明执行失败，即服务器返回错误
         });
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       }

@@ -8,11 +8,25 @@ angular.module('starter.controllers', [])
 
   //APP首页面
   .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, $ionicScrollDelegate) {
+    //获取定位信息
+    $scope.cityName = "深圳";//默认地址
+    CommonService.getLocation(function () {
+      //获取首页地理位置城市名称
+      MainService.getCurrentCityName({
+        key: '972cafdc2472d8f779c5274db770ac22',
+        location: Number(localStorage.getItem("longitude")).toFixed(6) + "," + Number(localStorage.getItem("latitude")).toFixed(6)
+      }).success(function (data) {
+        if (data.status == 1) {
+          var addressComponent = data.regeocode.addressComponent;
+          $scope.cityName = addressComponent.city ? addressComponent.city.replace("市", "") : addressComponent.province.replace("市", "");
+        }
+      })
+    });
+
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearHistory();
     })
-
     $scope.scrollWidth = window.innerWidth + 'px';
     $scope.scrollContentWidth = document.querySelector("#main-scroll").clientWidth + 'px';
 
