@@ -301,9 +301,10 @@ angular.module('starter.services', [])
           });
       },
       isLogin: function (flag) {//判断是否登录
-        if (!localStorage.getItem("usertoken")) {
+        if (!localStorage.getItem("token")) {
           if (flag) {
             $state.go('login');
+            $ionicViewSwitcher.nextDirection("forward");//前进画效果
           } else {
             this.showConfirm('元亨祥', '温馨提示:此功能需要登录才能使用,请先登录', '登录', '关闭', 'login');
             return;
@@ -434,6 +435,48 @@ angular.module('starter.services', [])
         promise = $http({
           method: 'POST',
           url: YuanHenXiang.api + "/Login/register",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      logout: function (params) { //退出登录
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Login/logout",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      resetPassword: function (params) { //重置密码
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Login/resetPassword",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      editPassword: function (params) { //修改密码
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Login/editPassword",
           data: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了

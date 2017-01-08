@@ -272,6 +272,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //修改密码页面
       .state('changepassword', {
         url: '/changepassword',
+        cache:false,
         templateUrl: 'templates/account/changepassword.html',
         controller: 'ChangePasswordCtrl'
       })

@@ -63,7 +63,7 @@ angular.module('starter.controllers', [])
       }
       AccountService.login({
         mobile: $scope.user.mobile,
-        password: $scope.user.password,
+        password: EncodingService.md5($scope.user.password),
         udid: $scope.user.udid
       }).success(function (data) {
         console.log(data);
@@ -216,10 +216,27 @@ angular.module('starter.controllers', [])
     }
   })
   //我的设置页面
-  .controller('AccountCtrl', function ($scope, $rootScope, CommonService, AccountService) {
+  .controller('AccountCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
     $scope.settings = {
       enableFriends: true
     };
+    CommonService.isLogin(true);//判断是否登录
+
+    //退出登录清除缓存
+    $scope.logout = function () {
+      AccountService.logout({mid: localStorage.getItem("mid")}).success(function (data) {
+        if (data.status == 1) {
+          localStorage.removeItem("login_name");
+          localStorage.removeItem("mid");
+          localStorage.removeItem("token");
+          $state.go("login")
+        }
+        CommonService.platformPrompt(data.info, 'close');
+      })
+
+    }
+
+
   })
   //注册页面
   .controller('RegisterCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService, $cordovaDevice) {
@@ -240,10 +257,8 @@ angular.module('starter.controllers', [])
           console.log(data);
           if (data.status == 1) {
 
-          } else {
-            CommonService.platformPrompt(data.info, 'close');
           }
-
+          CommonService.platformPrompt(data.info, 'close');
         })
       }
     }
@@ -262,9 +277,9 @@ angular.module('starter.controllers', [])
         console.log(data);
         if (data.status == 1) {
 
-        } else {
-          CommonService.platformPrompt(data.info, 'close');
         }
+        CommonService.platformPrompt(data.info, 'close');
+
       }).error(function () {
         CommonService.platformPrompt("注册失败", 'close');
       })
@@ -272,21 +287,78 @@ angular.module('starter.controllers', [])
   })
 
   //重置密码页面
-  .controller('ResetPasswordCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+  .controller('ResetPasswordCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService) {
     $scope.user = {};//定义用户对象
-    $scope.registerSubmit = function () {
-      AccountService.login($scope.user).success(function (data) {
-      }).error(function () {
-        CommonService.platformPrompt("重置密码失败", 'close');
+    $scope.paracont = "获取验证码"; //初始发送按钮中的文字
+    $scope.paraclass = false; //控制验证码的disable
+    $scope.checkphone = function (mobilephone) {//检查手机号
+      AccountService.checkMobilePhone($scope, mobilephone);
+    }
+
+    $scope.getVerifyCode = function () {
+      event.preventDefault();
+      event.stopPropagation();
+      if ($scope.paraclass) { //按钮可用
+        //60s倒计时
+        AccountService.countDown($scope);
+        AccountService.getVerifyCode({mobile: $scope.user.mobile, isFindPwd: "2"}).success(function (data) {
+          console.log(data);
+          if (data.status == 1) {
+
+          }
+          CommonService.platformPrompt(data.info, 'close');
+        })
+      }
+    }
+    $scope.resetpasswordSubmit = function () { //重置密码
+      if ($scope.user.newPwd != $scope.user.reNewPwd) {
+        CommonService.platformPrompt("两次输入密码不一致", 'close');
+        return;
+      }
+      $scope.user.newPwd = EncodingService.md5($scope.user.newPwd);
+      $scope.user.reNewPwd = EncodingService.md5($scope.user.reNewPwd);
+      AccountService.resetPassword($scope.user).success(function (data) {
+        if (data.status == 1) {
+          $state.go("login")
+        }
+        CommonService.platformPrompt(data.info, 'close');
       })
     }
   })
 
   //修改密码页面
-  .controller('ChangePasswordCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+  .controller('ChangePasswordCtrl', function ($scope, $rootScope, $state, CommonService, AccountService,EncodingService) {
     $scope.user = {};//定义用户对象
+    $scope.paracont = "获取验证码"; //初始发送按钮中的文字
+    $scope.paraclass = true; //控制验证码的disable
+    $scope.getVerifyCode = function () {
+      event.preventDefault();
+      event.stopPropagation();
+      if ($scope.paraclass) { //按钮可用
+        //60s倒计时
+        AccountService.countDown($scope);
+        AccountService.getVerifyCode({mobile: localStorage.getItem("login_name"), isFindPwd: "2"}).success(function (data) {
+          if (data.status == 1) {
+
+          }
+          CommonService.platformPrompt(data.info, 'close');
+        })
+      }
+    }
     $scope.changepasswordSubmit = function () {
-      AccountService.login($scope.user).success(function (data) {
+      if ($scope.user.newPwd != $scope.user.reNewPwd) {
+        CommonService.platformPrompt("两次输入密码不一致", 'close');
+        return;
+      }
+      $scope.user.mid = localStorage.getItem("mid");
+      $scope.user.newPwd = EncodingService.md5($scope.user.newPwd);
+      $scope.user.reNewPwd = EncodingService.md5($scope.user.reNewPwd);
+      console.log($scope.user);
+      AccountService.editPassword($scope.user).success(function (data) {
+        if (data.status == 1) {
+          $state.go("tab.account")
+        }
+        CommonService.platformPrompt(data.info, 'close');
       }).error(function () {
         CommonService.platformPrompt("修改密码失败", 'close');
       })
