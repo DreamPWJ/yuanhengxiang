@@ -251,6 +251,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //登录页面
       .state('login', {
         url: '/login',
+        cache:false,
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
       })
@@ -258,6 +259,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //注册页面
       .state('register', {
         url: '/register',
+        cache:false,
         templateUrl: 'templates/account/register.html',
         controller: 'RegisterCtrl'
       })
@@ -265,6 +267,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //重置密码页面
       .state('resetpassword', {
         url: '/resetpassword',
+        cache:false,
         templateUrl: 'templates/account/resetpassword.html',
         controller: 'ResetPasswordCtrl'
       })
@@ -280,6 +283,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //反馈建议页面
       .state('helpfeedback', {
         url: '/helpfeedback',
+        cache:false,
         templateUrl: 'templates/account/helpfeedback.html',
         controller: 'HelpFeedbackCtrl'
       })
@@ -294,6 +298,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //添加地址页面
       .state('addaddress', {
         url: '/addaddress',
+        cache:false,
         templateUrl: 'templates/account/addaddress.html',
         controller: 'AddAddressCtrl'
       })
@@ -308,6 +313,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //完善资料页面
       .state('organizingdata', {
         url: '/organizingdata',
+        cache:false,
         templateUrl: 'templates/account/organizingdata.html',
         controller: 'OrganizingDataCtrl'
       })
@@ -356,6 +362,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //问卷调查页面
       .state('questionnaire', {
         url: '/questionnaire',
+        cache:false,
         templateUrl: 'templates/account/questionnaire.html',
         controller: 'QuestionnaireCtrl'
       })
