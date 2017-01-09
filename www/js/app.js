@@ -212,6 +212,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       .state('tab.shoppingcart', {
         url: '/shoppingcart',
         nativeTransitions: null,
+        cache:false,
         views: {
           'tab-shoppingcart': {
             templateUrl: 'templates/shoppingcart.html',
@@ -230,6 +231,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //我的订单
       .state('myorder', {
         url: '/myorder',
+        cache:false,
         templateUrl: 'templates/account/myorder.html',
         controller: 'MyOrderCtrl'
 
@@ -291,6 +293,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //地址管理页面
       .state('addressmanage', {
         url: '/addressmanage',
+        cache:false,
         templateUrl: 'templates/account/addressmanage.html',
         controller: 'AddressManageCtrl'
       })
@@ -321,6 +324,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //我的钱包页面
       .state('mywallet', {
         url: '/mywallet',
+        cache:false,
         templateUrl: 'templates/account/mywallet.html',
         controller: 'MyWalletCtrl'
       })
@@ -334,6 +338,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //我的优惠卷页面
       .state('mycoupon', {
         url: '/mycoupon',
+        cache:false,
         templateUrl: 'templates/account/mycoupon.html',
         controller: 'MyCouponCtrl'
       })
@@ -341,6 +346,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //邀请记录页面
       .state('invitationlist', {
         url: '/invitationlist',
+        cache:false,
         templateUrl: 'templates/account/invitationlist.html',
         controller: 'InvitationListCtrl'
       })
@@ -348,6 +354,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //我的积分页面
       .state('myntegral', {
         url: '/myntegral',
+        cache:false,
         templateUrl: 'templates/account/myntegral.html',
         controller: 'MyNtegralCtrl'
       })
@@ -355,6 +362,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //每日签到页面
       .state('signin', {
         url: '/signin',
+        cache:false,
         templateUrl: 'templates/account/signin.html',
         controller: 'SignInCtrl'
       })

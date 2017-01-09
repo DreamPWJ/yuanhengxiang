@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
 
 
   //APP首页面
-  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, WeiXinService, $ionicScrollDelegate) {
+  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, $timeout,WeiXinService,YuanHenXiang,$ionicSlideBoxDelegate, $ionicScrollDelegate) {
     /*    WeiXinService.getweixinPayData().success(function (data) {
      WeiXinService.weixinPay(data);
      })*/
@@ -32,7 +32,7 @@ angular.module('starter.controllers', [])
     CommonService.getLocation(function () {
       //获取首页地理位置城市名称
       MainService.getCurrentCityName({
-        key: '972cafdc2472d8f779c5274db770ac22',
+        key: YuanHenXiang.gaoDeKey,
         location: Number(localStorage.getItem("longitude")).toFixed(6) + "," + Number(localStorage.getItem("latitude")).toFixed(6)
       }).success(function (data) {
         if (data.status == 1) {
@@ -41,7 +41,22 @@ angular.module('starter.controllers', [])
         }
       })
     });
-
+    MainService.getAdvList(CommonService.authParams({code:"index_banner"})).success(function (data) {
+      if (data.status == 1) {
+        $scope.banner=data.data.lists;
+        //ng-repeat遍历生成一个个slide块的时候，执行完成页面是空白的 手动在渲染之后更新一下，在控制器注入$ionicSlideBoxDelegate，然后渲染数据之后
+        $timeout(function () {
+          $ionicSlideBoxDelegate.$getByHandle("slideboximgs").update();
+          //上面这句就是实现无限循环的关键，绑定了滑动框，
+          $ionicSlideBoxDelegate.$getByHandle("slideboximgs").loop(true);
+          /*            console.log($ionicSlideBoxDelegate.$getByHandle("slideboximgs").slidesCount());*/
+        }, 100)
+      }
+      //在外部浏览器打开连接
+      $scope.windowOpen = function (url) {
+        CommonService.windowOpen(url)
+      }
+    })
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearHistory();
@@ -221,7 +236,13 @@ angular.module('starter.controllers', [])
       enableFriends: true
     };
     CommonService.isLogin(true);//判断是否登录
+    //获取会员信息
+       AccountService.getMemberInfo(CommonService.authParams({})).success(function (data) {
+         console.log(data);
+         if (data.status == 1) {
 
+     }
+     })
     //退出登录清除缓存
     $scope.logout = function () {
       AccountService.logout({mid: localStorage.getItem("mid")}).success(function (data) {
@@ -359,9 +380,7 @@ angular.module('starter.controllers', [])
         verify: $scope.user.verify,
       }
 
-/*      console.log(CommonService.authParams($scope.params));*/
       AccountService.editPassword(CommonService.authParams($scope.params)).success(function (data) {
-        console.log(data);
         if (data.status == 1) {
           $state.go("tab.account")
         }
@@ -376,7 +395,11 @@ angular.module('starter.controllers', [])
   .controller('HelpFeedbackCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
     $scope.helpfeedback = {};//定义对象
     $scope.helpfeedbackSubmit = function () {
-      AccountService.login($scope.helpfeedback).success(function (data) {
+      AccountService.addFeedback($scope.helpfeedback).success(function (data) {
+        if (data.status == 1) {
+
+        }
+        CommonService.platformPrompt(data.info, 'close');
       }).error(function () {
         CommonService.platformPrompt("反馈建议提交失败", 'close');
       })
@@ -385,13 +408,18 @@ angular.module('starter.controllers', [])
 
   //地址管理页面
   .controller('AddressManageCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
-    $scope.addresslist = ['广东省 深圳市 南山区 高薪科技园北区 深南小巷', '广东省 深圳市 南山区2 高薪科技园北区 深南小巷', '广东省 深圳市 南山区3 高薪科技园北区 深南小巷']
+    //$scope.addresslist = ['广东省 深圳市 南山区 高薪科技园北区 深南小巷', '广东省 深圳市 南山区2 高薪科技园北区 深南小巷', '广东省 深圳市 南山区3 高薪科技园北区 深南小巷']
     $scope.getAddressList = function () {
-      AccountService.login().success(function (data) {
+      AccountService.getAddressList(CommonService.authParams({})).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.addresslist=data.data.lists;
+        }
       }).error(function () {
         CommonService.platformPrompt("获取地址管理列表失败", 'close');
       })
     }
+    $scope.getAddressList()
     //选中地址编辑地址
     $scope.selectAddress = function (index) {
       //选中第几个数组
@@ -405,20 +433,26 @@ angular.module('starter.controllers', [])
   })
 
   //添加地址页面
-  .controller('AddAddressCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+  .controller('AddAddressCtrl', function ($scope, $rootScope, $state, CommonService, AccountService,YuanHenXiang) {
     //地址信息
     $scope.addrinfo = {};
     //获取省市县
     $scope.getAddressPCCList = function () {
-      AccountService.login().success(function (data) {
+      AccountService.getDistrict({key:YuanHenXiang.gaoDeKey}).success(function (data) {
+        console.log(data);
       }).error(function () {
         CommonService.platformPrompt("获取添加地址省市县失败", 'close');
       })
     }
-
+    $scope.getAddressPCCList();
     //保存地址
     $scope.addressSave = function () {
+      AccountService.addAddress().success(function (data) {
+        if (data.status == 1) {
 
+        }
+        CommonService.platformPrompt(data.info, 'close');
+      })
     }
 
   })
@@ -428,7 +462,12 @@ angular.module('starter.controllers', [])
     $scope.userinfo = {};
     //完善资料保存
     $scope.organizingdataSave = function () {
+      AccountService.memberInfo().success(function (data) {
+        if (data.status == 1) {
 
+        }
+        CommonService.platformPrompt(data.info, 'close');
+      })
     }
   })
   //我的钱包页面
@@ -472,8 +511,14 @@ angular.module('starter.controllers', [])
   })
 
   //联系我们页面
-  .controller('ContactUsCtrl', function ($scope, CommonService) {
-
+  .controller('ContactUsCtrl', function ($scope, CommonService, AccountService) {
+    //获取配置信息
+    AccountService.getConfigInfo().success(function (data) {
+      console.log(data);
+      if (data.status == 1) {
+        $scope.info=data.data.info;
+      }
+    })
   })
   //每日签到页面
   .controller('SignInCtrl', function ($scope, CommonService) {

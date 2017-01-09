@@ -355,9 +355,8 @@ angular.module('starter.services', [])
         angular.forEach(dicJson, function (key) {
           signTemp += key + "=" + json[key] + "&"
         })
-        console.log(signTemp.substring(0, signTemp.length - 1));
-        json.signature = EncodingService.md5(signTemp.substring(0, signTemp.length - 1));
-        console.log(json);
+        signTemp = (signTemp.substring(0, signTemp.length - 1)) + "tkm";
+        json.signature = EncodingService.md5(signTemp);
         return json;
 
       },
@@ -366,7 +365,7 @@ angular.module('starter.services', [])
   })
   .service('MainService', function ($q, $http, YuanHenXiang) { //首页服务定义
     return {
-      getCurrentCityName: function (params) { //获取首页地理位置城市名称
+      getCurrentCityName: function (params) { //获取首页地理位置城市名称 高德web API
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
         promise = $http({
@@ -608,6 +607,20 @@ angular.module('starter.services', [])
         });
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       },
+      getDistrict: function (params) { //行政区域查询高德web API
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: "http://restapi.amap.com/v3/config/district",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (data) {
+          deferred.reject(data);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
       addAddress: function (params) { //添加地址
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
@@ -738,6 +751,7 @@ angular.module('starter.services', [])
                 // 错误
               });
               $ionicLoading.hide();
+
             }, function (err) {
               $cordovaToast.showLongCenter("APP下载失败," + err);
               $ionicLoading.hide();

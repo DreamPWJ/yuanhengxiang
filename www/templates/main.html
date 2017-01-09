@@ -7,15 +7,10 @@
     </div>
     <ion-slide-box show-pager="true" does-continue="true" auto-play="true" slide-interval="3000"
                    delegate-handle="slideboximgs" id="main-slide">
-      <ion-slide>
-        <img ng-src="img/banner/banner.jpg" alt="" class="full-image"/>
+      <ion-slide ng-repeat="item in banner">
+        <img ng-click="windowOpen(item.link)" ng-src="{{item.image}}" ng-href="" alt="{{item.name}}" class="full-image"/>
       </ion-slide>
-      <ion-slide>
-        <img ng-src="img/banner/banner.jpg" alt="" class="full-image"/>
-      </ion-slide>
-      <ion-slide>
-        <img ng-src="img/banner/banner.jpg" alt="" class="full-image"/>
-      </ion-slide>
+
     </ion-slide-box>
     <div class="main-list row light-bg text-center main-list-first">
       <a ng-href="#/productlist" nav-direction=forward class="col subdued"><img ng-src="img/main/milk.png" alt="">

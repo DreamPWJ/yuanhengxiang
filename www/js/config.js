@@ -11,6 +11,7 @@ configMod.constant("YuanHenXiang", {
   'siteUrl': 'http://a.yuanhengxiang.com',//仓库地址 暂无使用
   'imgUrl': 'http://f.yuanhengxiang.com',//图片地址 暂无使用
   'mobApi': 'http://m.yuanhengxiang.com',//手机端服务  使用（分享链接展示等调用）
-  'version': '0.2.0' //当前版本号
+  'gaoDeKey': '972cafdc2472d8f779c5274db770ac22',//高德web API服务key
+  'version': '0.3.0' //当前版本号
 });
 
