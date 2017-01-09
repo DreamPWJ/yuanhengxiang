@@ -212,8 +212,18 @@ angular.module('starter.controllers', [])
   })
 
   //提交订单核对订单
-  .controller('ReviewOrderCtrl', function ($scope, $rootScope, CommonService) {
+  .controller('ReviewOrderCtrl', function ($scope, $rootScope, CommonService,AccountService) {
+    $scope.getDefaultAddress = function () { //获取发货地址
+      AccountService.getDefaultAddress(CommonService.authParams({mid: localStorage.getItem("mid")})).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
 
+        }
+
+      })
+
+    }
+    $scope.getDefaultAddress();
   })
 
   //我的订单
@@ -245,7 +255,7 @@ angular.module('starter.controllers', [])
     })
     //退出登录清除缓存
     $scope.logout = function () {
-      AccountService.logout({mid: localStorage.getItem("mid")}).success(function (data) {
+      AccountService.logout(CommonService.authParams({mid: localStorage.getItem("mid")})).success(function (data) {
         if (data.status == 1) {
           localStorage.removeItem("login_name");
           localStorage.removeItem("mid");
@@ -278,8 +288,10 @@ angular.module('starter.controllers', [])
           console.log(data);
           if (data.status == 1) {
 
+          }else {
+            CommonService.platformPrompt(data.info, 'close');
           }
-          CommonService.platformPrompt(data.info, 'close');
+
         })
       }
     }
@@ -326,8 +338,10 @@ angular.module('starter.controllers', [])
           console.log(data);
           if (data.status == 1) {
 
+          }else {
+            CommonService.platformPrompt(data.info, 'close');
           }
-          CommonService.platformPrompt(data.info, 'close');
+
         })
       }
     }
@@ -364,8 +378,10 @@ angular.module('starter.controllers', [])
         }).success(function (data) {
           if (data.status == 1) {
 
+          }else {
+            CommonService.platformPrompt(data.info, 'close');
           }
-          CommonService.platformPrompt(data.info, 'close');
+
         })
       }
     }
@@ -635,6 +651,6 @@ angular.module('starter.controllers', [])
   //上传头像
   .controller('UploadHeadCtrl', function ($scope, CommonService) {
     $scope.uploadActionSheet = function () {
-      CommonService.uploadActionSheet();
+      CommonService.uploadActionSheet("upload");
     }
   })
