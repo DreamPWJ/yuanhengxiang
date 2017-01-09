@@ -190,7 +190,7 @@ angular.module('starter.controllers', [])
     }
     // 计算总价
     var getTotal = function () {
-      $scope.shoppingcar.totalPrice = 0;
+      $scope.shoppingcar.totalPrice = 0.00;
       $scope.shoppingcar.totalnum = 0;
       angular.forEach($scope.shoppingcartdata, function (item, index) {
         if (item.checked) {//选中的购物商品
@@ -632,4 +632,10 @@ angular.module('starter.controllers', [])
   //问卷调查页面
   .controller('QuestionnaireCtrl', function ($scope, CommonService) {
 
+  })
+  //上传头像
+  .controller('UploadHeadCtrl', function ($scope, CommonService) {
+    $scope.uploadActionSheet = function () {
+      CommonService.uploadActionSheet();
+    }
   })

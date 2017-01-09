@@ -374,6 +374,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         templateUrl: 'templates/account/questionnaire.html',
         controller: 'QuestionnaireCtrl'
       })
+      //上传头像
+      .state('uploadhead', {
+        url: '/uploadhead',
+        templateUrl: 'templates/account/uploadhead.html',
+        controller: 'UploadHeadCtrl'
+      })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/main');
 

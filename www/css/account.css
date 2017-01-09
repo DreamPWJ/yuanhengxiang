@@ -58,6 +58,10 @@
   font-weight: 500;
 }
 
+.shoppingcart-list input[type='number'] {
+  padding-top: 0.5rem!important;
+}
+
 .col.ion-ios-arrow-back {
   font-size: 1.6rem;
 }
@@ -231,26 +235,26 @@
   margin-left: 25px;
 }
 
-
 #shoppingcar .checkbox {
   left: 0;
   width: 2.5rem;
 }
 
-#shoppingcar .checkbox input,.shoppingcart-footer-bar .checkbox input {
+#shoppingcar .checkbox input, .shoppingcart-footer-bar .checkbox input {
   width: 20px;
   height: 20px;
 }
 
-#shoppingcar .checkbox input:after,.shoppingcart-footer-bar .checkbox input:after{
+#shoppingcar .checkbox input:after, .shoppingcart-footer-bar .checkbox input:after {
   width: 10px;
   height: 5px;
 }
-.all-select{
+
+.all-select {
   vertical-align: middle;
 }
 
-.col.ion-ios-arrow-left{
+.col.ion-ios-arrow-left {
   font-size: 1.8rem !important;
   padding-top: 0;
   padding-left: 0.5rem;
