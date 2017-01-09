@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 //service在使用this指针，而factory直接返回一个对象
-  .service('CommonService', function ($ionicPopup, $ionicPopover, $rootScope, $state, $ionicModal, $cordovaCamera, $cordovaImagePicker, $ionicPlatform, $ionicActionSheet, $ionicHistory, $timeout, $cordovaToast, $cordovaGeolocation, $cordovaBarcodeScanner, $ionicViewSwitcher, $ionicLoading, AccountService, WeiXinService) {
+  .service('CommonService', function ($ionicPopup, $ionicPopover, $rootScope, $state, $ionicModal, $cordovaCamera, $cordovaImagePicker, $ionicPlatform, $ionicActionSheet, $ionicHistory, $timeout, $cordovaToast, $cordovaGeolocation, $cordovaBarcodeScanner, $ionicViewSwitcher, $ionicLoading, AccountService, WeiXinService, EncodingService) {
     return {
       platformPrompt: function (msg, stateurl) {
         if ($ionicPlatform.is('android') || $ionicPlatform.is('ios')) {
@@ -301,9 +301,10 @@ angular.module('starter.services', [])
           });
       },
       isLogin: function (flag) {//判断是否登录
-        if (!localStorage.getItem("usertoken")) {
+        if (!localStorage.getItem("token")) {
           if (flag) {
             $state.go('login');
+            $ionicViewSwitcher.nextDirection("forward");//前进画效果
           } else {
             this.showConfirm('元亨祥', '温馨提示:此功能需要登录才能使用,请先登录', '登录', '关闭', 'login');
             return;
@@ -344,7 +345,22 @@ angular.module('starter.services', [])
           _self.type = null;
         }, 3000);
       },
+      authParams: function (json) { //接口身份认证参数签名加密封装
+        json.mid = localStorage.getItem("mid");//用户id
+        json.token = localStorage.getItem("token");//用户token
+        // 将参数按照参数名ASCII码从小到大排序（字典序）
+        var dicJson = Object.keys(json).sort();
+        //使用URL键值对的格式（即key1=value1&key2=value2…）拼接成字符串
+        var signTemp = ""
+        angular.forEach(dicJson, function (key) {
+          signTemp += key + "=" + json[key] + "&"
+        })
+        console.log(signTemp.substring(0, signTemp.length - 1));
+        json.signature = EncodingService.md5(signTemp.substring(0, signTemp.length - 1));
+        console.log(json);
+        return json;
 
+      },
 
     }
   })
@@ -356,6 +372,20 @@ angular.module('starter.services', [])
         promise = $http({
           method: 'GET',
           url: " http://restapi.amap.com/v3/geocode/regeo",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (data) {
+          deferred.reject(data);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getAdvList: function (params) { //获取首页广告列表
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Adv/getAdvList",
           params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
@@ -442,6 +472,48 @@ angular.module('starter.services', [])
         });
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       },
+      logout: function (params) { //退出登录
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Login/logout",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      resetPassword: function (params) { //重置密码
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Login/resetPassword",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      editPassword: function (params) { //修改密码
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Login/editPassword",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
       countDown: function ($scope) {//60s倒计时
         var second = 60,
           timePromise = undefined;
@@ -466,12 +538,152 @@ angular.module('starter.services', [])
           return false;
         }
       },
+      memberInfo: function (params) { //完善资料增加
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Member/info",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getMemberInfo: function (params) { //获取会员信息
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Member/getMemberInfo",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getAddressList: function (params) { //获取地址列表
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Address/getAddressList",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getAddressInfo: function (params) { //获取地址信息
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Address/getAddressInfo",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getDefaultAddress: function (params) { //获取默认地址
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Address/getDefaultAddress",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      addAddress: function (params) { //添加地址
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Address/addAddress",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      updateAddress: function (params) { //修改地址
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Address/updateAddress",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      deleteAddress: function (params) { //删除地址
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Address/deleteAddress",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      addFeedback: function (params) { //添加反馈
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Feedback/addFeedback",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getConfigInfo: function (params) { //获取配置信息
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Config/getConfigInfo",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
       addFilenames: function ($scope, params, imageUrl) {//上传附件
         AccountService = this;
         //图片上传upImage（图片路径）
         //http://ngcordova.com/docs/plugins/fileTransfer/  资料地址
 
-        var url = YuanHenXiang.api + "/UploadImg/Add/" + params.filenames;//Filenames:上传附件根目录文件夹名称发货，签收，验货统一用Receipt这个名称  会员头像用User这个名称
+        var url = YuanHenXiang.api + "/Upload/uploadImage/" + params.filenames;//Filenames:上传附件根目录文件夹名称发货，签收，验货统一用Receipt这个名称  会员头像用User这个名称
         var options = {
           fileKey: "file",//相当于form表单项的name属性
           fileName: imageUrl.substr(imageUrl.lastIndexOf('/') + 1),

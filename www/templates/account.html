@@ -8,14 +8,14 @@
     <h1 class="title">用户中心</h1>
   </ion-nav-title>
   <ion-content overflow-scroll="false" class="stable-bg account " has-bouncing="true">
-    <div class="row row-center account-top-bg    userinfo">
+    <div class="row row-center account-top-bg    userinfo ">
       <div class="col-20 padding-left">
         <img ng-src="img/account/header.png" alt=""/>
       </div>
       <div class="col-60 userinfo-details">
         <strong class="light">黄晓敏 <i>一级会员</i></span>
         </strong>
-        <p><span ui-sref="myincome">余额 : 3650.00</span></p>
+        <p><span ui-sref="myincome">余额 : 0.00</span></p>
       </div>
       <div class="col-20">
         <a ng-href="#/myntegral" nav-direction=forward class="light subdued">领取积分 <i
@@ -84,7 +84,7 @@
     </div>
     <p class="padding-top"></p>
     <div class="padding">
-      <a ng-href="#/login" nav-direction=forward class="button button-positive full-image ">退出登录</a>
+      <a ng-click="logout()" nav-direction=forward class="button button-positive full-image ">退出登录</a>
     </div>
   </ion-content>
 </ion-view>
