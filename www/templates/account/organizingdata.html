@@ -35,7 +35,7 @@
         </label>
         <label class="item item-input " ng-click="openModal()">
           <span class="input-label" > 地址 </span>
-          <input type="text" placeholder="选择地区信息" ng-model="addresspcd">
+          <p class="{{addresspcd?'dark':'grey'}}"  >{{addresspcd?addresspcd:"选择地区信息"}}</p>
         </label>
         <label class="item item-input ">
           <span class="input-label"> 详细地址 </span>
