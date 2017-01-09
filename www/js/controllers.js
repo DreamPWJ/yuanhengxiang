@@ -67,10 +67,9 @@ angular.module('starter.controllers', [])
   })
 
   //登录页面
-  .controller('LoginCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService) {
+  .controller('LoginCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService,$cordovaDevice) {
     $scope.user = {};//定义用户对象
     $scope.loginSubmit = function () {
-
       if (ionic.Platform.isWebView()) { //获取设备UUID
         $scope.user.udid = $cordovaDevice.getUUID();
       } else {
