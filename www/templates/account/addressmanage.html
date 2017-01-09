@@ -9,15 +9,15 @@
   <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="addressmanage">
     <ion-list class="list-borderless">
       <ion-item>
-        <h2 class="text-center"><a ng-href="#/addaddress" class="grey subdued"><i class="icon ion-compose"></i> 添加新地址</a></h2>
+        <h2 class="text-center"><a ng-href="#/addaddress/0" class="grey subdued"><i class="icon ion-compose"></i> 添加新地址</a></h2>
       </ion-item>
       <p></p>
       <div ng-repeat="item in addresslist">
         <ion-item >
           <div class="row"><i class="col-10 icon ion-disc " ng-class="{false:'grey',true:'positive'}[selectindex==$index]" ></i>
-            <p ng-click="selectAddress($index)" class="padding-right"> {{item.province + item.city + item.area +item.address}}</p>
-            <a ng-href="#/addaddress"  class="col-10 grey  icon ion-ios-compose-outline text-center"></a>
-            <a ng-click="deleteAddress($index)" class=" col-10 icon ion-ios-trash-outline grey text-center"></a>
+            <p ng-click="selectAddress($index)" class="padding-right col-70"> {{item.province + item.city + item.area +item.address}}</p>
+            <a ng-href="#/addaddress/{{item.id}}"  class="col-10 grey  icon ion-ios-compose-outline text-center"></a>
+            <a ng-click="deleteAddress(item.id,$index)" class=" col-10 icon ion-ios-trash-outline grey text-center"></a>
           </div>
         </ion-item>
         <p></p>

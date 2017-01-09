@@ -429,17 +429,35 @@ angular.module('starter.controllers', [])
       $scope.selectindex = index;
     }
     //删除选择的地址
-    $scope.deleteAddress = function (index) {
-      $scope.addresslist.splice(index, 1)
+    $scope.deleteAddress = function (id, index) {
+      AccountService.deleteAddress(CommonService.authParams({id: id})).success(function (data) {
+        if (data.status == 1) {
+          $scope.addresslist.splice(index, 1)
+        }
+        CommonService.platformPrompt(data.info, 'close');
+      })
+
     }
 
   })
 
   //添加地址页面
-  .controller('AddAddressCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, YuanHenXiang, $ionicScrollDelegate) {
+  .controller('AddAddressCtrl', function ($scope, $rootScope, $state, $stateParams, CommonService, AccountService, YuanHenXiang, $ionicScrollDelegate) {
     CommonService.customModal($scope, 'templates/modal/addressmodal.html');
     //地址信息
     $scope.addrinfo = {};
+    //修改地址时候获取用户地址信息
+    if ($stateParams.id != 0) {
+      AccountService.getAddressInfo(CommonService.authParams({id: $stateParams.id})).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.addrinfo = data.data.info;
+          $scope.addrinfo.tel = Number(data.data.info.tel);
+          $scope.addrinfo.email = Number(data.data.info.email);
+          $scope.addresspcd = $scope.addrinfo.province + $scope.addrinfo.city + $scope.addrinfo.area;
+        }
+      })
+    }
     //获取省市县
     $scope.getAddressPCCList = function (adcode) {
       if (isNaN(adcode) && adcode) {
@@ -454,7 +472,6 @@ angular.module('starter.controllers', [])
         showbiz: false
       }).success(function (data) {
         $scope.addressinfo = data.districts[0].districts;
-        console.log(data);
         $scope.level = data.districts[0].level;
         if ($scope.level == "province") {
           $scope.addrinfo.province = data.districts[0].name;
@@ -475,21 +492,63 @@ angular.module('starter.controllers', [])
 
     //保存地址
     $scope.addressSave = function () {
-      console.log($scope.addrinfo);
-      AccountService.addAddress(CommonService.authParams($scope.addrinfo)).success(function (data) {
-        console.log(data);
-        if (data.status == 1) {
-          $scope.go("addressmanage");
-        }
-        CommonService.platformPrompt(data.info, 'close');
-      })
+      if ($stateParams.id == 0) { //增加方法
+        AccountService.addAddress(CommonService.authParams($scope.addrinfo)).success(function (data) {
+          if (data.status == 1) {
+            $state.go("addressmanage");
+          }
+          CommonService.platformPrompt(data.info, 'close');
+        })
+      } else {//修改方法
+        AccountService.updateAddress(CommonService.authParams($scope.addrinfo)).success(function (data) {
+          if (data.status == 1) {
+            $state.go("addressmanage");
+          }
+          CommonService.platformPrompt(data.info, 'close');
+        })
+      }
     }
+
 
   })
   //完善资料页面
-  .controller('OrganizingDataCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+  .controller('OrganizingDataCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, YuanHenXiang, $ionicScrollDelegate) {
     //用户信息
     $scope.userinfo = {};
+    CommonService.customModal($scope, 'templates/modal/addressmodal.html');
+    //地址信息
+    $scope.addrinfo = {};
+    //获取省市县
+    $scope.getAddressPCCList = function (adcode) {
+      if (isNaN(adcode) && adcode) {
+        $scope.addresspcd = $scope.addrinfo.province + $scope.addrinfo.city + $scope.addrinfo.area;
+        $scope.addrinfo.address = adcode;
+        $scope.modal.hide();
+        return;
+      }
+      AccountService.getDistrict({
+        key: YuanHenXiang.gaoDeKey,
+        keywords: adcode || "",
+        showbiz: false
+      }).success(function (data) {
+        $scope.addressinfo = data.districts[0].districts;
+        $scope.level = data.districts[0].level;
+        if ($scope.level == "province") {
+          $scope.addrinfo.province = data.districts[0].name;
+        } else if ($scope.level == "city") {
+          $scope.addrinfo.city = data.districts[0].name;
+        } else if ($scope.level == "district") {
+          $scope.addrinfo.area = data.districts[0].name;
+        }
+        $ionicScrollDelegate.scrollTop()
+      }).error(function () {
+        CommonService.platformPrompt("获取添加地址省市县失败", 'close');
+      })
+    }
+    $scope.openModal = function () {
+      $scope.modal.show();
+      $scope.getAddressPCCList();
+    }
     //完善资料保存
     $scope.organizingdataSave = function () {
       AccountService.memberInfo().success(function (data) {

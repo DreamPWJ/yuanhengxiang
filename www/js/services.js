@@ -354,7 +354,7 @@ angular.module('starter.services', [])
         //使用URL键值对的格式（即key1=value1&key2=value2…）拼接成字符串
         var signTemp = ""
         angular.forEach(dicJson, function (key) {
-          signTemp += key + "=" + json[key] + "&"
+          signTemp += key + "=" + encodeURIComponent(json[key]) + "&"
         })
         signTemp = (signTemp.substring(0, signTemp.length - 1)) + "tkm";
         json.signature = EncodingService.md5(signTemp);

@@ -10,48 +10,35 @@
     <form name="organizingdata">
       <ion-list>
         <label class="item item-input ">
-          <span class="input-label"> 姓名 :</span>
+          <span class="input-label"> 姓名 </span>
           <input type="text" ng-model="userinfo.username" placeholder="请输入姓名" required>
         </label>
         <label class="item item-input ">
-          <span class="input-label"> 宝宝姓名 :</span>
+          <span class="input-label"> 宝宝姓名 </span>
           <input type="text" ng-model="userinfo.baousername" placeholder="请输入宝宝姓名">
         </label>
         <div class="item ">
           <div class="row row-no-padding row-center radio">
-            <span class="input-label col-30"> 性别 :</span>
+            <span class="input-label col-30"> 性别 </span>
             <label class="col-25"><input type="radio" name="sex" value="1"/> <i class=" icon ion-disc"></i> 男生</label>
             <label class="col-25"><input type="radio" name="sex" value="2"/> <i class=" icon ion-disc"></i> 女生</label>
           </div>
         </div>
         <label class="item item-input ">
-          <span class="input-label"> 出生日期 :</span>
+          <span class="input-label"> 出生日期 </span>
           <input type="date" ng-model="userinfo.birthday" placeholder="请选择出生日期">
         </label>
-        <label class="item item-input ">
-          <span class="input-label" style="width: 22%!important;"> 地址 :</span>
-          <span class="row row-no-padding row-horizontal-around" style="width: 78%;">
-       <select ng-model="userinfo.province" class="col-30 padding no-border light-bg" required>
-            <option ng-selected="true">省</option>
-           <option>广东省</option>
-          </select>
-                 <select ng-model="userinfo.city" class="col-30 no-border light-bg" required>
-            <option ng-selected="true">市</option>
-             <option>深圳</option>
-          </select>
-                 <select ng-model="userinfo.county" class="col-30 no-border light-bg" required>
-            <option ng-selected="true">区/县</option>
-             <option>南山区</option>
-          </select>
-        </span>
+        <label class="item item-input " ng-click="openModal()">
+          <span class="input-label" > 地址 </span>
+          <input type="text" placeholder="选择地区信息" ng-model="addresspcd">
         </label>
         <label class="item item-input ">
-          <span class="input-label"> 详细地址 :</span>
+          <span class="input-label"> 详细地址 </span>
           <textarea class="col-60" rows="1" ng-model="userinfo.addr" placeholder="请输入详细地址" required></textarea>
         </label>
 
         <label class="item item-input ">
-          <span class="input-label"> 身份证 :</span>
+          <span class="input-label"> 身份证 </span>
           <input type="number" placeholder="请输入身份证号码" check-form
                  ng-blur="checkForm(userinfo.identitycard,'身份证输入错误','identitycard','')"
                  ng-model="userinfo.identitycard">

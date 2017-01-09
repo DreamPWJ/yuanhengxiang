@@ -300,7 +300,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
       //添加地址页面
       .state('addaddress', {
-        url: '/addaddress',
+        url: '/addaddress/:id',
         cache:false,
         templateUrl: 'templates/account/addaddress.html',
         controller: 'AddAddressCtrl'
