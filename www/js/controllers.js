@@ -189,7 +189,7 @@ angular.module('starter.controllers', [])
     }
     // 计算总价
     var getTotal = function () {
-      $scope.shoppingcar.totalPrice = 0.00;
+      $scope.shoppingcar.totalPrice = 0;
       $scope.shoppingcar.totalnum = 0;
       angular.forEach($scope.shoppingcartdata, function (item, index) {
         if (item.checked) {//选中的购物商品
@@ -395,7 +395,7 @@ angular.module('starter.controllers', [])
   .controller('HelpFeedbackCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
     $scope.helpinfo = {};//定义对象
     $scope.helpfeedbackSubmit = function () {
-      AccountService.addFeedback(CommonService.authParams({content: encodeURIComponent($scope.helpinfo.content)})).success(function (data) {
+      AccountService.addFeedback(CommonService.authParams({content: $scope.helpinfo.content})).success(function (data) {
         console.log(data);
         if (data.status == 1) {
           $state.go("tab.account");
