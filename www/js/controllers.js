@@ -7,7 +7,7 @@ angular.module('starter.controllers', [])
     $httpProvider.defaults.transformRequest = function (obj) {
       var str = [];
       for (var p in obj) {
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]))
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p])) //encodeURIComponent保证数据传输的准确性以及防止Url注入带来的跨站点攻击
       }
       return str.join("&")
     }
@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
 
 
   //APP首页面
-  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, $timeout,WeiXinService,YuanHenXiang,$ionicSlideBoxDelegate, $ionicScrollDelegate) {
+  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, $timeout, WeiXinService, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     /*    WeiXinService.getweixinPayData().success(function (data) {
      WeiXinService.weixinPay(data);
      })*/
@@ -41,9 +41,9 @@ angular.module('starter.controllers', [])
         }
       })
     });
-    MainService.getAdvList(CommonService.authParams({code:"index_banner"})).success(function (data) {
+    MainService.getAdvList(CommonService.authParams({code: "index_banner"})).success(function (data) {
       if (data.status == 1) {
-        $scope.banner=data.data.lists;
+        $scope.banner = data.data.lists;
         //ng-repeat遍历生成一个个slide块的时候，执行完成页面是空白的 手动在渲染之后更新一下，在控制器注入$ionicSlideBoxDelegate，然后渲染数据之后
         $timeout(function () {
           $ionicSlideBoxDelegate.$getByHandle("slideboximgs").update();
@@ -237,12 +237,13 @@ angular.module('starter.controllers', [])
     };
     CommonService.isLogin(true);//判断是否登录
     //获取会员信息
-       AccountService.getMemberInfo(CommonService.authParams({})).success(function (data) {
-         console.log(data);
-         if (data.status == 1) {
+    var params = {};
+    AccountService.getMemberInfo(CommonService.authParams(params)).success(function (data) {
+      console.log(data);
+      if (data.status == 1) {
 
-     }
-     })
+      }
+    })
     //退出登录清除缓存
     $scope.logout = function () {
       AccountService.logout({mid: localStorage.getItem("mid")}).success(function (data) {
@@ -393,11 +394,12 @@ angular.module('starter.controllers', [])
 
   //反馈建议页面
   .controller('HelpFeedbackCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
-    $scope.helpfeedback = {};//定义对象
+    $scope.helpinfo = {};//定义对象
     $scope.helpfeedbackSubmit = function () {
-      AccountService.addFeedback($scope.helpfeedback).success(function (data) {
+      AccountService.addFeedback(CommonService.authParams({content: encodeURIComponent($scope.helpinfo.content)})).success(function (data) {
+        console.log(data);
         if (data.status == 1) {
-
+          $state.go("tab.account");
         }
         CommonService.platformPrompt(data.info, 'close');
       }).error(function () {
@@ -410,10 +412,11 @@ angular.module('starter.controllers', [])
   .controller('AddressManageCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
     //$scope.addresslist = ['广东省 深圳市 南山区 高薪科技园北区 深南小巷', '广东省 深圳市 南山区2 高薪科技园北区 深南小巷', '广东省 深圳市 南山区3 高薪科技园北区 深南小巷']
     $scope.getAddressList = function () {
-      AccountService.getAddressList(CommonService.authParams({})).success(function (data) {
+      var params = {};
+      AccountService.getAddressList(CommonService.authParams(params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-          $scope.addresslist=data.data.lists;
+          $scope.addresslist = data.data.lists;
         }
       }).error(function () {
         CommonService.platformPrompt("获取地址管理列表失败", 'close');
@@ -433,23 +436,50 @@ angular.module('starter.controllers', [])
   })
 
   //添加地址页面
-  .controller('AddAddressCtrl', function ($scope, $rootScope, $state, CommonService, AccountService,YuanHenXiang) {
+  .controller('AddAddressCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, YuanHenXiang, $ionicScrollDelegate) {
+    CommonService.customModal($scope, 'templates/modal/addressmodal.html');
     //地址信息
     $scope.addrinfo = {};
     //获取省市县
-    $scope.getAddressPCCList = function () {
-      AccountService.getDistrict({key:YuanHenXiang.gaoDeKey}).success(function (data) {
+    $scope.getAddressPCCList = function (adcode) {
+      if (isNaN(adcode) && adcode) {
+        $scope.addresspcd = $scope.addrinfo.province + $scope.addrinfo.city + $scope.addrinfo.area;
+        $scope.addrinfo.address = adcode;
+        $scope.modal.hide();
+        return;
+      }
+      AccountService.getDistrict({
+        key: YuanHenXiang.gaoDeKey,
+        keywords: adcode || "",
+        showbiz: false
+      }).success(function (data) {
+        $scope.addressinfo = data.districts[0].districts;
         console.log(data);
+        $scope.level = data.districts[0].level;
+        if ($scope.level == "province") {
+          $scope.addrinfo.province = data.districts[0].name;
+        } else if ($scope.level == "city") {
+          $scope.addrinfo.city = data.districts[0].name;
+        } else if ($scope.level == "district") {
+          $scope.addrinfo.area = data.districts[0].name;
+        }
+        $ionicScrollDelegate.scrollTop()
       }).error(function () {
         CommonService.platformPrompt("获取添加地址省市县失败", 'close');
       })
     }
-    $scope.getAddressPCCList();
+    $scope.openModal = function () {
+      $scope.modal.show();
+      $scope.getAddressPCCList();
+    }
+
     //保存地址
     $scope.addressSave = function () {
-      AccountService.addAddress().success(function (data) {
+      console.log($scope.addrinfo);
+      AccountService.addAddress(CommonService.authParams($scope.addrinfo)).success(function (data) {
+        console.log(data);
         if (data.status == 1) {
-
+          $scope.go("addressmanage");
         }
         CommonService.platformPrompt(data.info, 'close');
       })
@@ -516,7 +546,7 @@ angular.module('starter.controllers', [])
     AccountService.getConfigInfo().success(function (data) {
       console.log(data);
       if (data.status == 1) {
-        $scope.info=data.data.info;
+        $scope.info = data.data.info;
       }
     })
   })

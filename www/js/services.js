@@ -63,29 +63,30 @@ angular.module('starter.services', [])
         });
       },
 
-      customModal: function ($scope, templateurl) { //自定义modal
+      customModal: function ($scope, templateurl, index, animation) { //自定义modal ndex页面出现多个模态框的情况 进行命名区别 index 可以为1.2.3.   animation动画slide-in-left slide-in-right
+        index = index == undefined ? "" : index;
         $ionicModal.fromTemplateUrl(templateurl, {
           scope: $scope,
           animation: 'slide-in-up'
         }).then(function (modal) {
-          $scope.modal = modal;
+          $scope["modal" + index] = modal;
         });
         $scope.openModal = function () {
-          $scope.modal.show();
+          $scope["modal" + index].show();
         };
         $scope.closeModal = function () {
-          $scope.modal.hide();
+          $scope["modal" + index].hide();
         };
         //当我们用到模型时，清除它！
         $scope.$on('$destroy', function () {
-          $scope.modal.remove();
+          $scope["modal" + index].remove();
         });
         // 当隐藏的模型时执行动作
-        $scope.$on('modal.hide', function () {
+        $scope.$on('modal' + index + '.hide', function () {
           // 执行动作
         });
         // 当移动模型时执行动作
-        $scope.$on('modal.removed', function () {
+        $scope.$on('modal' + index + '.removed', function () {
           // 执行动作
         });
       }

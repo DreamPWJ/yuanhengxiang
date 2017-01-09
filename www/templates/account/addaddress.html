@@ -10,45 +10,32 @@
     <form name="addaddress">
       <ion-list>
         <label class="item item-input ">
-          <span class="input-label"> 收货人 :</span>
-          <input type="text" ng-model="addrinfo.username" placeholder="请输入收货人" required>
+          <span class="input-label"> 收货人 </span>
+          <input type="text" ng-model="addrinfo.consignee" placeholder="请输入收货人" required>
         </label>
         <label class="item item-input ">
-          <span class="input-label"> 手机号 :</span>
+          <span class="input-label"> 手机号 </span>
           <input type="number" placeholder="请输入手机号码" check-form
-                 ng-blur="checkForm(addrinfo.mobile,'手机号输入错误','mobilephone','')" ng-model="addrinfo.mobile" required>
+                 ng-blur="checkForm(addrinfo.tel,'手机号输入错误','mobilephone','')" ng-model="addrinfo.tel" required>
         </label>
 
         <label class="item item-input ">
-          <span class="input-label"> 邮箱 :</span>
+          <span class="input-label"> 邮箱 </span>
           <input type="email" placeholder="请输入邮箱" check-form ng-blur="checkForm(addrinfo.email,'邮箱输入错误','email','')"
                  ng-model="addrinfo.email" required>
         </label>
 
-        <label class="item item-input ">
-          <span class="input-label" style="width: 22%!important;"> 地址 :</span>
-          <span class="row row-no-padding row-horizontal-around" style="width: 78%;">
-       <select ng-model="addrinfo.province" class="col-30 padding no-border light-bg" required>
-            <option ng-selected="true">省</option>
-           <option>广东省</option>
-          </select>
-                 <select ng-model="addrinfo.city" class="col-30 no-border light-bg" required>
-            <option ng-selected="true">市</option>
-             <option>深圳</option>
-          </select>
-                 <select ng-model="addrinfo.county" class="col-30 no-border light-bg" required>
-            <option ng-selected="true">区/县</option>
-             <option>南山区</option>
-          </select>
-        </span>
+        <label class="item item-input " ng-click="openModal()">
+          <span class="input-label"> 地址 </span>
+          <input type="text" placeholder="选择地区信息" ng-model="addresspcd">
         </label>
         <label class="item item-input ">
-          <span class="input-label"> 详细地址 :</span>
-          <textarea class="col-60" rows="1" ng-model="addrinfo.addr" placeholder="请输入详细地址" required></textarea>
+          <span class="input-label"> 详细地址 </span>
+          <textarea class="col-60" rows="1" ng-model="addrinfo.address" placeholder="请输入详细地址" required></textarea>
         </label>
       </ion-list>
       <div class="padding">
-        <button class="button button-positive full-image" ng-disabled="!addaddress.$valid" ng-click="addressSave()">
+        <button class="button button-positive full-image" ng-disabled="!(addaddress.$valid&&verify)" ng-click="addressSave()">
           确认保存
         </button>
       </div>
