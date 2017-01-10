@@ -4,6 +4,8 @@
 }
 
 .userinfo img {
+  width: 4rem;
+  height: 4rem;
   border: 3px solid rgba(255, 147, 188, 0.6);
   border-radius: 0.5rem;
 }

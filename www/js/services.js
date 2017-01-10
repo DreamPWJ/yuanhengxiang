@@ -697,7 +697,7 @@ angular.module('starter.services', [])
         //图片上传upImage（图片路径）
         //http://ngcordova.com/docs/plugins/fileTransfer/  资料地址
 
-        var url = YuanHenXiang.api + "/Upload/uploadImage" ;//上传服务器地址
+        var url = YuanHenXiang.api + "/Upload/uploadImage";//上传服务器地址
         var options = {
           fileKey: "image",//相当于form表单项的name属性
           fileName: imageUrl.substr(imageUrl.lastIndexOf('/') + 1),
@@ -705,14 +705,14 @@ angular.module('starter.services', [])
         };
         $cordovaFileTransfer.upload(url, imageUrl, CommonService.authParams(options))
           .then(function (result) {
-            $scope.ImgsPicAddr.push(JSON.parse(result.response).url);
+            $scope.imgsPicAddr.push(JSON.parse(result.response).url);
             $scope.imageSuccessCount++;
             if ($scope.imageSuccessCount == $scope.imageUploadCount) {
-              $cordovaToast.showLongCenter("上传成功");
+              $cordovaToast.showLongCenter("上传图片成功");
             }
             console.log("success=" + result.response);
           }, function (err) {
-            $cordovaToast.showLongCenter("上传失败");
+            $cordovaToast.showLongCenter("上传图片失败");
             $scope.imageList.splice(imageUrl, 1);//删除失败以后不显示
             console.log("err=" + err.response);
           }, function (progress) {

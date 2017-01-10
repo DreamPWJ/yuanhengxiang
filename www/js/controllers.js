@@ -218,11 +218,9 @@ angular.module('starter.controllers', [])
       AccountService.getDefaultAddress(CommonService.authParams({mid: localStorage.getItem("mid")})).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-          $scope.deliveryAddress = data.data.info;
+          $rootScope.deliveryAddress = data.data.info;
         }
-
       })
-
     }
     $scope.getDefaultAddress();
   })
@@ -252,7 +250,8 @@ angular.module('starter.controllers', [])
     AccountService.getMemberInfo(CommonService.authParams(params)).success(function (data) {
       console.log(data);
       if (data.status == 1) {
-
+        $scope.userinfo = data.data.info;
+        localStorage.setItem("userinfo", data.data.info);
       }
     })
     //退出登录清除缓存
@@ -299,7 +298,7 @@ angular.module('starter.controllers', [])
       }
     }
     $scope.registerSubmit = function () {
-      if($scope.verify !=$scope.user.verify){
+      if ($scope.verify != $scope.user.verify) {
         CommonService.platformPrompt("输入验证码不正确", 'close');
         return;
       }
@@ -357,7 +356,7 @@ angular.module('starter.controllers', [])
         CommonService.platformPrompt("两次输入密码不一致", 'close');
         return;
       }
-      if($scope.verify !=$scope.user.verify){
+      if ($scope.verify != $scope.user.verify) {
         CommonService.platformPrompt("输入验证码不正确", 'close');
         return;
       }
@@ -401,7 +400,7 @@ angular.module('starter.controllers', [])
         CommonService.platformPrompt("两次输入密码不一致", 'close');
         return;
       }
-      if($scope.verify !=$scope.user.verify){
+      if ($scope.verify != $scope.user.verify) {
         CommonService.platformPrompt("输入验证码不正确", 'close');
         return;
       }
@@ -439,13 +438,13 @@ angular.module('starter.controllers', [])
   })
 
   //地址管理页面
-  .controller('AddressManageCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+  .controller('AddressManageCtrl', function ($scope, $rootScope, $state, $ionicHistory, CommonService, AccountService) {
     $scope.getAddressList = function () {
       var params = {};
       AccountService.getAddressList(CommonService.authParams(params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-          $scope.addresslist = data.data.lists;
+          $rootScope.addresslist = data.data.lists;
         }
       }).error(function () {
         CommonService.platformPrompt("获取地址管理列表失败", 'close');
@@ -453,9 +452,11 @@ angular.module('starter.controllers', [])
     }
     $scope.getAddressList()
     //选中地址编辑地址
-    $scope.selectAddress = function (index) {
+    $scope.selectAddress = function (index, item) {
       //选中第几个数组
       $scope.selectindex = index;
+      $rootScope.deliveryAddress = item;
+      $ionicHistory.goBack();
     }
     //删除选择的地址
     $scope.deleteAddress = function (id, index) {
@@ -545,13 +546,12 @@ angular.module('starter.controllers', [])
     //用户信息
     $scope.userinfo = {};
     CommonService.customModal($scope, 'templates/modal/addressmodal.html');
-    //地址信息
-    $scope.addrinfo = {};
+
     //获取省市县
     $scope.getAddressPCCList = function (adcode) {
       if (isNaN(adcode) && adcode) {
-        $scope.addresspcd = $scope.addrinfo.province + $scope.addrinfo.city + $scope.addrinfo.area;
-        $scope.addrinfo.address = adcode;
+        $scope.addresspcd = $scope.userinfo.province + $scope.userinfo.city + $scope.userinfo.area;
+        $scope.userinfo.address = adcode;
         $scope.modal.hide();
         return;
       }
@@ -563,11 +563,11 @@ angular.module('starter.controllers', [])
         $scope.addressinfo = data.districts[0].districts;
         $scope.level = data.districts[0].level;
         if ($scope.level == "province") {
-          $scope.addrinfo.province = data.districts[0].name;
+          $scope.userinfo.province = data.districts[0].name;
         } else if ($scope.level == "city") {
-          $scope.addrinfo.city = data.districts[0].name;
+          $scope.userinfo.city = data.districts[0].name;
         } else if ($scope.level == "district") {
-          $scope.addrinfo.area = data.districts[0].name;
+          $scope.userinfo.area = data.districts[0].name;
         }
         $ionicScrollDelegate.scrollTop()
       }).error(function () {
@@ -578,11 +578,15 @@ angular.module('starter.controllers', [])
       $scope.modal.show();
       $scope.getAddressPCCList();
     }
+
+    $scope.userinfo.head_img = $rootScope.headurl;//头像图片存储返回的url
     //完善资料保存
     $scope.organizingdataSave = function () {
-      AccountService.memberInfo().success(function (data) {
+      var date = $scope.userinfo.birthday;
+      $scope.userinfo.birthday = (new Date(date.setDate(date.getDate() + 1))).toISOString().slice(0, 10);
+      AccountService.memberInfo(CommonService.authParams($scope.userinfo)).success(function (data) {
         if (data.status == 1) {
-
+          $state.go("tab.account")
         }
         CommonService.platformPrompt(data.info, 'close');
       })
@@ -663,12 +667,13 @@ angular.module('starter.controllers', [])
 
   })
   //上传头像
-  .controller('UploadHeadCtrl', function ($scope, CommonService) {
-    //上传图片数组集合
-    $scope.imageList = [];
+  .controller('UploadHeadCtrl', function ($scope, $rootScope, CommonService) {
+    $scope.imgsPicAddr = [];//图片信息数组
+    $scope.imageList = [];  //上传图片数组集合
     $scope.uploadActionSheet = function () {
       CommonService.uploadActionSheet($scope, "upload");
     }
+    $rootScope.headurl = $scope.imgsPicAddr;
   })
   //评价
   .controller('EvaluateCtrl', function ($scope, CommonService) {

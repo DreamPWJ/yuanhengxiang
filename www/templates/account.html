@@ -10,12 +10,12 @@
   <ion-content overflow-scroll="false" class="stable-bg account " has-bouncing="true">
     <div class="row row-center account-top-bg    userinfo ">
       <div class="col-20 padding-left">
-        <img ng-src="img/account/header.png" alt=""/>
+        <img ng-src="{{userinfo.url}}" onerror="this.src='img/head.jpg'" alt=""/>
       </div>
       <div class="col-60 userinfo-details">
-        <strong class="light">黄晓敏 <i>一级会员</i></span>
+        <strong class="light">{{userinfo.name}} <i>{{userinfo.level}} 级会员</i></span>
         </strong>
-        <p><span ui-sref="myincome">余额 : 0.00</span></p>
+        <p><span ui-sref="myincome">余额 : {{userinfo.balance}}</span></p>
       </div>
       <div class="col-20">
         <a ng-href="#/myntegral" nav-direction=forward class="light subdued">领取积分 <i
