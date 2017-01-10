@@ -260,3 +260,7 @@
   top: 50%;
   bottom: 0;
 }
+#paymodal .ion-ios-arrow-left{
+  font-size: 1.6rem;
+  margin-left: 0.6rem;
+}
