@@ -1,0 +1,33 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button button-clear ion-ios-arrow-left" ng-click="$ionicGoBack()">
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">评价</h1>
+  </ion-nav-title>
+  <form name="evaluate">
+    <ion-content overflow-scroll="false" class="has-button-footer stable-bg" has-bouncing="true">
+      <div class="list  list-borderless">
+        <a ng-href="" class="item item-thumbnail-left ">
+          <img ng-src="img/main/1.png" class="border-radius-50" alt="">
+          <h2 class="padding-top">描述相符</h2>
+          <p>
+            <i ng-class="{true:'positive',false:'grey'}[true]" class="icon ion-star"></i>
+            <i ng-class="{true:'positive',false:'grey'}[true]" class="icon ion-star"></i>
+            <i ng-class="{true:'positive',false:'grey'}[true]" class="icon ion-star "></i>
+            <i ng-class="{true:'positive',false:'grey'}[true]" class="icon ion-star "></i>
+            <i ng-class="{true:'positive',false:'grey'}[true]" class="icon ion-star "></i></p>
+        </a>
+        <p></p>
+        <label class="item item-input card item-borderless">
+          <textarea rows="5" ng-model="evaluateinfo.Memo" placeholder="分享您的购买新的" ng-maxlength="300" required></textarea>
+        </label>
+      </div>
+      <div class="padding-right text-right positive"><i class="icon ion-ios-camera" style="font-size: 3rem"></i></div>
+    </ion-content>
+    <div class="padding light-bg bottom-0" keyboard-attach>
+      <a class="button button-positive  full-image" ng-disabled="!evaluate.$valid" ng-click="submitevalute()">提交评价</a>
+    </div>
+  </form>
+</ion-view>

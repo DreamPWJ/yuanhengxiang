@@ -59,7 +59,7 @@
 }
 
 .shoppingcart-list input[type='number'] {
-  padding-top: 0.5rem!important;
+  padding-top: 0.5rem !important;
 }
 
 .col.ion-ios-arrow-back {
@@ -150,7 +150,7 @@
   border-left: 1px solid rgba(221, 221, 221, 0.5);
 }
 
-.radio-icon.ion-checkmark {
+.radio-icon {
   color: #FF93BC;
 }
 
@@ -249,10 +249,16 @@
   width: 10px;
   height: 5px;
 }
-.shoppingcart-footer-bar strong{
-  font-size: 1.2rem!important;
+
+.shoppingcart-footer-bar {
+  background-image: none;
+}
+
+.shoppingcart-footer-bar strong {
+  font-size: 1.2rem !important;
   font-weight: 400;
 }
+
 .all-select {
   vertical-align: middle;
 }

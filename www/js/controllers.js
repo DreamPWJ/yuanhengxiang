@@ -217,7 +217,7 @@ angular.module('starter.controllers', [])
       AccountService.getDefaultAddress(CommonService.authParams({mid: localStorage.getItem("mid")})).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-
+          $scope.deliveryAddress=data.data.info;
         }
 
       })
@@ -228,6 +228,7 @@ angular.module('starter.controllers', [])
 
   //我的订单
   .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService, $ionicSlideBoxDelegate) {
+    CommonService.customModal($scope, 'templates/modal/paymodal.html');
     $scope.tabIndex = 0;//当前tabs页
     $scope.slideChanged = function (index) {
       $scope.tabIndex = index;
@@ -650,7 +651,13 @@ angular.module('starter.controllers', [])
   })
   //上传头像
   .controller('UploadHeadCtrl', function ($scope, CommonService) {
+    //上传图片数组集合
+    $scope.imageList = [];
     $scope.uploadActionSheet = function () {
-      CommonService.uploadActionSheet("upload");
+      CommonService.uploadActionSheet($scope,"upload");
     }
+  })
+  //评价
+  .controller('EvaluateCtrl', function ($scope, CommonService) {
+
   })

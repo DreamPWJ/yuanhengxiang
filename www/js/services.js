@@ -5,7 +5,7 @@ angular.module('starter.services', [])
       platformPrompt: function (msg, stateurl) {
         if ($ionicPlatform.is('android') || $ionicPlatform.is('ios')) {
           try {
-            $cordovaToast.showLongCenter(msg);
+            $cordovaToast.showLongBottom(msg);
           } catch (e) {
             this.showAlert("元亨祥", msg, stateurl);
           }
@@ -247,7 +247,7 @@ angular.module('starter.services', [])
             }
 
           }, function (error) {
-            $cordovaToast.showLongCenter('获取图片失败');
+            $cordovaToast.showLongBottom('获取图片失败');
           });
         }
         if (type == 1) {  //拍照
@@ -272,7 +272,7 @@ angular.module('starter.services', [])
 
           }, function (err) {
             // An error occured. Show a message to the user
-            $cordovaToast.showLongCenter('获取照片失败');
+            $cordovaToast.showLongBottom('获取照片失败');
 
           });
         }
@@ -693,26 +693,26 @@ angular.module('starter.services', [])
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       },
       addFilenames: function ($scope, params, imageUrl) {//上传附件
-        AccountService = this;
+        CommonService = this;
         //图片上传upImage（图片路径）
         //http://ngcordova.com/docs/plugins/fileTransfer/  资料地址
 
-        var url = YuanHenXiang.api + "/Upload/uploadImage/" + params.filenames;//Filenames:上传附件根目录文件夹名称发货，签收，验货统一用Receipt这个名称  会员头像用User这个名称
+        var url = YuanHenXiang.api + "/Upload/uploadImage" ;//上传服务器地址
         var options = {
-          fileKey: "file",//相当于form表单项的name属性
+          fileKey: "image",//相当于form表单项的name属性
           fileName: imageUrl.substr(imageUrl.lastIndexOf('/') + 1),
           mimeType: "image/jpeg"
         };
-        $cordovaFileTransfer.upload(url, imageUrl, options)
+        $cordovaFileTransfer.upload(url, imageUrl, CommonService.authParams(options))
           .then(function (result) {
-            $scope.ImgsPicAddr.push(JSON.parse(result.response).Des);
+            $scope.ImgsPicAddr.push(JSON.parse(result.response).url);
             $scope.imageSuccessCount++;
             if ($scope.imageSuccessCount == $scope.imageUploadCount) {
-              $cordovaToast.showLongCenter("上传成功");
+              $cordovaToast.showLongBottom("上传成功");
             }
             console.log("success=" + result.response);
           }, function (err) {
-            $cordovaToast.showLongCenter("上传失败");
+            $cordovaToast.showLongBottom("上传失败");
             $scope.imageList.splice(imageUrl, 1);//删除失败以后不显示
             console.log("err=" + err.response);
           }, function (progress) {
@@ -754,7 +754,7 @@ angular.module('starter.services', [])
               $ionicLoading.hide();
 
             }, function (err) {
-              $cordovaToast.showLongCenter("APP下载失败," + err);
+              $cordovaToast.showLongBottom("APP下载失败," + err);
               $ionicLoading.hide();
               return;
             }, function (progress) {

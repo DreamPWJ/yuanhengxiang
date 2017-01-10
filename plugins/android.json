@@ -49,6 +49,10 @@
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
+        "cordova-plugin-wechat": {
+            "WECHATAPPID": "wx7a6a63e9ee94e24d",
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
@@ -59,10 +63,6 @@
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
         "phonegap-plugin-barcodescanner": {
-            "PACKAGE_NAME": "com.mall.yuanhengxiang"
-        },
-        "cordova-plugin-wechat": {
-            "WECHATAPPID": "wx7a6a63e9ee94e24d",
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         }
     },

@@ -212,7 +212,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       .state('tab.shoppingcart', {
         url: '/shoppingcart',
         nativeTransitions: null,
-        cache:false,
+        cache: false,
         views: {
           'tab-shoppingcart': {
             templateUrl: 'templates/shoppingcart.html',
@@ -231,7 +231,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //我的订单
       .state('myorder', {
         url: '/myorder',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/myorder.html',
         controller: 'MyOrderCtrl'
 
@@ -253,7 +253,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //登录页面
       .state('login', {
         url: '/login',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
       })
@@ -261,7 +261,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //注册页面
       .state('register', {
         url: '/register',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/register.html',
         controller: 'RegisterCtrl'
       })
@@ -269,7 +269,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //重置密码页面
       .state('resetpassword', {
         url: '/resetpassword',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/resetpassword.html',
         controller: 'ResetPasswordCtrl'
       })
@@ -277,7 +277,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //修改密码页面
       .state('changepassword', {
         url: '/changepassword',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/changepassword.html',
         controller: 'ChangePasswordCtrl'
       })
@@ -285,7 +285,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //反馈建议页面
       .state('helpfeedback', {
         url: '/helpfeedback',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/helpfeedback.html',
         controller: 'HelpFeedbackCtrl'
       })
@@ -293,7 +293,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //地址管理页面
       .state('addressmanage', {
         url: '/addressmanage',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/addressmanage.html',
         controller: 'AddressManageCtrl'
       })
@@ -301,7 +301,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //添加地址页面
       .state('addaddress', {
         url: '/addaddress/:id',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/addaddress.html',
         controller: 'AddAddressCtrl'
       })
@@ -316,7 +316,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //完善资料页面
       .state('organizingdata', {
         url: '/organizingdata',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/organizingdata.html',
         controller: 'OrganizingDataCtrl'
       })
@@ -324,7 +324,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //我的钱包页面
       .state('mywallet', {
         url: '/mywallet',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/mywallet.html',
         controller: 'MyWalletCtrl'
       })
@@ -338,7 +338,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //我的优惠卷页面
       .state('mycoupon', {
         url: '/mycoupon',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/mycoupon.html',
         controller: 'MyCouponCtrl'
       })
@@ -346,7 +346,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //邀请记录页面
       .state('invitationlist', {
         url: '/invitationlist',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/invitationlist.html',
         controller: 'InvitationListCtrl'
       })
@@ -354,7 +354,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //我的积分页面
       .state('myntegral', {
         url: '/myntegral',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/myntegral.html',
         controller: 'MyNtegralCtrl'
       })
@@ -362,7 +362,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //每日签到页面
       .state('signin', {
         url: '/signin',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/signin.html',
         controller: 'SignInCtrl'
       })
@@ -370,7 +370,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //问卷调查页面
       .state('questionnaire', {
         url: '/questionnaire',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/questionnaire.html',
         controller: 'QuestionnaireCtrl'
       })
@@ -379,6 +379,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         url: '/uploadhead',
         templateUrl: 'templates/account/uploadhead.html',
         controller: 'UploadHeadCtrl'
+      })
+      //评价
+      .state('evaluate', {
+        url: '/evaluate',
+        templateUrl: 'templates/account/evaluate.html',
+        controller: 'EvaluateCtrl'
       })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/main');

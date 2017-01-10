@@ -254,3 +254,9 @@
 }
 
 
+#paymodal {
+  min-height: 50% !important;
+  height: 50%;
+  top: 50%;
+  bottom: 0;
+}

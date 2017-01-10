@@ -255,9 +255,16 @@
   text-align: center;
   border-color: transparent;
   font-size: 16px;
-  color: inherit; }
-.platform-android .action-sheet .action-sheet-title{
+  color: inherit;
+}
+
+.platform-android .action-sheet .action-sheet-title {
   text-align: center;
   font-size: 12px;
   color: #8f8f8f;
+}
+
+.nomarginpadding {
+  margin: 0 !important;
+  padding: 0 !important;
 }
