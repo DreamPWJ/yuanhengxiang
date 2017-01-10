@@ -5,7 +5,7 @@ angular.module('starter.services', [])
       platformPrompt: function (msg, stateurl) {
         if ($ionicPlatform.is('android') || $ionicPlatform.is('ios')) {
           try {
-            $cordovaToast.showLongBottom(msg);
+            $cordovaToast.showLongCenter(msg);
           } catch (e) {
             this.showAlert("元亨祥", msg, stateurl);
           }
@@ -247,7 +247,7 @@ angular.module('starter.services', [])
             }
 
           }, function (error) {
-            $cordovaToast.showLongBottom('获取图片失败');
+            $cordovaToast.showLongCenter('获取图片失败');
           });
         }
         if (type == 1) {  //拍照
@@ -272,7 +272,7 @@ angular.module('starter.services', [])
 
           }, function (err) {
             // An error occured. Show a message to the user
-            $cordovaToast.showLongBottom('获取照片失败');
+            $cordovaToast.showLongCenter('获取照片失败');
 
           });
         }
@@ -708,11 +708,11 @@ angular.module('starter.services', [])
             $scope.ImgsPicAddr.push(JSON.parse(result.response).url);
             $scope.imageSuccessCount++;
             if ($scope.imageSuccessCount == $scope.imageUploadCount) {
-              $cordovaToast.showLongBottom("上传成功");
+              $cordovaToast.showLongCenter("上传成功");
             }
             console.log("success=" + result.response);
           }, function (err) {
-            $cordovaToast.showLongBottom("上传失败");
+            $cordovaToast.showLongCenter("上传失败");
             $scope.imageList.splice(imageUrl, 1);//删除失败以后不显示
             console.log("err=" + err.response);
           }, function (progress) {
@@ -754,7 +754,7 @@ angular.module('starter.services', [])
               $ionicLoading.hide();
 
             }, function (err) {
-              $cordovaToast.showLongBottom("APP下载失败," + err);
+              $cordovaToast.showLongCenter("APP下载失败," + err);
               $ionicLoading.hide();
               return;
             }, function (progress) {

@@ -9,24 +9,26 @@
   <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="organizingdata">
     <form name="organizingdata">
       <ion-list>
-        <a ui-sref="uploadhead({figure:userinfo.figure})"  class="item item-avatar item-icon-right  item-borderless">
+        <a ui-sref="uploadhead({figure:userinfo.figure})" class="item item-avatar item-icon-right  item-borderless">
           <img ng-src="img/head.jpg" class="border-radius-50" alt="" onerror="this.src='img/head.jpg'">
           <p class="padding-top">头像</p>
           <i class="icon ion-ios-arrow-right grey"></i>
         </a>
-          <label class="item item-input ">
+        <label class="item item-input ">
           <span class="input-label"> 姓名 </span>
-          <input type="text" ng-model="userinfo.username" placeholder="请输入姓名" required>
+          <input type="text" ng-model="userinfo.name" placeholder="请输入姓名" required>
         </label>
         <label class="item item-input ">
           <span class="input-label"> 宝宝姓名 </span>
-          <input type="text" ng-model="userinfo.baousername" placeholder="请输入宝宝姓名">
+          <input type="text" ng-model="userinfo.baby_name" placeholder="请输入宝宝姓名">
         </label>
         <div class="item">
           <div class="row row-no-padding row-center radio">
             <span class="input-label col-30"> 性别 </span>
-            <label class="col-25"><input type="radio" name="sex" value="1"/> <i class=" icon ion-disc"></i> 男生</label>
-            <label class="col-25"><input type="radio" name="sex" value="2"/> <i class=" icon ion-disc"></i> 女生</label>
+            <label class="col-25"><input type="radio" name="sex" ng-model="userinfo.sex" value="0"/> <i
+              class=" icon ion-disc"></i> 男生</label>
+            <label class="col-25"><input type="radio" name="sex" ng-model="userinfo.sex" value="1"/> <i
+              class=" icon ion-disc"></i> 女生</label>
           </div>
         </div>
         <label class="item item-input ">
@@ -34,24 +36,24 @@
           <input type="date" ng-model="userinfo.birthday" placeholder="请选择出生日期">
         </label>
         <label class="item item-input " ng-click="openModal()">
-          <span class="input-label" > 地址 </span>
-          <p class="{{addresspcd?'dark':'grey'}}"  >{{addresspcd?addresspcd:"选择地区信息"}}</p>
+          <span class="input-label"> 地址 </span>
+          <p class="{{addresspcd?'dark':'grey'}}">{{addresspcd?addresspcd:"选择地区信息"}}</p>
         </label>
         <label class="item item-input ">
           <span class="input-label"> 详细地址 </span>
-          <textarea class="col-60" rows="1" ng-model="userinfo.addr" placeholder="请输入详细地址" required></textarea>
+          <textarea class="col-60" rows="1" ng-model="userinfo.address" placeholder="请输入详细地址" required></textarea>
         </label>
 
         <label class="item item-input ">
           <span class="input-label"> 身份证 </span>
           <input type="number" placeholder="请输入身份证号码" check-form
-                 ng-blur="checkForm(userinfo.identitycard,'身份证输入错误','identitycard','')"
-                 ng-model="userinfo.identitycard">
+                 ng-blur="checkForm(userinfo.id_card,'身份证输入不正确','identitycard','')"
+                 ng-model="userinfo.id_card">
         </label>
 
       </ion-list>
       <div class="padding">
-        <button class="button button-positive full-image" ng-disabled="!organizingdata.$valid"
+        <button class="button button-positive full-image" ng-disabled="!(organizingdata.$valid&&verify)"
                 ng-click="organizingdataSave()">
           确认保存
         </button>

@@ -67,7 +67,7 @@ angular.module('starter.controllers', [])
   })
 
   //登录页面
-  .controller('LoginCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService,$cordovaDevice) {
+  .controller('LoginCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService, $cordovaDevice) {
     $scope.user = {};//定义用户对象
     $scope.loginSubmit = function () {
       if (ionic.Platform.isWebView()) { //获取设备UUID
@@ -87,8 +87,9 @@ angular.module('starter.controllers', [])
           localStorage.setItem("login_name", info.login_name);
           localStorage.setItem("mid", info.mid)
           localStorage.setItem("token", info.token)
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
         }
-        CommonService.platformPrompt(data.info, 'close');
 
       }).error(function () {
         CommonService.platformPrompt("登录失败", 'close');
@@ -212,12 +213,12 @@ angular.module('starter.controllers', [])
   })
 
   //提交订单核对订单
-  .controller('ReviewOrderCtrl', function ($scope, $rootScope, CommonService,AccountService) {
+  .controller('ReviewOrderCtrl', function ($scope, $rootScope, CommonService, AccountService) {
     $scope.getDefaultAddress = function () { //获取发货地址
       AccountService.getDefaultAddress(CommonService.authParams({mid: localStorage.getItem("mid")})).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-          $scope.deliveryAddress=data.data.info;
+          $scope.deliveryAddress = data.data.info;
         }
 
       })
@@ -262,8 +263,10 @@ angular.module('starter.controllers', [])
           localStorage.removeItem("mid");
           localStorage.removeItem("token");
           $state.go("login")
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
         }
-        CommonService.platformPrompt(data.info, 'close');
+
       })
 
     }
@@ -286,10 +289,9 @@ angular.module('starter.controllers', [])
         //60s倒计时
         AccountService.countDown($scope);
         AccountService.getVerifyCode({mobile: $scope.user.mobile, isFindPwd: "1"}).success(function (data) {
-          console.log(data);
           if (data.status == 1) {
-
-          }else {
+            $scope.verify = data.data.info.verify;
+          } else {
             CommonService.platformPrompt(data.info, 'close');
           }
 
@@ -297,6 +299,10 @@ angular.module('starter.controllers', [])
       }
     }
     $scope.registerSubmit = function () {
+      if($scope.verify !=$scope.user.verify){
+        CommonService.platformPrompt("输入验证码不正确", 'close');
+        return;
+      }
       if (ionic.Platform.isWebView()) { //获取设备UUID
         var uuid = $cordovaDevice.getUUID();
       } else {
@@ -305,12 +311,13 @@ angular.module('starter.controllers', [])
       AccountService.register({
         mobile: $scope.user.mobile,
         password: EncodingService.md5($scope.user.password),
+        code: $scope.user.code,
         verify: $scope.user.verify,
         udid: uuid
       }).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-
+          $state.go("login");
         }
         CommonService.platformPrompt(data.info, 'close');
 
@@ -336,10 +343,9 @@ angular.module('starter.controllers', [])
         //60s倒计时
         AccountService.countDown($scope);
         AccountService.getVerifyCode({mobile: $scope.user.mobile, isFindPwd: "2"}).success(function (data) {
-          console.log(data);
           if (data.status == 1) {
-
-          }else {
+            $scope.verify = data.data.info.verify;
+          } else {
             CommonService.platformPrompt(data.info, 'close');
           }
 
@@ -349,6 +355,10 @@ angular.module('starter.controllers', [])
     $scope.resetpasswordSubmit = function () { //重置密码
       if ($scope.user.newPwd != $scope.user.reNewPwd) {
         CommonService.platformPrompt("两次输入密码不一致", 'close');
+        return;
+      }
+      if($scope.verify !=$scope.user.verify){
+        CommonService.platformPrompt("输入验证码不正确", 'close');
         return;
       }
       $scope.user.newPwd = EncodingService.md5($scope.user.newPwd);
@@ -378,8 +388,8 @@ angular.module('starter.controllers', [])
           isFindPwd: "2"
         }).success(function (data) {
           if (data.status == 1) {
-
-          }else {
+            $scope.verify = data.data.info.verify;
+          } else {
             CommonService.platformPrompt(data.info, 'close');
           }
 
@@ -391,15 +401,19 @@ angular.module('starter.controllers', [])
         CommonService.platformPrompt("两次输入密码不一致", 'close');
         return;
       }
+      if($scope.verify !=$scope.user.verify){
+        CommonService.platformPrompt("输入验证码不正确", 'close');
+        return;
+      }
       $scope.params = {
         newPwd: EncodingService.md5($scope.user.newPwd),
         reNewPwd: EncodingService.md5($scope.user.reNewPwd),
-        verify: $scope.user.verify,
+        verify: $scope.user.verify
       }
 
       AccountService.editPassword(CommonService.authParams($scope.params)).success(function (data) {
         if (data.status == 1) {
-          $state.go("tab.account")
+          $state.go("login")
         }
         CommonService.platformPrompt(data.info, 'close');
       }).error(function () {
@@ -426,7 +440,6 @@ angular.module('starter.controllers', [])
 
   //地址管理页面
   .controller('AddressManageCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
-    //$scope.addresslist = ['广东省 深圳市 南山区 高薪科技园北区 深南小巷', '广东省 深圳市 南山区2 高薪科技园北区 深南小巷', '广东省 深圳市 南山区3 高薪科技园北区 深南小巷']
     $scope.getAddressList = function () {
       var params = {};
       AccountService.getAddressList(CommonService.authParams(params)).success(function (data) {
@@ -654,7 +667,7 @@ angular.module('starter.controllers', [])
     //上传图片数组集合
     $scope.imageList = [];
     $scope.uploadActionSheet = function () {
-      CommonService.uploadActionSheet($scope,"upload");
+      CommonService.uploadActionSheet($scope, "upload");
     }
   })
   //评价
