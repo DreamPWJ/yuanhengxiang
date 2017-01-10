@@ -243,7 +243,7 @@ angular.module('starter.services', [])
             $scope.imageUploadCount = results.length;
             for (var i = 0, len = results.length; i < len; i++) {
               $scope.imageList.push(results[i]);
-              AccountService.addFilenames($scope, {filenames: filenames}, results[i]);
+              AccountService.addFiles($scope, {filenames: filenames}, results[i]);
             }
 
           }, function (error) {
@@ -268,7 +268,7 @@ angular.module('starter.services', [])
           $cordovaCamera.getPicture(options).then(function (imageUrl) {
             $scope.imageUploadCount = 1;
             $scope.imageList.push(imageUrl);
-            AccountService.addFilenames($scope, {filenames: filenames}, imageUrl);
+            AccountService.addFiles($scope, {filenames: filenames}, imageUrl);
 
           }, function (err) {
             // An error occured. Show a message to the user
@@ -692,7 +692,7 @@ angular.module('starter.services', [])
         });
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       },
-      addFilenames: function ($scope, params, imageUrl) {//上传附件
+      addFiles: function ($scope, params, imageUrl) {//上传附件
       // CommonService = this;
         //图片上传upImage（图片路径）
         //http://ngcordova.com/docs/plugins/fileTransfer/  资料地址
