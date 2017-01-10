@@ -428,7 +428,7 @@ angular.module('starter.services', [])
       }
     }
   })
-  .service('AccountService', function ($q, $http, YuanHenXiang, $cordovaFileTransfer, $state, $cordovaToast, $interval, $timeout, $ionicPopup, $ionicLoading, $cordovaFile, $cordovaFileOpener2) {
+  .service('AccountService', function ($q, $http, YuanHenXiang,$cordovaFileTransfer, $state, $cordovaToast, $interval, $timeout, $ionicPopup, $ionicLoading, $cordovaFile, $cordovaFileOpener2) {
     return {
       login: function (params) { //登录
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
@@ -693,7 +693,7 @@ angular.module('starter.services', [])
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       },
       addFilenames: function ($scope, params, imageUrl) {//上传附件
-        CommonService = this;
+      // CommonService = this;
         //图片上传upImage（图片路径）
         //http://ngcordova.com/docs/plugins/fileTransfer/  资料地址
 

@@ -10,7 +10,7 @@
     <form name="organizingdata">
       <ion-list>
         <a ui-sref="uploadhead({figure:userinfo.figure})" class="item item-avatar item-icon-right  item-borderless">
-          <img ng-src="{{userinfo.head_img}}" class="border-radius-50" alt="">
+          <img ng-if="userinfo.head_img==undefined" ng-src="{{userinfo.head_img}}" class="border-radius-50" alt="">
           <p class="padding-top">头像</p>
           <i class="icon ion-ios-arrow-right grey"></i>
         </a>
