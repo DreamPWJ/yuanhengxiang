@@ -563,7 +563,7 @@ angular.module('starter.controllers', [])
     $scope.imgsPicAddr = [];//图片信息数组
     $scope.imageList = [];  //上传图片数组集合
     $scope.uploadActionSheet = function () {
-      CommonService.uploadActionSheet($scope, "upload");
+      CommonService.uploadActionSheet($scope, "upload",true);
     }
     //获取省市县
     $scope.getAddressPCCList = function (adcode) {
