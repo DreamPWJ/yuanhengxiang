@@ -23,10 +23,8 @@ angular.module('starter.controllers', [])
 
 
   //APP首页面
-  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, $timeout, WeiXinService, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
-    /*    WeiXinService.getweixinPayData().success(function (data) {
-     WeiXinService.weixinPay(data);
-     })*/
+  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, $timeout, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
+
     //获取定位信息
     $scope.cityName = "深圳";//默认地址
     CommonService.getLocation(function () {
@@ -226,9 +224,13 @@ angular.module('starter.controllers', [])
   })
 
   //我的订单
-  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService, $ionicSlideBoxDelegate) {
+  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService, WeiXinService, $ionicSlideBoxDelegate) {
     CommonService.customModal($scope, 'templates/modal/paymodal.html');
     $scope.tabIndex = 0;//当前tabs页
+
+    $scope.pay = { //支付相关
+      choice: "A"//选择支付方式默认微信
+    }
     $scope.slideChanged = function (index) {
       $scope.tabIndex = index;
     };
@@ -237,6 +239,18 @@ angular.module('starter.controllers', [])
       $scope.tabIndex = index;
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-myorderlist").slide(index)
+    }
+
+    //确认支付
+    $scope.affirmPay = function () {
+      if ($scope.pay.choice == "A") {//微信支付
+        WeiXinService.getweixinPayData().success(function (data) {
+          WeiXinService.weixinPay(data);
+        })
+      } else if ($scope.pay.choice == "B") {//支付宝支付
+
+      }
+
     }
   })
   //我的设置页面
