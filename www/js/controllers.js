@@ -593,7 +593,17 @@ angular.module('starter.controllers', [])
     }
   })
   //我的钱包页面
-  .controller('MyWalletCtrl', function ($scope, $rootScope, $state, CommonService) {
+  .controller('MyWalletCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
+    //我的余额
+    $scope.params = {};
+    AccountService.getBalance(CommonService.authParams({mid: localStorage.getItem("mid")})).success(function (data) {
+      if (data.status == 1) {
+        $scope.balance = data.data.info.balance;
+      } else {
+        CommonService.platformPrompt(data.info, 'close');
+      }
+
+    })
     //提现
     $scope.mywalletSubmit = function () {
 
@@ -601,7 +611,7 @@ angular.module('starter.controllers', [])
   })
 
   //我的收入
-  .controller('MyIncomeCtrl', function ($scope, $rootScope, CommonService, $ionicSlideBoxDelegate) {
+  .controller('MyIncomeCtrl', function ($scope, $rootScope, CommonService, AccountService, $ionicSlideBoxDelegate) {
     $scope.tabIndex = 0;//当前tabs页
     $scope.slideChanged = function (index) {
       $scope.tabIndex = index;
@@ -612,6 +622,32 @@ angular.module('starter.controllers', [])
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-myincomelist").slide(index)
     }
+    //我的收入
+    $scope.getIncome = function () {
+      $scope.params = {}
+      AccountService.getIncome($scope.params).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.myincome = data.data.list;
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      })
+    }
+    $scope.getIncome();
+    //我的提现
+    $scope.getWithdrawLog = function () {
+      $scope.params = {}
+      AccountService.getWithdrawLog($scope.params).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.myincome = data.data.list;
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      })
+    }
+    $scope.getWithdrawLog();
   })
 
   //我的优惠卷页面

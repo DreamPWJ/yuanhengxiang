@@ -11,7 +11,7 @@
        <div class="row-wrap text-center light-bg" ui-sref="myincome">
          <img class="col" ng-src="img/account/coupon@1.png" alt="">
          <strong  class=" col grey ">我的余额</strong>
-         <h2  class=" col positive">￥3600.00</h2>
+         <h2  class="col positive">{{balance | currency :"￥"}}</h2>
        </div>
       <div class="padding">
         <a ng-click="mywalletSubmit()" ng-disabled="!mywallet.$valid" class="button button-positive full-image ">提现</a>

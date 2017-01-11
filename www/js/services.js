@@ -417,7 +417,7 @@ angular.module('starter.services', [])
         var promise = deferred.promise
         promise = $http({
           method: 'GET',
-          url: YuanHenXiang.api + "www/json/classify.json",
+          url: YuanHenXiang.api + "",
           params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
@@ -701,7 +701,7 @@ angular.module('starter.services', [])
         var promise = deferred.promise
         promise = $http({
           method: 'GET',
-          url: YuanHenXiang.api + "/Account/incmoeLog",
+          url: YuanHenXiang.api + "/Account/incomeLog",
           data: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
