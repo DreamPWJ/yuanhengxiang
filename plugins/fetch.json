@@ -95,14 +95,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-imagepicker": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-imagepicker"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-inappbrowser": {
         "source": {
             "type": "registry",
@@ -160,5 +152,13 @@
         "variables": {
             "WECHATAPPID": "wx7a6a63e9ee94e24d"
         }
+    },
+    "cordova-plugin-image-picker": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-image-picker"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

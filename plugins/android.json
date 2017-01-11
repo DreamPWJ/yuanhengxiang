@@ -31,9 +31,6 @@
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
-        "cordova-plugin-imagepicker": {
-            "PACKAGE_NAME": "com.mall.yuanhengxiang"
-        },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
@@ -63,6 +60,9 @@
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
         "phonegap-plugin-barcodescanner": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-image-picker": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         }
     },
