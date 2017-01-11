@@ -546,7 +546,11 @@ angular.module('starter.controllers', [])
     //用户信息
     $scope.userinfo = {};
     CommonService.customModal($scope, 'templates/modal/addressmodal.html');
-
+    $scope.imgsPicAddr = [];//图片信息数组
+    $scope.imageList = [];  //上传图片数组集合
+    $scope.uploadActionSheet = function () {
+      CommonService.uploadActionSheet($scope, "upload");
+    }
     //获取省市县
     $scope.getAddressPCCList = function (adcode) {
       if (isNaN(adcode) && adcode) {
@@ -579,7 +583,7 @@ angular.module('starter.controllers', [])
       $scope.getAddressPCCList();
     }
 
-    $scope.userinfo.head_img = $rootScope.headurl;//头像图片存储返回的url
+    $scope.userinfo.head_img = $scope.imgsPicAddr[0];//头像图片存储返回的url
     //完善资料保存
     $scope.organizingdataSave = function () {
       var date = $scope.userinfo.birthday;
@@ -703,13 +707,9 @@ angular.module('starter.controllers', [])
 
   })
   //上传头像
-  .controller('UploadHeadCtrl', function ($scope, $rootScope, CommonService) {
-    $scope.imgsPicAddr = [];//图片信息数组
-    $scope.imageList = [];  //上传图片数组集合
-    $scope.uploadActionSheet = function () {
-      CommonService.uploadActionSheet($scope, "upload");
-    }
-    $rootScope.headurl = $scope.imgsPicAddr;
+  .controller('UploadHeadCtrl', function ($scope, CommonService) {
+
+
   })
   //评价
   .controller('EvaluateCtrl', function ($scope, CommonService) {

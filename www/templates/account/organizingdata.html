@@ -9,10 +9,10 @@
   <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="organizingdata">
     <form name="organizingdata">
       <ion-list>
-        <a ui-sref="uploadhead({figure:userinfo.figure})" class="item item-avatar item-icon-right  item-borderless">
+        <a ng-click="uploadActionSheet()" class="item item-avatar-right   item-borderless">
           <img ng-if="userinfo.head_img==undefined" ng-src="{{userinfo.head_img}}" class="border-radius-50" alt="">
           <p class="padding-top">头像</p>
-          <i class="icon ion-ios-arrow-right grey"></i>
+          <!--        <i class="icon ion-ios-arrow-right grey"></i>-->
         </a>
         <label class="item item-input ">
           <span class="input-label"> 姓名 </span>
