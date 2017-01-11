@@ -428,7 +428,7 @@ angular.module('starter.services', [])
       }
     }
   })
-  .service('AccountService', function ($q, $http, YuanHenXiang,$cordovaFileTransfer, $state, $cordovaToast, $interval, $timeout, $ionicPopup, $ionicLoading, $cordovaFile, $cordovaFileOpener2) {
+  .service('AccountService', function ($q, $http, YuanHenXiang, $cordovaFileTransfer, $state, $cordovaToast, $interval, $timeout, $ionicPopup, $ionicLoading, $cordovaFile, $cordovaFileOpener2) {
     return {
       login: function (params) { //登录
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
@@ -693,24 +693,25 @@ angular.module('starter.services', [])
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       },
       addFiles: function ($scope, params, imageUrl) {//上传附件
-      // CommonService = this;
         //图片上传upImage（图片路径）
         //http://ngcordova.com/docs/plugins/fileTransfer/  资料地址
-
         var url = YuanHenXiang.api + "/Upload/uploadImage";//上传服务器地址
         var options = {
           fileKey: "image",//相当于form表单项的name属性
           fileName: imageUrl.substr(imageUrl.lastIndexOf('/') + 1),
           mimeType: "image/jpeg"
         };
-        $cordovaFileTransfer.upload(url, imageUrl, CommonService.authParams(options))
+        $cordovaFileTransfer.upload(url, imageUrl, options)
           .then(function (result) {
-            $scope.imgsPicAddr.push(JSON.parse(result.response).url);
+            var result = JSON.parse(result.response);
+            $scope.imgsPicAddr.push(result.data.info.url);
             $scope.imageSuccessCount++;
             if ($scope.imageSuccessCount == $scope.imageUploadCount) {
-              $cordovaToast.showLongCenter("上传图片成功");
+              if (result.status == 1) {
+                $cordovaToast.showLongCenter("上传图片成功");
+              }
             }
-            console.log("success=" + result.response);
+            console.log("success=" + JSON.stringify(result));
           }, function (err) {
             $cordovaToast.showLongCenter("上传图片失败");
             $scope.imageList.splice(imageUrl, 1);//删除失败以后不显示
