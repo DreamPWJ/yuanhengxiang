@@ -403,7 +403,7 @@ angular.module('starter.services', [])
         var promise = deferred.promise
         promise = $http({
           method: 'GET',
-          url: YuanHenXiang.api + "www/json/classify.json",
+          url: YuanHenXiang.api + "/Goods/getGoodsCategory",
           params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
@@ -418,6 +418,24 @@ angular.module('starter.services', [])
         promise = $http({
           method: 'GET',
           url: YuanHenXiang.api + "www/json/classify.json",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      }
+    }
+  })
+  .service('GoodService', function ($q, $http, YuanHenXiang) { //产品商品服务定义
+    return {
+      getGoodsList: function (params) { //商品列表
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Goods/getGoodsList",
           params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
@@ -656,6 +674,48 @@ angular.module('starter.services', [])
         promise = $http({
           method: 'POST',
           url: YuanHenXiang.api + "/Address/deleteAddress",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getBalance: function (params) { //我的余额
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Account/getBalance",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getIncome: function (params) { //我的收入
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Account/incmoeLog",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getWithdrawLog: function (params) { //我的提现
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Account/withdrawLog",
           data: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
