@@ -563,7 +563,7 @@ angular.module('starter.controllers', [])
     $scope.imgsPicAddr = [];//图片信息数组
     $scope.imageList = [];  //上传图片数组集合
     $scope.uploadActionSheet = function () {
-      CommonService.uploadActionSheet($scope, "upload",true);
+      CommonService.uploadActionSheet($scope, "upload", true);
     }
     //获取省市县
     $scope.getAddressPCCList = function (adcode) {
@@ -641,49 +641,205 @@ angular.module('starter.controllers', [])
       $ionicSlideBoxDelegate.$getByHandle("slidebox-myincomelist").slide(index)
     }
     //我的收入
+    $scope.myincomeList = []
+    $scope.pageincome = 0;
+    $scope.totalincome = 1;
     $scope.getIncome = function () {
-      $scope.params = {}
-      AccountService.getIncome($scope.params).success(function (data) {
+      if (arguments != [] && arguments[0] == 0) {
+        $scope.pageincome = 0;
+        $scope.myincomeList = [];
+      }
+      $scope.pageincome++;
+      $scope.params = {
+        p: $scope.pageincome,//页码
+        num: 10
+      }
+      AccountService.getIncome(CommonService.authParams($scope.params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-          $scope.myincome = data.data.list;
+          $scope.isNotData = false;
+          if (data.data.list == null || data.data.list.length == 0) {
+            $scope.isNotData = true;
+            return
+          }
+          angular.forEach(data.data.list, function (item) {
+            $scope.myincomeList.push(item);
+          })
+          $scope.totalincome = data.data.pageInfo.totalPages;
+          $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
         } else {
           CommonService.platformPrompt(data.info, 'close');
         }
+      }).finally(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
       })
     }
     $scope.getIncome();
+
     //我的提现
+    $scope.withdrawList = []
+    $scope.pagewithdraw = 0;
+    $scope.totalwithdraw = 1;
     $scope.getWithdrawLog = function () {
-      $scope.params = {}
-      AccountService.getWithdrawLog($scope.params).success(function (data) {
+      if (arguments != [] && arguments[0] == 0) {
+        $scope.pagewithdraw = 0;
+        $scope.withdrawList = [];
+      }
+      $scope.pagewithdraw++;
+      $scope.params = {
+        p: $scope.pagewithdraw,//页码
+        num: 10
+      }
+      AccountService.getWithdrawLog(CommonService.authParams($scope.params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-          $scope.myincome = data.data.list;
+          $scope.isNotData = false;
+          if (data.data.list == null || data.data.list.length == 0) {
+            $scope.isNotData = true;
+            return
+          }
+          angular.forEach(data.data.list, function (item) {
+            $scope.withdrawList.push(item);
+          })
+          $scope.totalwithdraw = data.data.pageInfo.totalPages;
+          $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
         } else {
           CommonService.platformPrompt(data.info, 'close');
         }
+      }).finally(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
       })
     }
     $scope.getWithdrawLog();
   })
 
   //我的优惠卷页面
-  .controller('MyCouponCtrl', function ($scope, CommonService) {
+  .controller('MyCouponCtrl', function ($scope, CommonService, AccountService, $ionicSlideBoxDelegate) {
     //失效卷标示
     $scope.isfailureVolumeflg = false;
     //失效卷
     $scope.failureVolume = function () {
       $scope.isfailureVolumeflg = $scope.isfailureVolumeflg ? false : true;
+      $scope.getMyCoupon();
     }
+    //我的收入
+    $scope.myCouponList = []
+    $scope.page = 0;
+    $scope.total = 1;
+    $scope.getMyCoupon = function () {
+      if (arguments != [] && arguments[0] == 0) {
+        $scope.page = 0;
+        $scope.myCouponList = [];
+      }
+      $scope.page++;
+      $scope.params = {
+        p: $scope.page,//页码
+        num: 10,
+        type: $scope.isfailureVolumeflg ? 0 : 1
+      }
+      AccountService.getMyCoupons(CommonService.authParams($scope.params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.isNotData = false;
+          if (data.data.list == null || data.data.list.length == 0) {
+            $scope.isNotData = true;
+            return
+          }
+          angular.forEach(data.data.list, function (item) {
+            $scope.myCouponList.push(item);
+          })
+          $scope.total = data.data.pageInfo.totalPages;
+          $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      }).finally(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      })
+    }
+    $scope.getMyCoupon()
   })
   //邀请记录页面
-  .controller('InvitationListCtrl', function ($scope, CommonService) {
-
+  .controller('InvitationListCtrl', function ($scope, CommonService, AccountService, $ionicSlideBoxDelegate) {
+    //我的收入
+    $scope.invitationList = []
+    $scope.page = 0;
+    $scope.total = 1;
+    $scope.getInvitation = function () {
+      if (arguments != [] && arguments[0] == 0) {
+        $scope.page = 0;
+        $scope.invitationList = [];
+      }
+      $scope.page++;
+      $scope.params = {
+        p: $scope.page,//页码
+        num: 10
+      }
+      AccountService.getInviteLog(CommonService.authParams($scope.params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.isNotData = false;
+          if (data.data.list == null || data.data.list.length == 0) {
+            $scope.isNotData = true;
+            return
+          }
+          angular.forEach(data.data.list, function (item) {
+            $scope.invitationList.push(item);
+          })
+          $scope.total = data.data.pageInfo.totalPages;
+          $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      }).finally(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      })
+    }
+    $scope.getInvitation();
   })
   //我的积分页面
-  .controller('MyNtegralCtrl', function ($scope, CommonService) {
-
+  .controller('MyNtegralCtrl', function ($scope, CommonService, AccountService, $ionicSlideBoxDelegate) {
+    //我的收入
+    $scope.myNtegralList = []
+    $scope.page = 0;
+    $scope.total = 1;
+    $scope.getMyNtegral = function () {
+      if (arguments != [] && arguments[0] == 0) {
+        $scope.page = 0;
+        $scope.myNtegralList = [];
+      }
+      $scope.page++;
+      $scope.params = {
+        p: $scope.page,//页码
+        num: 10
+      }
+      AccountService.getPointLog(CommonService.authParams($scope.params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.isNotData = false;
+          if (data.data.list == null || data.data.list.length == 0) {
+            $scope.isNotData = true;
+            return
+          }
+          $scope.total_point = data.data.total_point;//当前积分
+          angular.forEach(data.data.list, function (item) {
+            $scope.myNtegralList.push(item);
+          })
+          $scope.total = data.data.pageInfo.totalPages;
+          $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      }).finally(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      })
+    }
+    $scope.getMyNtegral();
   })
 
   //联系我们页面

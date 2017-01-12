@@ -7,30 +7,18 @@
     <h1 class="title">邀请记录</h1>
   </ion-nav-title>
   <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="invitationlist">
-     <div class="row light-bg row-center padding grey">
-       <span class="col-20">邀请人</span>
-       <h5 class="col positive">雾里看花</h5>
-       <span class="col-25 time ">2016.12.10</span>
-     </div>
-    <div class="row light-bg row-center padding grey">
-      <span class="col-20">邀请人</span>
-      <h5 class="col positive">欧阳锋</h5>
-      <span class="col-25 time ">2016.11.11</span>
+    <ion-refresher on-refresh="getInvitation(0)" pulling-text="下拉刷新"></ion-refresher>
+    <div ng-if="isNotData" class="isNotDataHint">
+      <i class="icon ion-sad"></i>
+      <p>暂无邀请记录</p>
     </div>
-    <div class="row light-bg row-center padding grey">
+    <div class="row light-bg row-center padding grey" ng-repeat="item  in invitationList">
       <span class="col-20">邀请人</span>
-      <h5 class="col positive">雾里看花</h5>
-      <span class="col-25 time ">2016.12.10</span>
+      <h5 class="col positive">{{item.invite_name}}</h5>
+      <span class="col-25 time ">{{item.time | date : 'yyyy-MM-dd'}}</span>
     </div>
-    <div class="row light-bg row-center padding grey">
-      <span class="col-20">邀请人</span>
-      <h5 class="col positive">欧阳锋</h5>
-      <span class="col-25 time ">2016.11.11</span>
-    </div>
-    <div class="row light-bg row-center padding grey">
-      <span class="col-20">邀请人</span>
-      <h5 class="col positive">雾里看花</h5>
-      <span class="col-25 time ">2016.12.10</span>
-    </div>
+
+    <ion-infinite-scroll on-infinite="getInvitation()" ng-if="total > page"
+                         immediate-check="false">
   </ion-content>
 </ion-view>

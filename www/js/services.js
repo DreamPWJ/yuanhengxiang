@@ -413,12 +413,41 @@ angular.module('starter.services', [])
         });
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       },
-      getClassifyDetails: function (params) { //产品分类类别详情数据
+      getGoodsListByBrandId: function (params) { //品牌ID获取商品列表
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
         promise = $http({
           method: 'GET',
-          url: YuanHenXiang.api + "",
+          url: YuanHenXiang.api + "/Goods/getGoodsListByBrandId",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getGoodsListByCategoryId: function (params) { //分类ID获取商品列表
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Goods/getGoodsListByCategoryId",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      }
+      ,
+      getGoodsInfo: function (params) { //获取商品详情
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Goods/getGoodsInfo",
           params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
@@ -689,7 +718,7 @@ angular.module('starter.services', [])
         promise = $http({
           method: 'GET',
           url: YuanHenXiang.api + "/Account/getBalance",
-          data: params
+          params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (err) {
@@ -703,7 +732,7 @@ angular.module('starter.services', [])
         promise = $http({
           method: 'GET',
           url: YuanHenXiang.api + "/Account/incomeLog",
-          data: params
+          params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (err) {
@@ -717,7 +746,49 @@ angular.module('starter.services', [])
         promise = $http({
           method: 'GET',
           url: YuanHenXiang.api + "/Account/withdrawLog",
-          data: params
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getPointLog: function (params) { //我的积分
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Member/pointLog",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getMyCoupons: function (params) { //我的优惠券
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Member/myCoupons",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getInviteLog: function (params) { //我的邀请记录
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Member/inviteLog",
+          params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (err) {

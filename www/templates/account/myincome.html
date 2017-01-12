@@ -18,70 +18,54 @@
                  id="myincomelist">
     <ion-slide>
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
-        <!--        <ion-refresher on-refresh="getSaleOrderList(0)" pulling-text="下拉刷新"></ion-refresher>-->
+        <ion-refresher on-refresh="getIncome(0)" pulling-text="下拉刷新"></ion-refresher>
+        <div ng-if="isNotData" class="isNotDataHint">
+          <i class="icon ion-sad"></i>
+          <p>暂无收入</p>
+        </div>
         <p></p>
         <ion-list>
-          <ion-item>
-            <h2 class="row"><span class="col">余额</span> <span class="col-70 text-right">546468446354846</span></h2>
+          <ion-item ng-repeat="item in myincomeList">
+            <h2 class="row"><span class="col">余额</span> <span class="col-70 text-right">{{item.number}}</span></h2>
             <h2 class="row"><span class="col"><strong class="energized"
-                                                      style="font-size: 1.5rem">90000</strong> 元</span> <span
-              class="col item-note text-right">2016.12.11 15:31:30</span></h2>
+                                                      style="font-size: 1.5rem">{{item.balance}}</strong> 元</span> <span
+              class="col item-note text-right">{{item.time | date : 'yyyy-MM-dd HH:mm:ss' }}</span></h2>
             <h2 class="row grey"><span class="col">收支余额 <strong class="energized"
-                                                                style="font-size: 1.1rem">8000</strong> 元</span> <span
-              class="col-20 item-note text-right">收入</span></h2>
-          </ion-item>
-          <ion-item>
-            <h2 class="row"><span class="col">余额</span> <span class="col-70 text-right">546468446354846</span></h2>
-            <h2 class="row"><span class="col"><strong class="energized"
-                                                      style="font-size: 1.5rem">90000</strong> 元</span> <span
-              class="col item-note text-right">2016.12.11 15:31:30</span></h2>
-            <h2 class="row grey"><span class="col">收支余额 <strong class="energized"
-                                                                style="font-size: 1.1rem">8000</strong> 元</span> <span
-              class="col-20 item-note text-right">收入</span></h2>
-          </ion-item>
-          <ion-item>
-            <h2 class="row"><span class="col">余额</span> <span class="col-70 text-right">546468446354846</span></h2>
-            <h2 class="row"><span class="col"><strong class="energized"
-                                                      style="font-size: 1.5rem">90000</strong> 元</span> <span
-              class="col item-note text-right">2016.12.11 15:31:30</span></h2>
-            <h2 class="row grey"><span class="col">收支余额 <strong class="energized"
-                                                                style="font-size: 1.1rem">8000</strong> 元</span> <span
-              class="col-20 item-note text-right">收入</span></h2>
-          </ion-item>
-          <ion-item>
-            <h2 class="row"><span class="col">余额</span> <span class="col-70 text-right">546468446354846</span></h2>
-            <h2 class="row"><span class="col"><strong class="energized"
-                                                      style="font-size: 1.5rem">90000</strong> 元</span> <span
-              class="col item-note text-right">2016.12.11 15:31:30</span></h2>
-            <h2 class="row grey"><span class="col">收支余额 <strong class="energized"
-                                                                style="font-size: 1.1rem">8000</strong> 元</span> <span
-              class="col-20 item-note text-right">收入</span></h2>
-          </ion-item>
-          <ion-item>
-            <h2 class="row"><span class="col">余额</span> <span class="col-70 text-right">546468446354846</span></h2>
-            <h2 class="row"><span class="col"><strong class="energized"
-                                                      style="font-size: 1.5rem">90000</strong> 元</span> <span
-              class="col item-note text-right">2016.12.11 15:31:30</span></h2>
-            <h2 class="row grey"><span class="col">收支余额 <strong class="energized"
-                                                                style="font-size: 1.1rem">8000</strong> 元</span> <span
-              class="col-20 item-note text-right">收入</span></h2>
-          </ion-item>
+                                                                style="font-size: 1.1rem">{{item.amount}}</strong> 元</span>
+              <span
+                class="col-20 item-note text-right">{{item.type==0?'收入':'支出'}}</span></h2>
           </ion-item>
         </ion-list>
-        <!--        <ion-infinite-scroll  on-infinite="getSaleOrderList()" ng-if="sellparamstotal > sellparamspage" immediate-check="false">
-                </ion-infinite-scroll>-->
+        <ion-infinite-scroll on-infinite="getIncome()" ng-if="totalincome > pageincome" immediate-check="false">
+        </ion-infinite-scroll>
       </ion-content>
     </ion-slide>
 
     <ion-slide>
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
-        <p></p>
-        <div ng-if="true" class="isNotDataHint">
+        <ion-refresher on-refresh="getWithdrawLog(0)" pulling-text="下拉刷新"></ion-refresher>
+        <div ng-if="isNotData" class="isNotDataHint">
           <i class="icon ion-sad"></i>
-          <p>暂无提现数据</p>
+          <p>暂无提现</p>
         </div>
-
+        <p></p>
+        <ion-list>
+          <ion-item ng-repeat="item in withdrawList">
+            <h2 class="row"><span class="col">余额</span> <span class="col-70 text-right">{{item.partner_trade_no}}</span>
+            </h2>
+            <h2 class="row"><span class="col"><strong class="energized"
+                                                      style="font-size: 1.5rem">{{item.balance}}</strong> 元</span> <span
+              class="col item-note text-right">{{item.time | date : 'yyyy-MM-dd HH:mm:ss' }}</span></h2>
+            <h2 class="row grey"><span class="col">提现金额 <strong class="energized"
+                                                                style="font-size: 1.1rem">{{item.amount}}</strong> 元</span>
+              <span
+                class="col-20 item-note text-right">{{item.status==0?'待处理':'已转账'}}</span></h2>
+          </ion-item>
         </ion-list>
+        <ion-infinite-scroll on-infinite="getWithdrawLog()" ng-if="totalwithdraw > pagewithdraw"
+                             immediate-check="false">
+        </ion-infinite-scroll>
+
       </ion-content>
     </ion-slide>
   </ion-slide-box>

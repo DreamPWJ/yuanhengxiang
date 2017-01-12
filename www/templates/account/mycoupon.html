@@ -11,30 +11,26 @@
     </a>
   </ion-nav-buttons>
   <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="mycoupon">
-   <ion-list class="card" >
-     <ion-item class=" item-thumbnail-left ">
-       <img ng-src="img/main/cp@5.jpg" alt="">
-       <h2 class="padding-top">贝亲洗发沐浴二合一套装</h2>
-       <p >好奇金装清爽洁净婴儿湿巾80抽*3包</p>
-       <p class="period-of-validity">有效期：2016.10.17-2016.11.17</p>
-       <img ng-show="isfailureVolumeflg" ng-src="img/account/choice@2.png" alt="">
-     </ion-item>
-     <p></p>
-     <ion-item class=" item-thumbnail-left">
-       <img ng-src="img/main/cp@5.jpg" alt="">
-       <h2 class="padding-top">贝亲洗发沐浴二合一套装</h2>
-       <p >好奇金装清爽洁净婴儿湿巾80抽*3包</p>
-       <p class="period-of-validity">有效期：2016.10.17-2016.11.17</p>
-       <img ng-show="isfailureVolumeflg"  ng-src="img/account/choice@2.png" alt="">
-     </ion-item>
-     <p></p>
-     <ion-item class=" item-thumbnail-left ">
-       <img ng-src="img/main/cp@5.jpg" alt="">
-       <h2 class="padding-top">贝亲洗发沐浴二合一套装</h2>
-       <p >好奇金装清爽洁净婴儿湿巾80抽*3包</p>
-       <p class="period-of-validity">有效期：2016.10.17-2016.11.17</p>
-       <img ng-show="isfailureVolumeflg"  ng-src="img/account/choice@2.png" alt="">
-     </ion-item>
-   </ion-list>
+    <ion-refresher on-refresh="getMyCoupon(0)" pulling-text="下拉刷新"></ion-refresher>
+    <div ng-if="isNotData" class="isNotDataHint">
+      <i class="icon ion-sad"></i>
+      <p>暂无使用卷</p>
+    </div>
+    <ion-list class="card">
+      <div ng-repeat="item in myCouponList">
+        <ion-item class=" item-thumbnail-left ">
+          <img ng-src="{{item.image}}" alt="">
+          <h2 class="padding-top">{{item.name}}</h2>
+          <p>{{item.intro}}</p>
+          <p class="period-of-validity">有效期：{{item.start_time | date : 'yyyy-MM-dd' }} - {{item.end_time | date :
+            'yyyy-MM-dd' }}</p>
+          <img ng-show="isfailureVolumeflg" ng-src="img/account/choice@2.png" alt="">
+        </ion-item>
+        <p></p>
+      </div>
+
+    </ion-list>
+    <ion-infinite-scroll on-infinite="getMyCoupon()" ng-if="total > page"
+                         immediate-check="false">
   </ion-content>
 </ion-view>
