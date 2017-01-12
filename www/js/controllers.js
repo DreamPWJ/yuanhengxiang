@@ -97,24 +97,34 @@ angular.module('starter.controllers', [])
 
   //产品分类主页面
   .controller('ClassifyCtrl', function ($scope, $rootScope, CommonService, ClassifyService) {
-    $scope.classifyinfo = ['奶粉尿裤', '洗护哺育', '辅食营养', '孕妈专区', '家纺服饰', '童装童鞋'];
+    // $scope.classifyinfo = ['奶粉尿裤', '洗护哺育', '辅食营养', '孕妈专区', '家纺服饰', '童装童鞋'];
     $scope.classifyindex = 0;//选中产品分类标示
     CommonService.customModal($scope, 'templates/search.html');
     //获取产品分类
     $scope.getClassify = function () {
       ClassifyService.getClassify().success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.classifyinfo = data.data.lists;
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      }).then(function () {
+        $scope.getClassifyDetails(0);
       })
     }
+    $scope.getClassify()
     //点击产品分类获取产品分类详情
     $scope.getClassifyDetails = function (index) {
       $scope.classifyindex = index;
+      $scope.classifyDetails = $scope.classifyinfo[index].son;
     }
 
     $scope.scrollHeight = (window.innerHeight - 44 - 49) + 'px';
     $scope.scrollContentHeight = document.querySelector("#classify-scroll-content").clientHeight + 'px';
   })
   //产品列表页面
-  .controller('ProductListCtrl', function ($scope, $rootScope, CommonService, ClassifyService, $ionicSlideBoxDelegate) {
+  .controller('ProductListCtrl', function ($scope, $rootScope, CommonService, ClassifyService, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     CommonService.customModal($scope, 'templates/search.html');
     $scope.tabIndex = 0;//当前tabs页
     $scope.slideChanged = function (index) {
@@ -126,6 +136,41 @@ angular.module('starter.controllers', [])
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-productlist").slide(index)
     }
+
+    //产品综合数据
+    $scope.synthesizeList = []
+    $scope.pagesynthesize = 0;
+    $scope.totalsynthesize = 1;
+    $scope.getSynthesize = function () {
+      if (arguments != [] && arguments[0] == 0) {
+        $scope.pagesynthesize = 0;
+        $scope.synthesizeList = [];
+      }
+      $scope.pagesynthesize++;
+      $scope.params = {
+        p: $scope.pagesynthesize,//页码
+        num: 10,
+        id: 1,
+        order_by:0 //0 综合 1 销量 2 价格
+      }
+      ClassifyService.getGoodsListByCategoryId(CommonService.authParams($scope.params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          angular.forEach(data.data.list, function (item) {
+            $scope.synthesizeList.push(item);
+          })
+          $scope.totalsynthesize = data.data.pageInfo.totalPages;
+          $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      }).finally(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      })
+    }
+    $scope.getSynthesize();
+
   })
   //产品详情页面
   .controller('ProductDetailsCtrl', function ($scope, $rootScope, CommonService) {

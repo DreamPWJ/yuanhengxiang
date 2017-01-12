@@ -16,7 +16,7 @@
         <ion-list class="list-borderless ">
           <ion-item ng-class="{false:'stable-bg',true:'classify-selected'}[classifyindex==$index]"
                     ng-click="getClassifyDetails($index)" ng-repeat="item in classifyinfo">
-            <h2> {{item}}</h2>
+            <h2> {{item.name}}</h2>
           </ion-item>
         </ion-list>
       </div>
