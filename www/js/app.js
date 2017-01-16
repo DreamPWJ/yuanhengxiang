@@ -195,7 +195,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
       //产品列表
       .state('productlist', {
-        url: '/productlist',
+        url: '/productlist/:type/:id',
         templateUrl: 'templates/main/productlist.html',
         controller: 'ProductListCtrl'
 

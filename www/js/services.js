@@ -397,7 +397,8 @@ angular.module('starter.services', [])
       }
     }
   })
-  .service('ClassifyService', function ($q, $http, YuanHenXiang) { //产品分类服务定义
+
+  .service('GoodService', function ($q, $http, YuanHenXiang) { //产品商品服务定义
     return {
       getClassify: function (params) { //产品分类类别 侧边栏
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
@@ -412,41 +413,9 @@ angular.module('starter.services', [])
           deferred.reject(err);// 声明执行失败，即服务器返回错误
         });
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
-      },
-      getGoodsListByBrandId: function (params) { //品牌ID获取商品列表
-        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
-        var promise = deferred.promise
-        promise = $http({
-          method: 'GET',
-          url: YuanHenXiang.api + "/Goods/getGoodsListByBrandId",
-          params: params
-        }).success(function (data) {
-          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
-        }).error(function (err) {
-          deferred.reject(err);// 声明执行失败，即服务器返回错误
-        });
-        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
-      },
-      getGoodsListByCategoryId: function (params) { //分类ID获取商品列表
-        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
-        var promise = deferred.promise
-        promise = $http({
-          method: 'GET',
-          url: YuanHenXiang.api + "/Goods/getGoodsListByCategoryId",
-          params: params
-        }).success(function (data) {
-          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
-        }).error(function (err) {
-          deferred.reject(err);// 声明执行失败，即服务器返回错误
-        });
-        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       }
-
-    }
-  })
-  .service('GoodService', function ($q, $http, YuanHenXiang) { //产品商品服务定义
-    return {
-      getGoodsList: function (params) { //商品列表
+      ,
+      getGoodsList: function (params) { //分类ID或品牌ID获取商品列表
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
         promise = $http({
@@ -459,7 +428,7 @@ angular.module('starter.services', [])
           deferred.reject(err);// 声明执行失败，即服务器返回错误
         });
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
-      }    ,
+      },
       getGoodsInfo: function (params) { //获取商品详情
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
@@ -467,6 +436,123 @@ angular.module('starter.services', [])
           method: 'GET',
           url: YuanHenXiang.api + "/Goods/getGoodsInfo",
           params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      addGoodsComment: function (params) { //评论商品
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Goods/addGoodsComment",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getGoodsCommentList: function (params) { //获取商品评论列表
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Goods/getGoodsCommentList",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      collectGoods: function (params) { //收藏商品
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Goods/collectGoods",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      deleteCollect: function (params) { //取消收藏商品
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Goods/deleteCollect",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      }
+    }
+  })
+
+  .service('ShoppingCartService', function ($q, $http, YuanHenXiang) { //购物车服务类
+    return {
+      getCartList: function (params) { //获取购物车商品
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/Cart/deleteCollect",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      addToCart: function (params) { //加入购物商品
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Cart/addToCart",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      updateCart: function (params) { //更新购物商品
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Cart/updateCart",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      deleteCart: function (params) { //删除购物商品
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Cart/deleteCart",
+          data: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (err) {

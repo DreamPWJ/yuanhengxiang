@@ -23,7 +23,7 @@
                  id="productlist">
     <ion-slide>
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
-        <ion-refresher on-refresh="getSynthesize(0)" pulling-text="下拉刷新"></ion-refresher>
+        <ion-refresher on-refresh="getGoodsList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
         <ion-list>
           <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale">
@@ -36,7 +36,7 @@
           </a>
 
         </ion-list>
-        <ion-infinite-scroll on-infinite="getSynthesize()" ng-if="totalsynthesize > pagesynthesize"
+        <ion-infinite-scroll on-infinite="getGoodsList()" ng-if="totalsynthesize > pagesynthesize"
                              immediate-check="false">
         </ion-infinite-scroll>
       </ion-content>
