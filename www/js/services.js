@@ -434,6 +434,7 @@ angular.module('starter.services', [])
         var promise = deferred.promise
         promise = $http({
           method: 'GET',
+          cache:true,//cache:true告诉$http service要在$http的默认缓存中缓存特定的请求响应结果
           url: YuanHenXiang.api + "/Goods/getGoodsList",
           params: params
         }).success(function (data) {

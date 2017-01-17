@@ -60,7 +60,7 @@ angular.module('starter.controllers', [])
     MainService.getIndexData(CommonService.authParams(params)).success(function (data) {
       console.log(data);
       if (data.status == 1) {
-          $scope.indexData=data.data.lists;
+        $scope.indexData = data.data.lists;
       } else {
         CommonService.platformPrompt(data.info, 'close');
       }
@@ -139,38 +139,87 @@ angular.module('starter.controllers', [])
     $scope.tabIndex = 0;//当前tabs页
     $scope.slideChanged = function (index) {
       $scope.tabIndex = index;
+      $scope.getGoodsList(0);
     };
 
     $scope.selectedTab = function (index) {
       $scope.tabIndex = index;
+      $scope.getGoodsList(0);
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-productlist").slide(index)
     }
 
     //产品综合数据
-    $scope.synthesizeList = []
     $scope.pagesynthesize = 0;
     $scope.totalsynthesize = 1;
+    $scope.synthesizeList = [];
+    //产品销量数据
+    $scope.pagesales = 0;
+    $scope.totalsales = 1;
+    $scope.salesList = [];
+    //产品价格数据
+    $scope.pageprice = 0;
+    $scope.totalprice = 1;
+    $scope.priceList = [];
     $scope.getGoodsList = function () {
       if (arguments != [] && arguments[0] == 0) {
-        $scope.pagesynthesize = 0;
-        $scope.synthesizeList = [];
+        if ($scope.tabIndex == 0) {  //产品综合数据
+          $scope.pagesynthesize = 0;
+          $scope.synthesizeList = [];
+        }
+        if ($scope.tabIndex == 1) {  //产品销量数据
+          $scope.pagesales = 0;
+          $scope.salesList = [];
+        }
+        if ($scope.tabIndex == 2) {  //产品价格数据
+          $scope.pageprice = 0;
+          $scope.priceList = [];
+        }
       }
-      $scope.pagesynthesize++;
+
+      if ($scope.tabIndex == 0 || $scope.pagesynthesize == 0) {  //产品综合数据
+        $scope.pagesynthesize++;
+      }
+      if ($scope.tabIndex == 1 || $scope.pagesales == 0) {  //产品销量数据
+        $scope.pagesales++;
+      }
+      if ($scope.tabIndex == 2 || $scope.pageprice == 0) {  //产品价格数据
+        $scope.pageprice++;
+      }
+
       $scope.params = {
-        p: $scope.pagesynthesize,//页码
+        p: $scope.tabIndex == 0 ? $scope.pagesynthesize : ($scope.tabIndex == 1 ? $scope.pagesales : $scope.pageprice),//页码
         num: 10,
         type: $stateParams.type,
         id: $stateParams.id,
         order_by: $scope.tabIndex //0 综合 1 销量 2 价格
       }
+      console.log($scope.params);
       GoodService.getGoodsList(CommonService.authParams($scope.params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-          angular.forEach(data.data.list, function (item) {
-            $scope.synthesizeList.push(item);
+          angular.forEach(data.data.lists, function (item) {
+            if ($scope.tabIndex == 0) {  //产品综合数据
+              $scope.synthesizeList.push(item);
+            }
+            if ($scope.tabIndex == 1) {  //产品销量数据
+              $scope.salesList.push(item);
+            }
+            if ($scope.tabIndex == 2) {  //产品价格数据
+              $scope.priceList.push(item);
+            }
+
           })
-          $scope.totalsynthesize = data.data.pageInfo.totalPages;
+          if ($scope.tabIndex == 0) {  //产品综合数据
+            $scope.totalsynthesize = data.data.pageInfo.totalPages;
+          }
+          if ($scope.tabIndex == 1) {  //产品销量数据
+            $scope.totalsales = data.data.pageInfo.totalPages;
+          }
+          if ($scope.tabIndex == 2) {  //产品价格数据
+            $scope.totalprice = data.data.pageInfo.totalPages;
+          }
+
           $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
         } else {
           CommonService.platformPrompt(data.info, 'close');
@@ -184,8 +233,24 @@ angular.module('starter.controllers', [])
 
   })
   //产品详情页面
-  .controller('ProductDetailsCtrl', function ($scope, $rootScope, CommonService) {
+  .controller('ProductDetailsCtrl', function ($scope, $rootScope, $stateParams,GoodService, CommonService, $timeout,$ionicSlideBoxDelegate) {
     CommonService.customModal($scope, 'templates/search.html');
+    $scope.getGoodsInfo = function () { //获取商品详情
+      GoodService.getGoodsInfo(CommonService.authParams({id: $stateParams.id})).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.goodsInfo = data.data.info;
+          //ng-repeat遍历生成一个个slide块的时候，执行完成页面是空白的 手动在渲染之后更新一下，在控制器注入$ionicSlideBoxDelegate，然后渲染数据之后
+          $timeout(function () {
+            $ionicSlideBoxDelegate.$getByHandle("productdetails-slideboximgs").update();
+            //上面这句就是实现无限循环的关键，绑定了滑动框，
+            $ionicSlideBoxDelegate.$getByHandle("productdetails-slideboximgs").loop(true);
+            /*            console.log($ionicSlideBoxDelegate.$getByHandle("slideboximgs").slidesCount());*/
+          }, 100)
+        }
+      })
+    }
+    $scope.getGoodsInfo();
 
   })
   //购物车主界面

@@ -11,22 +11,16 @@
   </ion-nav-buttons>
   <ion-content overflow-scroll="false" class="stable-bg" id="productdetails">
     <ion-slide-box show-pager="true" does-continue="true" auto-play="true" slide-interval="3000"
-                   delegate-handle="slideboximgs" id="productdetails-slide">
-      <ion-slide>
-        <img ng-src="img/main/productdetails.png" alt="" class="full-image"/>
-      </ion-slide>
-      <ion-slide>
-        <img ng-src="img/main/productdetails.png" alt="" class="full-image"/>
-      </ion-slide>
-      <ion-slide>
-        <img ng-src="img/main/productdetails.png" alt="" class="full-image"/>
+                   delegate-handle="productdetails-slideboximgs" id="productdetails-slide">
+      <ion-slide ng-repeat="item in goodsInfo.image_list">
+        <img ng-src="{{item}}" alt="" class="full-image"/>
       </ion-slide>
     </ion-slide-box>
     <ion-list>
       <ion-item>
-        <h2 class="text-wrap">惠氏启赋段婴幼儿配方奶粉江浙沪皖包邮母婴批发出售 包邮其他地区2运费8元</h2>
-        <h2 class="padding-top"><span class="price assertive"><i>￥</i><span>496.</span><i>00</i></span>
-          <del class="original-price">原价:￥685.00</del>
+        <h2 class="text-wrap">{{goodsInfo.goods_name}}</h2>
+        <h2 class="padding-top"><span class="price assertive"><i>￥</i><span>{{goodsInfo.price.toString().split('.')[0]}}.</span><i>{{goodsInfo.price.toString().split('.')[1]}}</i></span>
+          <del class="original-price">原价:{{goodsInfo.original_price | currency :"￥"}}</del>
         </h2>
       </ion-item>
       <p></p>
@@ -53,19 +47,18 @@
         <h2 class="grey">商品详情</h2>
         <i class="icon ion-ios-arrow-right grey"></i>
       </a>
-      <div class="item item-image">
-        <img ng-src="img/main/productdetails.png" alt="商品详情图片">
+      <div class="item item-body item-image">
+        <div ng-bind-html="goodsInfo.description"></div>
       </div>
-      <div class="item item-image">
-        <img ng-src="img/main/productdetails.png" alt="商品详情图片">
-      </div>
+
     </ion-list>
   </ion-content>
 
   <ion-tabs class="tabs-icon-top tabs-color-active-positive tabs-light productdetails-footer-bar ">
 
     <!--购物车 Tab -->
-    <ion-tab title="购物车" icon-off="iconfont icon-gouwuche" icon-on="iconfont icon-gouwuche" badge-style="badge-positive" badge="2">
+    <ion-tab title="购物车" icon-off="iconfont icon-gouwuche" icon-on="iconfont icon-gouwuche" badge-style="badge-positive"
+             badge="2">
     </ion-tab>
 
     <!-- 收藏Tab -->
@@ -73,10 +66,13 @@
     </ion-tab>
 
     <!-- 首页 Tab -->
-    <ion-tab title="首页" icon-off="iconfont icon-icon11" icon-on="iconfont icon-icon11" nav-direction=back href="#/tab/main">
+    <ion-tab title="首页" icon-off="iconfont icon-icon11" icon-on="iconfont icon-icon11" nav-direction=back
+             href="#/tab/main">
     </ion-tab>
 
-    <button nav-direction=forward  native-ui-sref="tab.shoppingcart" native-options="{type: 'slide',direction: 'left'}" class="tab col-40 button  button-positive ">加入购物车</button>
+    <button nav-direction=forward native-ui-sref="tab.shoppingcart" native-options="{type: 'slide',direction: 'left'}"
+            class="tab col-40 button  button-positive ">加入购物车
+    </button>
 
   </ion-tabs>
 </ion-view>

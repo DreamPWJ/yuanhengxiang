@@ -29,7 +29,7 @@
          class="item item-thumbnail-left main-hot-sale">
         <img ng-src="{{indexData.hotGoods[0].image}}" alt="">
         <h2>{{indexData.hotGoods[0].goods_name}}</h2>
-        <p class="text-wrap">{{indexData.hotGoods[0].description}}</p>
+        <p class="text-wrap">{{indexData.hotGoods[0].goods_name}}</p>
         <p class="row row-center"><span class="col-75 energized">￥<strong>{{indexData.hotGoods[0].price.toString().split('.')[0]}}.</strong><span>{{indexData.hotGoods[0].price.toString().split('.')[1]}}</span></span>
           <i
             class="col iconfont icon-gouwuche positive text-right"></i></p>
@@ -55,7 +55,7 @@
          class="item item-thumbnail-left main-hot-sale">
         <img ng-src="{{item.image}}" alt="">
         <h2>{{item.goods_name}}</h2>
-        <p class="text-wrap">{{item.description}}</p>
+        <p class="text-wrap">{{item.goods_name}}</p>
         <p class="row row-center"><span
           class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span>{{item.price.toString().split('.')[1]}}</span></span>
           <i

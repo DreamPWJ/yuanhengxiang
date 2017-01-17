@@ -26,12 +26,12 @@
         <ion-refresher on-refresh="getGoodsList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
         <ion-list>
-          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale">
-            <img ng-src="img/main/cp@3.jpg" alt="">
-            <h2>都市型婴儿四轮推车遮阳车</h2>
-            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车这样车罩 轻便型</p>
-            <p class="row row-center"><span class="col-75 energized">￥<strong>49.</strong><span
-              class="energized">00</span></span> <i
+          <a ng-repeat="item in synthesizeList" ng-href="#/productdetails/{{item.id}}" nav-direction=forward class="item item-thumbnail-left main-hot-sale">
+            <img ng-src="{{item.image}}" alt="">
+            <h2>{{item.goods_name}}</h2>
+            <p class="text-wrap">{{item.goods_name}}</p>
+            <p class="row row-center"><span class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span
+              class="energized">{{item.price.toString().split('.')[1]}}</span></span> <i
               class="col iconfont icon-gouwuche positive text-right"></i></p>
           </a>
 
@@ -43,37 +43,42 @@
     </ion-slide>
     <ion-slide>
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <ion-refresher on-refresh="getGoodsList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
         <ion-list>
-          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale">
-            <img ng-src="img/main/cp@1.jpg" alt="">
-            <h2>婴幼儿配方奶粉3段</h2>
-            <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
-            <p class="row row-center"><span class="col-75 energized">￥<strong>49.</strong><span
-              class="energized">00</span></span> <i
+          <a  ng-repeat="item in salesList" ng-href="#/productdetails/{{item.id}}" nav-direction=forward class="item item-thumbnail-left main-hot-sale">
+            <img ng-src="{{item.image}}" alt="">
+            <h2>{{item.goods_name}}</h2>
+            <p class="text-wrap">{{item.goods_name}}</p>
+            <p class="row row-center"><span class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span
+              class="energized">{{item.price.toString().split('.')[1]}}</span></span> <i
               class="col iconfont icon-gouwuche positive text-right"></i></p>
           </a>
 
         </ion-list>
-
+        <ion-infinite-scroll on-infinite="getGoodsList()" ng-if="totalsales > pagesales"
+                             immediate-check="false">
       </ion-content>
     </ion-slide>
 
     <ion-slide>
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <ion-refresher on-refresh="getGoodsList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
         <ion-list>
-          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale">
-            <img ng-src="img/main/cp@5.jpg" alt="">
-            <h2>婴幼儿配方奶粉3段</h2>
-            <p class="text-wrap">100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g</p>
-            <p class="row row-center"><span class="col-75 energized">￥<strong>49.</strong><span
-              class="energized">00</span></span> <i
+          <a  ng-repeat="item in priceList"  ng-href="#/productdetails/{{item.id}}" nav-direction=forward class="item item-thumbnail-left main-hot-sale">
+            <img ng-src="{{item.image}}" alt="">
+            <h2>{{item.goods_name}}</h2>
+            <p class="text-wrap">{{item.goods_name}}</p>
+            <p class="row row-center"><span class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span
+              class="energized">{{item.price.toString().split('.')[1]}}</span></span> <i
               class="col iconfont icon-gouwuche positive text-right"></i></p>
           </a>
 
 
         </ion-list>
+        <ion-infinite-scroll on-infinite="getGoodsList()" ng-if="totalprice > pageprice"
+                             immediate-check="false">
       </ion-content>
     </ion-slide>
   </ion-slide-box>
