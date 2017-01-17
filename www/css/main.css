@@ -37,7 +37,7 @@
 }
 
 .main-list {
-  padding: 0;
+  padding: 0.8rem 0 0 0.6rem;
 }
 
 .main-list img {
@@ -50,10 +50,6 @@
   font-weight: 700;
 }
 
-.main-list-first {
-  padding-top: 0.8rem;
-}
-
 .main-hot-sale strong, .main-hot-sale .ion-ios-cart {
   font-size: 1.6rem;
   font-weight: 400;
@@ -63,9 +59,7 @@
   overflow: hidden;
 }
 
-#main-scroll {
 
-}
 
 #main-scroll > a {
   display: inline-block;
@@ -102,7 +96,7 @@
   font-weight: 700;
 }
 
-#classify-scroll-content .row a:last-of-type {
+.main-list.row a:last-of-type, #classify-scroll-content .row a:last-of-type {
   padding-right: 10px;
 }
 
@@ -253,14 +247,14 @@
   }
 }
 
-
 #paymodal {
   min-height: 50% !important;
   height: 50%;
   top: 50%;
   bottom: 0;
 }
-#paymodal .ion-ios-arrow-left{
+
+#paymodal .ion-ios-arrow-left {
   font-size: 1.6rem;
   margin-left: 0.6rem;
 }

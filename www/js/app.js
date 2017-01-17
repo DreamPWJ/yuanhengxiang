@@ -203,7 +203,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
       //产品详情
       .state('productdetails', {
-        url: '/productdetails',
+        url: '/productdetails/:id',
         templateUrl: 'templates/main/productdetails.html',
         controller: 'ProductDetailsCtrl'
 

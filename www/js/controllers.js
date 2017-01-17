@@ -55,6 +55,16 @@ angular.module('starter.controllers', [])
         CommonService.windowOpen(url)
       }
     })
+    //获取首页数据
+    var params = {};
+    MainService.getIndexData(CommonService.authParams(params)).success(function (data) {
+      console.log(data);
+      if (data.status == 1) {
+          $scope.indexData=data.data.lists;
+      } else {
+        CommonService.platformPrompt(data.info, 'close');
+      }
+    })
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearHistory();
@@ -124,7 +134,7 @@ angular.module('starter.controllers', [])
     $scope.scrollContentHeight = document.querySelector("#classify-scroll-content").clientHeight + 'px';
   })
   //产品列表页面
-  .controller('ProductListCtrl', function ($scope, $rootScope,$stateParams, CommonService, GoodService, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
+  .controller('ProductListCtrl', function ($scope, $rootScope, $stateParams, CommonService, GoodService, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     CommonService.customModal($scope, 'templates/search.html');
     $scope.tabIndex = 0;//当前tabs页
     $scope.slideChanged = function (index) {
@@ -150,7 +160,7 @@ angular.module('starter.controllers', [])
       $scope.params = {
         p: $scope.pagesynthesize,//页码
         num: 10,
-        type:$stateParams.type,
+        type: $stateParams.type,
         id: $stateParams.id,
         order_by: $scope.tabIndex //0 综合 1 销量 2 价格
       }
@@ -238,7 +248,7 @@ angular.module('starter.controllers', [])
       $scope.shoppingcar.totalnum = 0;
       angular.forEach($scope.shoppingcartdata, function (item, index) {
         if (item.checked) {//选中的购物商品
-          $scope.shoppingcar.totalPrice = $scope.shoppingcar.totalPrice + item.num * item.price;//总价格
+          $scope.shoppingcar.totalPrice += item.num * item.price;//总价格
           $scope.shoppingcar.totalnum += item.num;//总数量
         }
       })
