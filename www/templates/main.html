@@ -9,17 +9,16 @@
     <ion-slide-box show-pager="true" does-continue="true" auto-play="true" slide-interval="3000"
                    delegate-handle="slideboximgs" id="main-slide">
       <ion-slide ng-repeat="item in banner">
-        <img ng-click="windowOpen(item.link)" ng-src="{{item.image}}" ng-href="" alt="{{item.name}}"
+        <img ng-click="windowOpen(item.link)" ng-src="{{item.image}}"  alt="{{item.name}}"
              class="full-image"/>
       </ion-slide>
-
     </ion-slide-box>
+
     <div class="main-list row row-wrap light-bg  text-center main-list-first">
       <a ng-repeat="item in indexData.category" ng-href="#/productlist/1/{{item.id}}" nav-direction=forward
          class="col-25  subdued"><img ng-src="{{item.image}}" alt="">
         <p>{{item.name}}</p>
       </a>
-
     </div>
 
     <p></p>
@@ -29,20 +28,20 @@
          class="item item-thumbnail-left main-hot-sale">
         <img ng-src="{{indexData.hotGoods[0].image}}" alt="">
         <h2>{{indexData.hotGoods[0].goods_name}}</h2>
-        <p class="text-wrap">{{indexData.hotGoods[0].goods_name}}</p>
+        <p class="text-wrap">{{indexData.hotGoods[0].goods_intro}}</p>
         <p class="row row-center"><span class="col-75 energized">￥<strong>{{indexData.hotGoods[0].price.toString().split('.')[0]}}.</strong><span>{{indexData.hotGoods[0].price.toString().split('.')[1]}}</span></span>
-          <i
-            class="col iconfont icon-gouwuche positive text-right"></i></p>
+          <i class="col iconfont icon-gouwuche positive text-right"></i></p>
       </a>
       <ion-item>
         <ion-scroll ng-style="{width:scrollWidth}" delegate-handle="main-scroll" direction="x" zooming="true"
                     overflow-scroll="false" scrollbar-x="false" has-bouncing="true" class="main-scroll">
           <div ng-style="{width:scrollContentWidth}" id="main-scroll">
-            <a ng-repeat="item in indexData.hotGoods" ng-href="#/productdetails/{{item.id}}" nav-direction=forward>
+            <a ng-repeat="item in indexData.hotGoods" ng-if="$index!=0" ng-href="#/productdetails/{{item.id}}"
+               nav-direction=forward>
               <img ng-src="{{item.image}}" class="full-image" alt=""/>
               <p class="text-wrap" style="word-break:break-all;">{{item.goods_name}}</p>
-              <p class="row row-center"><strong class="energized">{{item.price |currency :"￥"}}</strong><i
-                class="col iconfont icon-gouwuche positive text-right"></i></p>
+              <p class="row row-center"><strong class="energized">{{item.price |currency :"￥"}}</strong>
+                <i class="col iconfont icon-gouwuche positive text-right"></i></p>
             </a>
           </div>
         </ion-scroll>
@@ -55,11 +54,10 @@
          class="item item-thumbnail-left main-hot-sale">
         <img ng-src="{{item.image}}" alt="">
         <h2>{{item.goods_name}}</h2>
-        <p class="text-wrap">{{item.goods_name}}</p>
+        <p class="text-wrap">{{item.goods_intro}}</p>
         <p class="row row-center"><span
           class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span>{{item.price.toString().split('.')[1]}}</span></span>
-          <i
-            class="col iconfont icon-gouwuche positive text-right"></i></p>
+          <i class="col iconfont icon-gouwuche positive text-right"></i></p>
       </a>
 
     </ion-list>

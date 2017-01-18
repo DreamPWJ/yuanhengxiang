@@ -434,7 +434,7 @@ angular.module('starter.services', [])
         var promise = deferred.promise
         promise = $http({
           method: 'GET',
-          cache:true,//cache:true告诉$http service要在$http的默认缓存中缓存特定的请求响应结果
+          cache: true,//cache:true告诉$http service要在$http的默认缓存中缓存特定的请求响应结果
           url: YuanHenXiang.api + "/Goods/getGoodsList",
           params: params
         }).success(function (data) {
@@ -524,7 +524,7 @@ angular.module('starter.services', [])
         var promise = deferred.promise
         promise = $http({
           method: 'GET',
-          url: YuanHenXiang.api + "/Cart/deleteCollect",
+          url: YuanHenXiang.api + "/Cart/getCartList",
           params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了

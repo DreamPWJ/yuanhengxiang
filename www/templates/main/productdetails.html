@@ -26,7 +26,8 @@
       <p></p>
       <a ng-href="" class="item item-icon-left item-icon-right item-borderless">
         <i class="icon ion-location positive"></i>
-        <h2><span class="grey">送至</span> 上海浦东新区(外环线内)</h2>
+        <h2><span class="grey">送至</span> {{deliveryAddress.province + deliveryAddress.city + deliveryAddress.area +
+          deliveryAddress.address}}</h2>
         <i class="icon ion-ios-arrow-right grey"></i>
       </a>
       <p></p>
@@ -57,8 +58,9 @@
   <ion-tabs class="tabs-icon-top tabs-color-active-positive tabs-light productdetails-footer-bar ">
 
     <!--购物车 Tab -->
-    <ion-tab title="购物车" icon-off="iconfont icon-gouwuche" icon-on="iconfont icon-gouwuche" badge-style="badge-positive"
-             badge="2">
+    <ion-tab title="购物车" ng-click="addToCart()" icon-off="iconfont icon-gouwuche" icon-on="iconfont icon-gouwuche"
+             badge-style="badge-positive"
+             badge="0">
     </ion-tab>
 
     <!-- 收藏Tab -->

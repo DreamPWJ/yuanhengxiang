@@ -233,11 +233,10 @@ angular.module('starter.controllers', [])
 
   })
   //产品详情页面
-  .controller('ProductDetailsCtrl', function ($scope, $rootScope, $stateParams,GoodService, CommonService, $timeout,$ionicSlideBoxDelegate) {
+  .controller('ProductDetailsCtrl', function ($scope, $rootScope, $stateParams, GoodService, CommonService, ShoppingCartService, AccountService, $timeout, $ionicSlideBoxDelegate) {
     CommonService.customModal($scope, 'templates/search.html');
     $scope.getGoodsInfo = function () { //获取商品详情
       GoodService.getGoodsInfo(CommonService.authParams({id: $stateParams.id})).success(function (data) {
-        console.log(data);
         if (data.status == 1) {
           $scope.goodsInfo = data.data.info;
           //ng-repeat遍历生成一个个slide块的时候，执行完成页面是空白的 手动在渲染之后更新一下，在控制器注入$ionicSlideBoxDelegate，然后渲染数据之后
@@ -252,46 +251,69 @@ angular.module('starter.controllers', [])
     }
     $scope.getGoodsInfo();
 
+    $scope.getDefaultAddress = function () { //获取发货地址
+      var params = {};
+      AccountService.getDefaultAddress(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $rootScope.deliveryAddress = data.data.info;
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      })
+    }
+    $scope.getDefaultAddress();
+
+    $scope.getGoodsCommentList = function () { //获取评论信息
+      var params = {};
+      GoodService.getGoodsCommentList(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.goodsCommentList = data.data.lists;
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      })
+    }
+    $scope.getGoodsCommentList();
+
+    $scope.addToCart = function () { //加入购物车
+      var params = {
+        goods_id: $stateParams.id
+      };
+      ShoppingCartService.addToCart(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+
+        }
+        CommonService.platformPrompt(data.info, 'close');
+      })
+    }
+
   })
   //购物车主界面
-  .controller('ShoppingCartCtrl', function ($scope, $rootScope, CommonService) {
+  .controller('ShoppingCartCtrl', function ($scope, $rootScope, CommonService, ShoppingCartService) {
     $scope.shoppingcar = {
       isSelectAll: false,//是否全部选择
       showDelete: false,//删除按钮是否显示
       totalnum: 0,//总购买数量
       totalPrice: 0//总价格
     };
-    //模拟数据
-    $scope.shoppingcartdata = [{
-      img: 'img/main/1.png',
-      title: '婴幼儿配方奶粉3段1',
-      description: '100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g',
-      price: '49.01',
-      num: 1,
-      checked: false
-    }, {
-      img: 'img/main/1.png',
-      title: '婴幼儿配方奶粉3段2',
-      description: '100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g',
-      price: '46.02',
-      num: 2,
-      checked: false
-    }, {
-      img: 'img/main/1.png',
-      title: '婴幼儿配方奶粉3段3',
-      description: '100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g',
-      price: '40.03',
-      num: 3,
-      checked: false
-    }, {
-      img: 'img/main/1.png',
-      title: '婴幼儿配方奶粉3段4',
-      description: '100%海外原装正品荷兰Hero Baby婴幼儿奶粉白井塅3段 700g',
-      price: '44.04',
-      num: 4,
-      checked: false
-    }]
+    $scope.getCartList = function () { //获取购物车商品
+      var params = {};
+      ShoppingCartService.getCartList(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.shoppingcartdata = data.data.info;
+          angular.forEach($scope.shoppingcartdata, function (item, index) {
 
+          })
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      })
+    }
+    $scope.getCartList();
 
     // 监控数组是否变化，动态修改总价
     $scope.$watch("shoppingcartdata", function () {
@@ -300,44 +322,52 @@ angular.module('starter.controllers', [])
 
     //添加数量
     $scope.add = function ($index) {
-      $scope.shoppingcartdata[$index].num++;
+      $scope.shoppingcartdata.cartArr[$index].num++;
     }
     // 减少数量
     $scope.minus = function ($index) {
-      if ($scope.shoppingcartdata[$index].num == 0)return;
-      $scope.shoppingcartdata[$index].num--;
+      if ($scope.shoppingcartdata.cartArr[$index].num == 0)return;
+      $scope.shoppingcartdata.cartArr[$index].num--;
     }
     // 计算总价
     var getTotal = function () {
       $scope.shoppingcar.totalPrice = 0;
       $scope.shoppingcar.totalnum = 0;
-      angular.forEach($scope.shoppingcartdata, function (item, index) {
+      angular.forEach($scope.shoppingcartdata.cartArr, function (item, index) {
         if (item.checked) {//选中的购物商品
-          $scope.shoppingcar.totalPrice += item.num * item.price;//总价格
-          $scope.shoppingcar.totalnum += item.num;//总数量
+          $scope.shoppingcar.totalPrice += item.goods_qty * item.price;//总价格
+          $scope.shoppingcar.totalnum += Number(item.goods_qty);//总数量
         }
       })
       return $scope.shoppingcar.totalPrice;
     }
     //全部选择
     $scope.selectAll = function (isSelectAll) {
-      angular.forEach($scope.shoppingcartdata, function (item, index) {
+      angular.forEach($scope.shoppingcartdata.cartArr, function (item, index) {
         item.checked = isSelectAll;
       })
     }
     //删除购物车
-    $scope.deleteShoppingCart = function (index) {
-      $scope.shoppingcartdata.splice(index, 1)
+    $scope.deleteShoppingCart = function (index, id) {
+      $scope.shoppingcartdata.cartArr.splice(index, 1);
+      var params = {cart_id: id};
+      ShoppingCartService.deleteCart(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        CommonService.platformPrompt(data.info, 'close');
+      })
     }
   })
 
   //提交订单核对订单
   .controller('ReviewOrderCtrl', function ($scope, $rootScope, CommonService, AccountService) {
     $scope.getDefaultAddress = function () { //获取发货地址
-      AccountService.getDefaultAddress(CommonService.authParams({mid: localStorage.getItem("mid")})).success(function (data) {
+      var params = {};
+      AccountService.getDefaultAddress(CommonService.authParams(params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
           $rootScope.deliveryAddress = data.data.info;
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
         }
       })
     }
@@ -391,7 +421,8 @@ angular.module('starter.controllers', [])
     })
     //退出登录清除缓存
     $scope.logout = function () {
-      AccountService.logout(CommonService.authParams({mid: localStorage.getItem("mid")})).success(function (data) {
+      var params = {};
+      AccountService.logout(CommonService.authParams(params)).success(function (data) {
         if (data.status == 1) {
           localStorage.removeItem("login_name");
           localStorage.removeItem("mid");
@@ -734,8 +765,8 @@ angular.module('starter.controllers', [])
   //我的钱包页面
   .controller('MyWalletCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
     //我的余额
-    $scope.params = {};
-    AccountService.getBalance(CommonService.authParams({mid: localStorage.getItem("mid")})).success(function (data) {
+    var params = {};
+    AccountService.getBalance(CommonService.authParams(params)).success(function (data) {
       if (data.status == 1) {
         $scope.balance = data.data.info.balance;
       } else {
