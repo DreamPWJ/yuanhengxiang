@@ -233,7 +233,7 @@ angular.module('starter.controllers', [])
 
   })
   //产品详情页面
-  .controller('ProductDetailsCtrl', function ($scope, $rootScope, $stateParams, GoodService, CommonService, ShoppingCartService, AccountService, $timeout, $ionicSlideBoxDelegate) {
+  .controller('ProductDetailsCtrl', function ($scope, $rootScope, $stateParams, $state, GoodService, CommonService, ShoppingCartService, AccountService, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicTabsDelegate) {
     CommonService.customModal($scope, 'templates/search.html');
     $scope.getGoodsInfo = function () { //获取商品详情
       GoodService.getGoodsInfo(CommonService.authParams({id: $stateParams.id})).success(function (data) {
@@ -254,7 +254,6 @@ angular.module('starter.controllers', [])
     $scope.getDefaultAddress = function () { //获取发货地址
       var params = {};
       AccountService.getDefaultAddress(CommonService.authParams(params)).success(function (data) {
-        console.log(data);
         if (data.status == 1) {
           $rootScope.deliveryAddress = data.data.info;
         } else {
@@ -264,15 +263,35 @@ angular.module('starter.controllers', [])
     }
     $scope.getDefaultAddress();
 
-    $scope.getGoodsCommentList = function () { //获取评论信息
-      var params = {};
+    //获取评论信息
+    $scope.goodsCommentList = []
+    $scope.page = 0;
+    $scope.total = 1;
+    $scope.getGoodsCommentList = function () {
+      if (arguments != [] && arguments[0] == 0) {
+        $scope.page = 0;
+        $scope.myCouponList = [];
+      }
+      $scope.page++;
+      var params = {
+        p: $scope.page,//页码
+        num: $scope.page == 1 ? 1 : 1000,
+        goods_id: $stateParams.id
+      };
       GoodService.getGoodsCommentList(CommonService.authParams(params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-          $scope.goodsCommentList = data.data.lists;
+          angular.forEach(data.data.lists, function (item) {
+            $scope.goodsCommentList.push(item);
+          })
+          $scope.total = data.data.pageInfo.totalPages;
+          $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
         } else {
           CommonService.platformPrompt(data.info, 'close');
         }
+      }).finally(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
       })
     }
     $scope.getGoodsCommentList();
@@ -282,7 +301,19 @@ angular.module('starter.controllers', [])
         goods_id: $stateParams.id
       };
       ShoppingCartService.addToCart(CommonService.authParams(params)).success(function (data) {
-        console.log(data);
+        if (data.status == 1) {
+          $state.go("tab.shoppingcart");
+        }
+        CommonService.platformPrompt(data.info, 'close');
+      })
+    }
+
+    $scope.collectGoods = function () { //收藏商品
+      /*   $ionicTabsDelegate.$getByHandle('productdetails-tabs').selectedIndex();*/
+      var params = {
+        id: $stateParams.id
+      };
+      GoodService.collectGoods(CommonService.authParams(params)).success(function (data) {
         if (data.status == 1) {
 
         }
@@ -290,9 +321,22 @@ angular.module('starter.controllers', [])
       })
     }
 
+    $scope.deleteCollect = function () { //取消收藏商品
+      var params = {
+        id: $stateParams.id
+      };
+      GoodService.deleteCollect(CommonService.authParams(params)).success(function (data) {
+        if (data.status == 1) {
+
+        }
+        CommonService.platformPrompt(data.info, 'close');
+      })
+    }
+
+
   })
   //购物车主界面
-  .controller('ShoppingCartCtrl', function ($scope, $rootScope, CommonService, ShoppingCartService) {
+  .controller('ShoppingCartCtrl', function ($scope, $rootScope, $state, CommonService, ShoppingCartService) {
     $scope.shoppingcar = {
       isSelectAll: false,//是否全部选择
       showDelete: false,//删除按钮是否显示
@@ -304,30 +348,37 @@ angular.module('starter.controllers', [])
       ShoppingCartService.getCartList(CommonService.authParams(params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
+          $scope.isNotData = false;
+          if (data.data.info.cartArr == null || data.data.info.cartArr.length == 0) {
+            $scope.isNotData = true;
+            return
+          }
           $scope.shoppingcartdata = data.data.info;
-          angular.forEach($scope.shoppingcartdata, function (item, index) {
-
+          angular.forEach($scope.shoppingcartdata.cartArr, function (item, index) {
+            $scope.shoppingcartdata.cartArr[index].checked = false;
+            $scope.shoppingcartdata.cartArr[index].goods_qty = Number(item.goods_qty)
           })
         } else {
           CommonService.platformPrompt(data.info, 'close');
         }
+      }).then(function () {
+        // 监控数组是否变化，动态修改总价
+        $scope.$watch("shoppingcartdata", function () {
+          getTotal();
+        }, true);
       })
     }
     $scope.getCartList();
 
-    // 监控数组是否变化，动态修改总价
-    $scope.$watch("shoppingcartdata", function () {
-      getTotal();
-    }, true);
 
     //添加数量
-    $scope.add = function ($index) {
-      $scope.shoppingcartdata.cartArr[$index].num++;
+    $scope.addnum = function ($index) {
+      $scope.shoppingcartdata.cartArr[$index].goods_qty++;
     }
     // 减少数量
-    $scope.minus = function ($index) {
-      if ($scope.shoppingcartdata.cartArr[$index].num == 0)return;
-      $scope.shoppingcartdata.cartArr[$index].num--;
+    $scope.minusnum = function ($index) {
+      if ($scope.shoppingcartdata.cartArr[$index].goods_qty == 0)return;
+      $scope.shoppingcartdata.cartArr[$index].goods_qty--;
     }
     // 计算总价
     var getTotal = function () {
@@ -352,18 +403,24 @@ angular.module('starter.controllers', [])
       $scope.shoppingcartdata.cartArr.splice(index, 1);
       var params = {cart_id: id};
       ShoppingCartService.deleteCart(CommonService.authParams(params)).success(function (data) {
-        console.log(data);
         CommonService.platformPrompt(data.info, 'close');
       })
+    }
+    //结算购物车
+    $scope.closeAnAccount = function () {
+      $scope.shoppingcartdata.goodsQty = $scope.shoppingcar.totalnum;//总数量
+      $scope.shoppingcartdata.goodsAmount = $scope.shoppingcar.totalPrice.toFixed(2);//总价格
+      $state.go("revieworder", {item: JSON.stringify($scope.shoppingcartdata)});
     }
   })
 
   //提交订单核对订单
-  .controller('ReviewOrderCtrl', function ($scope, $rootScope, CommonService, AccountService) {
+  .controller('ReviewOrderCtrl', function ($scope, $rootScope, $stateParams, CommonService, AccountService) {
+    $scope.reviewOrder = JSON.parse($stateParams.item);
+    console.log($scope.reviewOrder);
     $scope.getDefaultAddress = function () { //获取发货地址
       var params = {};
       AccountService.getDefaultAddress(CommonService.authParams(params)).success(function (data) {
-        console.log(data);
         if (data.status == 1) {
           $rootScope.deliveryAddress = data.data.info;
         } else {

@@ -35,12 +35,12 @@
         <h2 class="grey">评价</h2>
         <i class="icon ion-ios-arrow-right grey"></i>
       </a>
-      <div class="item item-avatar">
+      <div class="item item-avatar" ng-repeat="item in goodsCommentList">
         <img ng-src="img/account/header.png" alt="用户头像">
-        <h2>萧十一郎 <span class="item-note">2016.12.11</span></h2>
-        <p class="text-wrap">二月，我們度過了和家人相聚的春節，今日，恰好進入雨水節氣，潤物細無聲，春天來了，恰逢春雨的滋潤，春天的腳步也更快了，藉著大地向上升騰的陽氣，草木花樹也在一夜間冒出了新芽</p>
+        <h2>萧十一郎 <span class="item-note">{{item.time | date : "yyyy-MM-hh HH:mm:ss"}}</span></h2>
+        <p class="text-wrap">{{item.content}}</p>
       </div>
-      <a ng-href="" class="item   text-center">
+      <a ng-click="getGoodsCommentList()" class="item   text-center">
         <h2 class="positive">查看全部评论 <i class="icon ion-ios-arrow-right "></i></h2>
       </a>
       <p></p>
@@ -55,7 +55,8 @@
     </ion-list>
   </ion-content>
 
-  <ion-tabs class="tabs-icon-top tabs-color-active-positive tabs-light productdetails-footer-bar ">
+  <ion-tabs class="tabs-icon-top tabs-color-active-positive tabs-light productdetails-footer-bar "
+            delegate-handle="productdetails-tabs">
 
     <!--购物车 Tab -->
     <ion-tab title="购物车" ng-click="addToCart()" icon-off="iconfont icon-gouwuche" icon-on="iconfont icon-gouwuche"
@@ -64,7 +65,8 @@
     </ion-tab>
 
     <!-- 收藏Tab -->
-    <ion-tab title="收藏" icon-off="iconfont icon-jushoucang" icon-on="iconfont icon-jushoucanggift">
+    <ion-tab title="收藏" icon-off="iconfont icon-jushoucang" icon-on="iconfont icon-jushoucanggift"
+             on-select="collectGoods()">
     </ion-tab>
 
     <!-- 首页 Tab -->
@@ -72,7 +74,7 @@
              href="#/tab/main">
     </ion-tab>
 
-    <button nav-direction=forward native-ui-sref="tab.shoppingcart" native-options="{type: 'slide',direction: 'left'}"
+    <button nav-direction=forward ng-click="addToCart()"
             class="tab col-40 button  button-positive ">加入购物车
     </button>
 

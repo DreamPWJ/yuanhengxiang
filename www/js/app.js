@@ -222,7 +222,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       })
       //提交订单核对订单
       .state('revieworder', {
-        url: '/revieworder',
+        url: '/revieworder/:item',
         templateUrl: 'templates/main/revieworder.html',
         controller: 'ReviewOrderCtrl'
 
