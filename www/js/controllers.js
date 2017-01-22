@@ -275,7 +275,7 @@ angular.module('starter.controllers', [])
       $scope.page++;
       var params = {
         p: $scope.page,//页码
-        num: $scope.page == 1 ? 1 : 1000,
+        num:  1000,
         goods_id: $stateParams.id
       };
       GoodService.getGoodsCommentList(CommonService.authParams(params)).success(function (data) {
