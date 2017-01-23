@@ -275,7 +275,7 @@ angular.module('starter.controllers', [])
       $scope.page++;
       var params = {
         p: $scope.page,//页码
-        num:  1000,
+        num: 1000,
         goods_id: $stateParams.id
       };
       GoodService.getGoodsCommentList(CommonService.authParams(params)).success(function (data) {
@@ -415,13 +415,14 @@ angular.module('starter.controllers', [])
   })
 
   //提交订单核对订单
-  .controller('ReviewOrderCtrl', function ($scope, $rootScope, $stateParams, CommonService, AccountService) {
+  .controller('ReviewOrderCtrl', function ($scope, $rootScope, $state, $stateParams, CommonService, OrderService, AccountService) {
     $scope.reviewOrder = JSON.parse($stateParams.item);
     console.log($scope.reviewOrder);
     $scope.getDefaultAddress = function () { //获取发货地址
       var params = {};
       AccountService.getDefaultAddress(CommonService.authParams(params)).success(function (data) {
         if (data.status == 1) {
+          console.log(data);
           $rootScope.deliveryAddress = data.data.info;
         } else {
           CommonService.platformPrompt(data.info, 'close');
@@ -429,6 +430,18 @@ angular.module('starter.controllers', [])
       })
     }
     $scope.getDefaultAddress();
+
+    $scope.submitOrder = function () {//提交订单
+      var params = {};
+      OrderService.addOrder(CommonService.authParams(params)).success(function (data) {
+        if (data.status == 1) {
+          $state.go("myorder");
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      })
+
+    }
   })
 
   //我的订单

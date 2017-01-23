@@ -8,14 +8,14 @@
   </ion-nav-title>
   <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="revieworder">
     <ion-list>
-      <a ng-href="#/addressmanage" class="item item-icon-left item-icon-right item-borderless address">
+      <a ng-show="deliveryAddress!=null" ng-href="#/addressmanage" class="item item-icon-left item-icon-right item-borderless address">
         <i class="icon ion-ios-location-outline"></i>
         <h2>{{deliveryAddress.consignee}} <span class="padding-left">{{deliveryAddress.tel}}</span></h2>
         <p class="text-wrap">{{deliveryAddress.province + deliveryAddress.city + deliveryAddress.area + deliveryAddress.address}}</p>
         <i class="icon ion-ios-arrow-right grey"></i>
       </a>
-      <ion-item ng-show="false">
-        <h2 class="text-center"><a ng-href="#/addaddress" class="grey subdued"><i class="icon ion-compose"></i>
+      <ion-item ng-show="deliveryAddress==null">
+        <h2 class="text-center"><a ng-href="#/addaddress/0" class="grey subdued"><i class="icon ion-compose"></i>
           添加新地址</a></h2>
       </ion-item>
     </ion-list>
@@ -35,7 +35,7 @@
   <ion-footer-bar class="shoppingcart-footer-bar">
     <div class="row row-no-padding row-center  ">
       <span class="col-60 padding-left">总金额 :<span class="assertive">￥ <strong>{{reviewOrder.goodsAmount.toString().split('.')[0] }}.</strong><i>{{reviewOrder.goodsAmount.toString().split('.')[1] }}</i></span></span>
-      <button ui-sref="myorder" class="col button  button-assertive"><strong>提交订单</strong></button>
+      <button  ng-click="submitOrder()"  class="col button  button-assertive"><strong>提交订单</strong></button>
     </div>
   </ion-footer-bar>
 </ion-view>
