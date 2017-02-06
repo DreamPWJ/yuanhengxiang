@@ -1,17 +1,27 @@
 <ion-modal-view>
-  <ion-header-bar class="bar bar-header bar-positive">
-    <h1 class="title"> 搜索</h1>
-    <button class="button button-clear" ng-click="modal.hide()">关闭</button>
-  </ion-header-bar>
-  <ion-content overflow-scroll="false" >
-    <div class="bar item-input-inset positive-bg ">
+  <ion-content class="stable-bg" overflow-scroll="false">
+    <div class="bar item-input-inset light-bg ">
+      <button class="button button-clear icon ion-ios-arrow-left grey" ng-click="modal.hide()">
+      </button>
       <label class="item-input-wrapper light-bg">
-        <i class="iconfont icon-seach   placeholder-icon"></i>
-        <input type="search" autofocus placeholder="请输入您要搜索的内容"   ng-model="search.searchcontent"/>
+        <!--       <i class="iconfont icon-seach   placeholder-icon"></i>-->
+        <input type="search" class="search" autofocus placeholder="请输入关键字" ng-model="search.searchcontent"/>
       </label>
-      <button class="button button-positive stable no-border" ng-click="" >
-        搜索
+      <button class="button iconfont icon-seach  button-clear grey" ng-click="">
+
       </button>
     </div>
+    <p></p>
+    <ion-list>
+      <a ng-repeat="item in indexData.recommendGoods" ng-href="#/productdetails/{{item.id}}" nav-direction=forward
+         class="item item-thumbnail-left main-hot-sale">
+        <img ng-src="{{item.image}}" alt="">
+        <h2>{{item.goods_name}}</h2>
+        <p class="text-wrap">{{item.goods_intro}}</p>
+        <p class="row row-center"><span
+          class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span>{{item.price.toString().split('.')[1]}}</span></span>
+          <i class="col iconfont icon-gouwuche positive text-right"></i></p>
+      </a>
+    </ion-list>
   </ion-content>
 </ion-modal-view>

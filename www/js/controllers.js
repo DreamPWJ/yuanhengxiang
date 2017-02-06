@@ -58,7 +58,6 @@ angular.module('starter.controllers', [])
     //获取首页数据
     var params = {};
     MainService.getIndexData(CommonService.authParams(params)).success(function (data) {
-      console.log(data);
       if (data.status == 1) {
         $scope.indexData = data.data.lists;
       } else {
@@ -69,6 +68,17 @@ angular.module('starter.controllers', [])
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearHistory();
     })
+    //搜索modal
+    CommonService.customModal($scope, 'templates/search.html');
+    //城市选择modal
+    CommonService.customModal($scope, 'templates/modal/citymodal.html',1);
+    //点击选择城市
+    $scope.openCustomModal=function () {
+      $scope.modal1.show();
+      MainService.selectCity($scope);
+    }
+
+
     $scope.scrollWidth = window.innerWidth + 'px';
     $scope.scrollContentWidth = document.querySelector("#main-scroll").clientWidth + 'px';
 
