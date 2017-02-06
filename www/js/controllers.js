@@ -71,9 +71,9 @@ angular.module('starter.controllers', [])
     //搜索modal
     CommonService.customModal($scope, 'templates/search.html');
     //城市选择modal
-    CommonService.customModal($scope, 'templates/modal/citymodal.html',1);
+    CommonService.customModal($scope, 'templates/modal/citymodal.html', 1);
     //点击选择城市
-    $scope.openCustomModal=function () {
+    $scope.openCustomModal = function () {
       $scope.modal1.show();
       MainService.selectCity($scope);
     }
@@ -379,16 +379,23 @@ angular.module('starter.controllers', [])
       })
     }
     $scope.getCartList();
-
-
+    //修改购物车数量
+    $scope.updateCart = function (num, id) {
+      var params = {cart_id: id, goods_qty: num};
+      ShoppingCartService.updateCart(CommonService.authParams(params)).success(function (data) {
+        CommonService.platformPrompt(data.info, 'close');
+      })
+    }
     //添加数量
-    $scope.addnum = function ($index) {
+    $scope.addnum = function ($index, id) {
       $scope.shoppingcartdata.cartArr[$index].goods_qty++;
+      $scope.updateCart($scope.shoppingcartdata.cartArr[$index].goods_qty, id)
     }
     // 减少数量
-    $scope.minusnum = function ($index) {
+    $scope.minusnum = function ($index, id) {
       if ($scope.shoppingcartdata.cartArr[$index].goods_qty == 0)return;
       $scope.shoppingcartdata.cartArr[$index].goods_qty--;
+      $scope.updateCart($scope.shoppingcartdata.cartArr[$index].goods_qty, id)
     }
     // 计算总价
     var getTotal = function () {
@@ -442,22 +449,30 @@ angular.module('starter.controllers', [])
     $scope.getDefaultAddress();
 
     $scope.submitOrder = function () {//提交订单
-      var params = {};
+      var cart_id=[];
+      angular.forEach($scope.reviewOrder.cartArr, function (item, index) {
+        if (item.checked) {
+          cart_id.push(item.goods_qty)
+        }
+      })
+      var params = {cart_id: cart_id.splice(","), address_id: $rootScope.deliveryAddress.id};
       OrderService.addOrder(CommonService.authParams(params)).success(function (data) {
         if (data.status == 1) {
           $state.go("myorder");
-        } else {
-          CommonService.platformPrompt(data.info, 'close');
         }
+        CommonService.platformPrompt(data.info, 'close');
+
       })
 
     }
   })
 
   //我的订单
-  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService, WeiXinService, $ionicSlideBoxDelegate) {
+  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService, WeiXinService,OrderService, $ionicSlideBoxDelegate,$ionicScrollDelegate) {
     CommonService.customModal($scope, 'templates/modal/paymodal.html');
     $scope.tabIndex = 0;//当前tabs页
+
+
 
     $scope.pay = { //支付相关
       choice: "A"//选择支付方式默认微信
@@ -471,6 +486,86 @@ angular.module('starter.controllers', [])
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-myorderlist").slide(index)
     }
+    //未支付订单
+    $scope.pagecreated = 0;
+    $scope.totalcreated = 1;
+    $scope.createdList = [];
+    //已支付订单
+    $scope.pagepayed = 0;
+    $scope.totalpayed = 1;
+    $scope.payedList = [];
+    //已发货订单数据
+    $scope.pageshipped = 0;
+    $scope.totalshipped = 1;
+    $scope.shippedList = [];
+
+    $scope.getOrdersList = function () {
+      if (arguments != [] && arguments[0] == 0) {
+        if ($scope.tabIndex == 0) {  //未支付订单数据
+          $scope.pagecreated = 0;
+          $scope.createdList = [];
+        }
+        if ($scope.tabIndex == 1) {  //已支付订单数据
+          $scope.pagepayed = 0;
+          $scope.payedList = [];
+        }
+        if ($scope.tabIndex == 2) {  //已发货订单数据
+          $scope.pageshipped = 0;
+          $scope.shippedList = [];
+        }
+      }
+
+      if ($scope.tabIndex == 0 || $scope.pagecreated == 0) {  //未支付订单数据
+        $scope.pagecreated++;
+      }
+      if ($scope.tabIndex == 1 || $scope.pagepayed == 0) {  //已支付订单数据
+        $scope.pagepayed++;
+      }
+      if ($scope.tabIndex == 2 || $scope.pageshipped == 0) {  //已发货订单数据
+        $scope.pageshipped++;
+      }
+
+      $scope.params = {
+        p: $scope.tabIndex == 0 ? $scope.pagecreated : ($scope.tabIndex == 1 ? $scope.pagepayed : $scope.pageshipped),//页码
+        num: 10,
+        order_status: $scope.tabIndex==0?"created":($scope.tabIndex==1?"payed":($scope.tabIndex==2?"shipped":"complete"))
+      }
+
+      OrderService.myOrder(CommonService.authParams($scope.params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          angular.forEach(data.data.lists, function (item) {
+            if ($scope.tabIndex == 0) {  //未支付订单数据
+              $scope.createdList.push(item);
+            }
+            if ($scope.tabIndex == 1) {  //已支付订单数据
+              $scope.payedList.push(item);
+            }
+            if ($scope.tabIndex == 2) {  //已发货订单数据
+              $scope.shippedList.push(item);
+            }
+
+          })
+          if ($scope.tabIndex == 0) { //未支付订单数据
+            $scope.totalcreated = data.data.pageInfo.totalPages;
+          }
+          if ($scope.tabIndex == 1) {  //已支付订单数据
+            $scope.totalpayed = data.data.pageInfo.totalPages;
+          }
+          if ($scope.tabIndex == 2) {  //已发货订单数据
+            $scope.totalshipped = data.data.pageInfo.totalPages;
+          }
+
+          $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      }).finally(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      })
+    }
+    $scope.getOrdersList();
 
     //确认支付
     $scope.affirmPay = function () {
@@ -483,6 +578,7 @@ angular.module('starter.controllers', [])
       }
 
     }
+
   })
   //我的设置页面
   .controller('AccountCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
