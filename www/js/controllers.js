@@ -449,29 +449,29 @@ angular.module('starter.controllers', [])
     $scope.getDefaultAddress();
 
     $scope.submitOrder = function () {//提交订单
-      var cart_id=[];
+      var cart_id = [];
       angular.forEach($scope.reviewOrder.cartArr, function (item, index) {
         if (item.checked) {
           cart_id.push(item.goods_qty)
         }
       })
-      var params = {cart_id: cart_id.splice(","), address_id: $rootScope.deliveryAddress.id};
+      var params = {cart_id: cart_id.join(","), address_id: $rootScope.deliveryAddress.id};
       OrderService.addOrder(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
         if (data.status == 1) {
           $state.go("myorder");
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
         }
-        CommonService.platformPrompt(data.info, 'close');
-
       })
 
     }
   })
 
   //我的订单
-  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService, WeiXinService,OrderService, $ionicSlideBoxDelegate,$ionicScrollDelegate) {
+  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService, WeiXinService, OrderService, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     CommonService.customModal($scope, 'templates/modal/paymodal.html');
     $scope.tabIndex = 0;//当前tabs页
-
 
 
     $scope.pay = { //支付相关
@@ -494,11 +494,14 @@ angular.module('starter.controllers', [])
     $scope.pagepayed = 0;
     $scope.totalpayed = 1;
     $scope.payedList = [];
-    //已发货订单数据
-    $scope.pageshipped = 0;
-    $scope.totalshipped = 1;
-    $scope.shippedList = [];
-
+    //已签收订单数据
+    $scope.pagecomplete = 0;
+    $scope.totalcomplete = 1;
+    $scope.completeList = [];
+    //退单订单数据
+    $scope.pagerightsin = 0;
+    $scope.totalrightsin = 1;
+    $scope.rightsinList = [];
     $scope.getOrdersList = function () {
       if (arguments != [] && arguments[0] == 0) {
         if ($scope.tabIndex == 0) {  //未支付订单数据
@@ -509,9 +512,13 @@ angular.module('starter.controllers', [])
           $scope.pagepayed = 0;
           $scope.payedList = [];
         }
-        if ($scope.tabIndex == 2) {  //已发货订单数据
-          $scope.pageshipped = 0;
-          $scope.shippedList = [];
+        if ($scope.tabIndex == 2) {  //已签收订单数据
+          $scope.pagecomplete = 0;
+          $scope.completeList = [];
+        }
+        if ($scope.tabIndex == 3) {  //退单订单数据
+          $scope.pagerightsin = 0;
+          $scope.rightsinList = [];
         }
       }
 
@@ -521,14 +528,16 @@ angular.module('starter.controllers', [])
       if ($scope.tabIndex == 1 || $scope.pagepayed == 0) {  //已支付订单数据
         $scope.pagepayed++;
       }
-      if ($scope.tabIndex == 2 || $scope.pageshipped == 0) {  //已发货订单数据
-        $scope.pageshipped++;
+      if ($scope.tabIndex == 2 || $scope.pagecomplete == 0) {  //已签收订单数据
+        $scope.pagecomplete++;
       }
-
+      if ($scope.tabIndex == 3 || $scope.pagerightsin == 0) {  //退单订单数据
+        $scope.pagerightsin++;
+      }
       $scope.params = {
-        p: $scope.tabIndex == 0 ? $scope.pagecreated : ($scope.tabIndex == 1 ? $scope.pagepayed : $scope.pageshipped),//页码
+        p: $scope.tabIndex == 0 ? $scope.pagecreated : ($scope.tabIndex == 1 ? $scope.pagepayed : ($scope.tabIndex == 2 ? $scope.pagecomplete : $scope.pagerightsin)),//页码
         num: 10,
-        order_status: $scope.tabIndex==0?"created":($scope.tabIndex==1?"payed":($scope.tabIndex==2?"shipped":"complete"))
+        order_status: $scope.tabIndex == 0 ? "created" : ($scope.tabIndex == 1 ? "payed" : ($scope.tabIndex == 2 ? "complete" : "rights_in"))
       }
 
       OrderService.myOrder(CommonService.authParams($scope.params)).success(function (data) {
@@ -541,10 +550,12 @@ angular.module('starter.controllers', [])
             if ($scope.tabIndex == 1) {  //已支付订单数据
               $scope.payedList.push(item);
             }
-            if ($scope.tabIndex == 2) {  //已发货订单数据
-              $scope.shippedList.push(item);
+            if ($scope.tabIndex == 2) {  //已签收订单数据
+              $scope.completeList.push(item);
             }
-
+            if ($scope.tabIndex == 3) {  //退单订单数据
+              $scope.rightsinList.push(item);
+            }
           })
           if ($scope.tabIndex == 0) { //未支付订单数据
             $scope.totalcreated = data.data.pageInfo.totalPages;
@@ -552,10 +563,12 @@ angular.module('starter.controllers', [])
           if ($scope.tabIndex == 1) {  //已支付订单数据
             $scope.totalpayed = data.data.pageInfo.totalPages;
           }
-          if ($scope.tabIndex == 2) {  //已发货订单数据
-            $scope.totalshipped = data.data.pageInfo.totalPages;
+          if ($scope.tabIndex == 2) {  //已签收订单数据
+            $scope.totalcomplete = data.data.pageInfo.totalPages;
           }
-
+          if ($scope.tabIndex == 3) {  //退单订单数据
+            $scope.totalrightsin = data.data.pageInfo.totalPages;
+          }
           $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
         } else {
           CommonService.platformPrompt(data.info, 'close');
