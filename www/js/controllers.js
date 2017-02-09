@@ -452,7 +452,7 @@ angular.module('starter.controllers', [])
       var cart_id = [];
       angular.forEach($scope.reviewOrder.cartArr, function (item, index) {
         if (item.checked) {
-          cart_id.push(item.goods_qty)
+          cart_id.push(item.id)
         }
       })
       var params = {cart_id: cart_id.join(","), address_id: $rootScope.deliveryAddress.id};
@@ -590,6 +590,15 @@ angular.module('starter.controllers', [])
 
       }
 
+    }
+
+    //取消订单
+    $scope.cancelOrder = function (orderno) {
+      var params = {order_no: orderno};
+      OrderService.cancelOrder(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        CommonService.platformPrompt(data.info, 'close');
+      })
     }
 
   })

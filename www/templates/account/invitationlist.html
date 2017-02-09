@@ -15,7 +15,7 @@
     <div class="row light-bg row-center padding grey" ng-repeat="item  in invitationList">
       <span class="col-20">邀请人</span>
       <h5 class="col positive">{{item.invite_name}}</h5>
-      <span class="col-25 time ">{{item.time | date : 'yyyy-MM-dd'}}</span>
+      <span class="col-25 time ">{{item.time * 1000 | date : 'yyyy-MM-dd'}}</span>
     </div>
 
     <ion-infinite-scroll on-infinite="getInvitation()" ng-if="total > page"

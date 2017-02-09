@@ -37,7 +37,7 @@
       </a>
       <div class="item item-avatar" ng-repeat="item in goodsCommentList">
         <img ng-src="img/account/header.png" alt="用户头像">
-        <h2>萧十一郎 <span class="item-note">{{item.time | date : "yyyy-MM-hh HH:mm:ss"}}</span></h2>
+        <h2>萧十一郎 <span class="item-note">{{item.time * 1000| date : "yyyy-MM-hh HH:mm:ss"}}</span></h2>
         <p class="text-wrap">{{item.content}}</p>
       </div>
       <a ng-click="getGoodsCommentList()" class="item   text-center">

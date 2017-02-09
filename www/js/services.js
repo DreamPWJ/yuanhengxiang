@@ -928,7 +928,7 @@ angular.module('starter.services', [])
           // 城市搜索
           $scope.$watch('cityText', function (newVal, oldVal, e) {
             console.log(newVal);
-          if (!newVal || newVal == "") {
+            if (!newVal || newVal == "") {
               $scope.filterCities = [];
               return;
             }
@@ -1715,8 +1715,7 @@ angular.module('starter.services', [])
         var promise = deferred.promise
         promise = $http({
           method: 'GET',
-          url: "http://www.6weiyi.com/jinlele/weixin/weixinPay/" + parseInt(new Date().getTime() / 1000) + "/0.01/商品微信支付测试/okhnkvvnLaxUQxAeH6v8SUcu9jZQ"
-          //url: JinLeLe.api + "/weixin/weixinPay/" + params.orderNo + "/" + params.totalprice + "/" + params.descrip + "/" + params.openid
+          url: YuanHenXiang.api + "/weixin/weixinPay/" + params.orderNo + "/" + params.totalprice + "/" + params.descrip
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (err) {
@@ -1732,11 +1731,11 @@ angular.module('starter.services', [])
           timestamp: data.timeStamp, //时间戳，自1970年以来的秒数
           sign: data.paySign //微信签名
         };
-        alert(JSON.stringify(params))
+
         Wechat.sendPaymentRequest(params, function () {
-          alert("Success");
+          alert("微信支付成功！");
         }, function (reason) {
-          alert("Failed: " + reason);
+          alert("微信支付失败: " + reason);
         });
       },
       /*    所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用（同一个url仅需调用一次，对于变化url的SPA的web app可在每次url变化时进行调用,

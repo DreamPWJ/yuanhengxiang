@@ -29,7 +29,7 @@
             <h2 class="row"><span class="col">余额</span> <span class="col-70 text-right">{{item.number}}</span></h2>
             <h2 class="row"><span class="col"><strong class="energized"
                                                       style="font-size: 1.5rem">{{item.balance}}</strong> 元</span> <span
-              class="col item-note text-right">{{item.time | date : 'yyyy-MM-dd HH:mm:ss' }}</span></h2>
+              class="col item-note text-right">{{item.time * 1000 | date : 'yyyy-MM-dd HH:mm:ss' }}</span></h2>
             <h2 class="row grey"><span class="col">收支余额 <strong class="energized"
                                                                 style="font-size: 1.1rem">{{item.amount}}</strong> 元</span>
               <span
@@ -55,7 +55,7 @@
             </h2>
             <h2 class="row"><span class="col"><strong class="energized"
                                                       style="font-size: 1.5rem">{{item.balance}}</strong> 元</span> <span
-              class="col item-note text-right">{{item.time | date : 'yyyy-MM-dd HH:mm:ss' }}</span></h2>
+              class="col item-note text-right">{{item.time * 1000 | date : 'yyyy-MM-dd HH:mm:ss' }}</span></h2>
             <h2 class="row grey"><span class="col">提现金额 <strong class="energized"
                                                                 style="font-size: 1.1rem">{{item.amount}}</strong> 元</span>
               <span

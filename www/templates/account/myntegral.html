@@ -18,7 +18,7 @@
     </div>
     <div ng-repeat="item in myNtegralList">
       <div class="row row-center light-bg padding grey">
-        <span class="col-67"><span>{{item.time | date : 'yyyy-MM-dd HH:mm:ss'}}</span><span class="positive">{{item.total_fee | currency :"￥"}}元</span></span>
+        <span class="col-67"><span>{{item.time * 1000| date : 'yyyy-MM-dd HH:mm:ss'}}</span><span class="positive">{{item.total_fee | currency :"￥"}}元</span></span>
         <span class="col-33 text-right getntegral nowrap"><span>获得</span><span class="positive"> {{item.point}}积分</span></span>
       </div>
       <p></p>

@@ -22,8 +22,7 @@
           <img ng-src="{{item.image}}" alt="">
           <h2 class="padding-top">{{item.name}}</h2>
           <p>{{item.intro}}</p>
-          <p class="period-of-validity">有效期：{{item.start_time | date : 'yyyy-MM-dd' }} - {{item.end_time | date :
-            'yyyy-MM-dd' }}</p>
+          <p class="period-of-validity">有效期：{{item.start_time * 1000| date : 'yyyy-MM-dd' }} - {{item.end_time * 1000 | date :'yyyy-MM-dd' }}</p>
           <img ng-show="isfailureVolumeflg" ng-src="img/account/choice@2.png" alt="">
         </ion-item>
         <p></p>
