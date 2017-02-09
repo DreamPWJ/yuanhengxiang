@@ -299,6 +299,7 @@ angular.module('starter.services', [])
             localStorage.setItem("latitude", position.coords.latitude);//纬度
             callback.call(this);
           }, function (err) {
+            callback.call(this);
             // CommonService.platformPrompt("获取定位失败", 'close');
           });
       },

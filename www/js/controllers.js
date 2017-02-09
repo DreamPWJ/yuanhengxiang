@@ -23,22 +23,9 @@ angular.module('starter.controllers', [])
 
 
   //APP首页面
-  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, $ionicHistory, $timeout, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
+  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, CityService, $ionicHistory, $timeout, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     CommonService.isLogin(true);//判断是否登录
-    //获取定位信息
-    $scope.cityName = "深圳";//默认地址
-    CommonService.getLocation(function () {
-      //获取首页地理位置城市名称
-      MainService.getCurrentCityName({
-        key: YuanHenXiang.gaoDeKey,
-        location: Number(localStorage.getItem("longitude")).toFixed(6) + "," + Number(localStorage.getItem("latitude")).toFixed(6)
-      }).success(function (data) {
-        if (data.status == 1) {
-          var addressComponent = data.regeocode.addressComponent;
-          $scope.cityName = addressComponent.city ? addressComponent.city.replace("市", "") : addressComponent.province.replace("市", "");
-        }
-      })
-    });
+
     MainService.getAdvList(CommonService.authParams({code: "index_banner"})).success(function (data) {
       if (data.status == 1) {
         $scope.banner = data.data.lists;
@@ -55,15 +42,52 @@ angular.module('starter.controllers', [])
         CommonService.windowOpen(url)
       }
     })
+
     //获取首页数据
-    var params = {};
-    MainService.getIndexData(CommonService.authParams(params)).success(function (data) {
-      if (data.status == 1) {
-        $scope.indexData = data.data.lists;
-      } else {
-        CommonService.platformPrompt(data.info, 'close');
-      }
-    })
+    $scope.getIndexData = function () {
+      var params = {};
+      MainService.getIndexData(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.indexData = data.data.lists;
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      })
+    }
+
+    //设置定位
+    $scope.setLocation = function (cityName) {
+      var params = {city_name:cityName};
+      console.log(params);
+      CityService.setLocation(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+        }else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      }).then(function () {
+        $scope.getIndexData();
+      })
+    }
+    //获取定位信息
+    $scope.cityName = "深圳";//默认地址
+    CommonService.getLocation(function () {
+      //获取首页地理位置城市名称
+      MainService.getCurrentCityName({
+        key: YuanHenXiang.gaoDeKey,
+        location: Number(localStorage.getItem("longitude")).toFixed(6) + "," + Number(localStorage.getItem("latitude")).toFixed(6)
+      }).success(function (data) {
+        if (data.status == 1) {
+          var addressComponent = data.regeocode.addressComponent;
+          $scope.cityName = addressComponent.city ? addressComponent.city.replace("市", "") : addressComponent.province.replace("市", "");
+        }
+      }).finally(function () {
+        $scope.setLocation($scope.cityName);
+      })
+    });
+
+
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearHistory();
