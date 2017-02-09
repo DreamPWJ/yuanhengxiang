@@ -31,14 +31,14 @@
                class="item item-thumbnail-left main-hot-sale stable-bg">
               <img ng-src="{{items.image}}" alt="">
               <h2>{{items.goods_name}}</h2>
-              <p class="text-wrap">{{items.goods_name}}</p>
+              <p class="text-wrap">{{items.goods_intro}}</p>
               <p class="row row-center"><span
                 class="col-75 energized">￥<strong>{{items.goods_price.split('.')[0] }}.</strong><span
                 class="energized">{{items.goods_price.split('.')[1] }}</span></span> <span class="item-note">数量 : {{items.goods_qty}}件</span>
               </p>
             </a>
             <ion-item class="item-divider light-bg text-right item-borderless">
-              <h2 class="grey">共 1 件商品 合计: <span class="assertive"> {{item.real_amount}} 元</span></h2>
+              <h2 class="grey">共 {{item.total_goods_qty}} 件商品 合计: <span class="assertive"> {{item.real_amount}} 元</span></h2>
             </ion-item>
             <ion-item class="row row-horizontal-around item-borderless">
               <button class="col-20 col-offset-50 button button-positive button-outline button-small " ng-click="cancelOrder(item.order_no)">取消订单</button>
