@@ -927,7 +927,7 @@ angular.module('starter.services', [])
           ]
 
           // 城市搜索
-          $scope.$watch('cityText', function (newVal, oldVal, e) {
+          $scope.$watch("cityText", function (newVal, oldVal, e) {
             console.log(newVal);
             if (!newVal || newVal == "") {
               $scope.filterCities = [];
@@ -1677,6 +1677,70 @@ angular.module('starter.services', [])
           method: 'GET',
           url: YuanHenXiang.api + "/City/location",
           params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getHotCity: function (params) { //获取热门城市
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/City/getHotCity",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      }
+    }
+  })
+  .service('SignInService', function ($q, $http, YuanHenXiang) { //签到相关的接口
+    return {
+      signIn: function (params) { //签到
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/SignIn/index",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      }
+    }
+  })
+  .service('QuestionService', function ($q, $http, YuanHenXiang) { //调查问卷相关的接口
+    return {
+      getQuestion: function (params) { //获取问卷调查
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Question/index",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      addAnswer: function (params) { //提交问卷调查
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Question/addAnswer",
+          data: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (err) {

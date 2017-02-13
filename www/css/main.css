@@ -64,6 +64,11 @@
   width: 30%;
   padding: 0 0.1rem;
   text-decoration: none;
+  margin: 0 0.3rem;
+}
+
+#main-scroll > a:last-of-type{
+  margin-right: 1rem;
 }
 
 #main-scroll > a > p {

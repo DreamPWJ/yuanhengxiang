@@ -1,5 +1,5 @@
-<ion-modal-view   >
-  <ion-header-bar class="bar bar-header bar-positive" scroll-top  ng-click="scrollTop()">
+<ion-modal-view>
+  <ion-header-bar class="bar bar-header bar-positive" scroll-top ng-click="scrollTop()">
     <h1 class="title"> 城市选择</h1>
     <button class="button button-clear" ng-click="modal1.hide()">关闭</button>
   </ion-header-bar>
@@ -8,10 +8,9 @@
     <div class="bar-light  item-input-inset ">
       <label class="item-input-wrapper">
         <i class="iconfont icon-seach placeholder-icon"></i>
-        <input type="search" class="full-image" ng-model="cityText" placeholder="请输入城市中文名称或拼音">
+        <input type="search" class="full-image" ng-model="cityText"  placeholder="请输入城市中文名称或拼音">
       </label>
     </div>
-
     <div class="list city">
       <ion-item class="item" ng-repeat="city in filterCities" ng-click="citySelected(city)" ng-bind="city.name">
       </ion-item>
@@ -21,17 +20,24 @@
       <ion-item class="item">
         {{currentCity.name||cityName}}
       </ion-item>
+      <div>
+        <ion-item class="item-divider">
+          <h2>热门城市</h2>
+        </ion-item>
+        <ion-item class="item-body">
+          <a ng-click="citySelected(c)" class="cityItem" ng-repeat="c in hotCities" ng-bind="c.name"></a>
+        </ion-item>
+      </div>
 
       <div ng-repeat="city in cities">
         <ion-item class="item-divider">
-          <h2 id="{{city.index}}" ng-bind="city.index"> </h2>
+          <h2 id="{{city.index}}" ng-bind="city.index"></h2>
         </ion-item>
         <ion-item class="item-body">
           <a ng-click="citySelected(c)" class="cityItem" ng-repeat="c in city.cities" ng-bind="c.name"></a>
         </ion-item>
       </div>
     </div>
-
 
 
   </ion-content>

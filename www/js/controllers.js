@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
 
 
   //APP首页面
-  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, CityService, $ionicHistory, $timeout, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
+  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, CityService, SearchService, $ionicHistory, $timeout, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     CommonService.isLogin(true);//判断是否登录
 
     MainService.getAdvList(CommonService.authParams({code: "index_banner"})).success(function (data) {
@@ -55,15 +55,15 @@ angular.module('starter.controllers', [])
         }
       })
     }
-
+    $scope.getIndexData();
     //设置定位
     $scope.setLocation = function (cityName) {
-      var params = {city_name:cityName};
+      var params = {city_name: cityName};
       console.log(params);
       CityService.setLocation(CommonService.authParams(params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-        }else {
+        } else {
           CommonService.platformPrompt(data.info, 'close');
         }
       }).then(function () {
@@ -98,8 +98,42 @@ angular.module('starter.controllers', [])
     CommonService.customModal($scope, 'templates/modal/citymodal.html', 1);
     //点击选择城市
     $scope.openCustomModal = function () {
-      $scope.modal1.show();
       MainService.selectCity($scope);
+      $scope.modal1.show();
+
+    }
+
+    //搜索操作
+    $scope.searchcontent = "";
+    $scope.searchList = []
+    $scope.page = 0;
+    $scope.total = 1;
+    $scope.search = function (keyword) {
+      if ((arguments != [] && arguments[0] == 0) || $scope.searchcontent == "") {
+        $scope.page = 0;
+        $scope.searchList = [];
+      }
+      $scope.page++;
+      var params = {
+        p: $scope.page,//页码
+        num: 10,
+        keyword: keyword
+      };
+      console.log(params);
+      SearchService.searchGoods(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          angular.forEach(data.data.lists, function (item) {
+            $scope.searchList.push(item);
+          })
+          $scope.total = data.data.pageInfo.totalPages;
+          $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      }).finally(function () {
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      })
     }
 
 
@@ -304,7 +338,7 @@ angular.module('starter.controllers', [])
     $scope.getGoodsCommentList = function () {
       if (arguments != [] && arguments[0] == 0) {
         $scope.page = 0;
-        $scope.myCouponList = [];
+        $scope.goodsCommentList = [];
       }
       $scope.page++;
       var params = {
