@@ -70,6 +70,8 @@ angular.module('starter.controllers', [])
         $scope.getIndexData();
       })
     }
+
+
     //获取定位信息
     $scope.cityName = "深圳";//默认地址
     CommonService.getLocation(function () {
@@ -98,17 +100,17 @@ angular.module('starter.controllers', [])
     CommonService.customModal($scope, 'templates/modal/citymodal.html', 1);
     //点击选择城市
     $scope.openCustomModal = function () {
-      MainService.selectCity($scope);
+      $scope.city={};//城市相关json数据
       $scope.modal1.show();
-
+      MainService.selectCity($scope);
     }
 
     //搜索操作
     $scope.searchcontent = "";
-    $scope.searchList = []
+    $scope.searchList = [];
     $scope.page = 0;
     $scope.total = 1;
-    $scope.search = function (keyword) {
+    $scope.searchGoods = function (keyword) {
       if ((arguments != [] && arguments[0] == 0) || $scope.searchcontent == "") {
         $scope.page = 0;
         $scope.searchList = [];
@@ -135,7 +137,6 @@ angular.module('starter.controllers', [])
         $scope.$broadcast('scroll.infiniteScrollComplete');
       })
     }
-
 
     $scope.scrollWidth = window.innerWidth + 'px';
     $scope.scrollContentWidth = document.querySelector("#main-scroll").clientWidth + 'px';

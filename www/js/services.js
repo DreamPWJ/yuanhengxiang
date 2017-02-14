@@ -927,7 +927,7 @@ angular.module('starter.services', [])
           ]
 
           // 城市搜索
-          $scope.$watch("cityText", function (newVal, oldVal, e) {
+          $scope.$watch("city.cityText", function (newVal, oldVal, e) {
             console.log(newVal);
             if (!newVal || newVal == "") {
               $scope.filterCities = [];
@@ -956,7 +956,7 @@ angular.module('starter.services', [])
             // 缓存当前城市
             window.localStorage[cache_currentCity] = angular.toJson(c);
 
-            //$ionicHistory.goBack();
+            $ionicHistory.goBack();
           }
 
           function alphabetMove(pPositionY) {

@@ -6,15 +6,16 @@
       </button>
       <label class="item-input-wrapper light-bg">
         <!--       <i class="iconfont icon-seach   placeholder-icon"></i>-->
-        <input type="search" class="search" autofocus placeholder="请输入关键字"  ng-model="searchcontent"/>
+        <input type="search" class="search" autofocus placeholder="请输入关键字" ng-model="searchcontent"/>
       </label>
-      <button class="button iconfont icon-seach  button-clear grey" ng-click="search(searchcontent)">
+      <button class="button iconfont icon-seach  button-clear grey" ng-click="searchGoods(searchcontent)">
 
       </button>
     </div>
     <p></p>
     <ion-list>
-      <a ng-repeat="item in searchList" ng-click="modal.hide()" ng-href="#/productdetails/{{item.id}}" nav-direction=forward
+      <a ng-repeat="item in searchList" ng-click="modal.hide()" ng-href="#/productdetails/{{item.id}}"
+         nav-direction=forward
          class="item item-thumbnail-left main-hot-sale">
         <img ng-src="{{item.image}}" alt="">
         <h2>{{item.goods_name}}</h2>
@@ -24,7 +25,7 @@
           <i class="col iconfont icon-gouwuche positive text-right"></i></p>
       </a>
     </ion-list>
-    <ion-infinite-scroll on-infinite="search()" ng-if="total > page" immediate-check="false">
-    </ion-infinite-scroll>
+    <!--    <ion-infinite-scroll on-infinite="searchGoods()" ng-if="total > page" immediate-check="false">
+        </ion-infinite-scroll>-->
   </ion-content>
 </ion-modal-view>
