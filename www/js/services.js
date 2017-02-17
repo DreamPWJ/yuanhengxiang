@@ -157,7 +157,7 @@ angular.module('starter.services', [])
                 //通过默认浏览器打开
                 window.open(barcodeData.text, '_system', 'location=yes');
               } else {
-                $cordovaToast.showShortCenter('扫一扫信息:', barcodeData.text);
+                $cordovaToast.showShortCenter('扫一扫信息:' + barcodeData.text);
               }
             }, function (error) {
               $cordovaToast.showShortCenter('扫描失败,请重新扫描');
@@ -1709,6 +1709,20 @@ angular.module('starter.services', [])
           method: 'POST',
           url: YuanHenXiang.api + "/SignIn/index",
           data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      getSignInLog: function (params) { //签到记录
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          url: YuanHenXiang.api + "/SignIn/getSignInLog",
+          params: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (err) {
