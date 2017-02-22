@@ -263,11 +263,12 @@ angular.module('starter.services', [])
             targetHeight: 500,                                       //照片高度
             mediaType: 0,                                             //可选媒体类型：圖片=0，只允许选择图片將返回指定DestinationType的参数。 視頻格式=1，允许选择视频，最终返回 FILE_URI。ALLMEDIA= 2，允许所有媒体类型的选择。
             cameraDirection: 0,                                       //枪后摄像头类型：Back= 0,Front-facing = 1
-            saveToPhotoAlbum: true                                   //保存进手机相册
+            saveToPhotoAlbum: false                                   //保存进手机相册
           };
 
           $cordovaCamera.getPicture(options).then(function (imageUrl) {
             $scope.imageUploadCount = 1;
+            imageUrl=imageUrl.split("?")[0];
             $scope.imageList.push(imageUrl);
             AccountService.addFiles($scope, {filenames: filenames}, imageUrl);
 
@@ -1592,9 +1593,15 @@ angular.module('starter.services', [])
           fileName: imageUrl.substr(imageUrl.lastIndexOf('/') + 1),
           mimeType: "image/jpeg"
         };
+        console.log(imageUrl);
         $cordovaFileTransfer.upload(url, imageUrl, options)
           .then(function (result) {
+            console.log(decodeURIComponent(JSON.stringify(result.response)));
             var result = JSON.parse(result.response);
+            if (result.status != 1) {
+              $cordovaToast.showLongCenter("上传图片失败");
+              return false;
+            }
             $scope.imgsPicAddr.push(result.data.info.url);
             $scope.imageSuccessCount++;
             if ($scope.imageSuccessCount == $scope.imageUploadCount) {

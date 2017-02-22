@@ -100,7 +100,7 @@ angular.module('starter.controllers', [])
     CommonService.customModal($scope, 'templates/modal/citymodal.html', 1);
     //点击选择城市
     $scope.openCustomModal = function () {
-      $scope.city={};//城市相关json数据
+      $scope.city = {};//城市相关json数据
       $scope.modal1.show();
       MainService.selectCity($scope);
     }
@@ -1262,7 +1262,7 @@ angular.module('starter.controllers', [])
     })
   })
   //每日签到页面
-  .controller('SignInCtrl', function ($scope, CommonService) {
+  .controller('SignInCtrl', function ($scope, CommonService, SignInService) {
     //构造一个日期对象：
     var date = new Date();
     //获取年份
@@ -1280,9 +1280,50 @@ angular.module('starter.controllers', [])
       $scope.monthdays = d.getDate();
     }
 
+    //获取问卷调查
+    var params = {}
+    SignInService.getSignInLog(CommonService.authParams(params)).success(function (data) {
+      console.log(data);
+      if (data.status == 1) {
+        $scope.signInList = data.data.lists;
+      } else {
+        CommonService.platformPrompt(data.info, 'close');
+      }
+    })
+
+    //签到
+    $scope.signIn = function () {
+      var params = {date: "2017-02-22"}
+      SignInService.signIn(CommonService.authParams(params)).success(function (data) {
+        CommonService.platformPrompt(data.info, 'close');
+      })
+    }
+
   })
   //问卷调查页面
-  .controller('QuestionnaireCtrl', function ($scope, CommonService) {
+  .controller('QuestionnaireCtrl', function ($scope, CommonService, QuestionService) {
+    $scope.choice = [];//选择变量
+    //获取问卷调查
+    var params = {question_id: 1}
+    QuestionService.getQuestion(CommonService.authParams(params)).success(function (data) {
+      console.log(data);
+      if (data.status == 1) {
+        $scope.questionList = data.data.lists;
+      } else {
+        CommonService.platformPrompt(data.info, 'close');
+      }
+    })
+
+    //提交问卷调查
+    $scope.addAnswerSubmit = function () {
+      console.log($scope.choice);
+      /*      var params = {question_id: 1}
+       QuestionService.addAnswer(CommonService.authParams(params)).success(function (data) {
+       console.log(data);
+       CommonService.platformPrompt(data.info, 'close');
+       })*/
+    }
+
 
   })
   //上传头像
