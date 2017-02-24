@@ -24,7 +24,9 @@ angular.module('starter.controllers', [])
 
   //APP首页面
   .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, CityService, SearchService, $ionicHistory, $timeout, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
-    CommonService.isLogin(true);//判断是否登录
+    if (!CommonService.isLogin(true)) {//判断是否登录
+      return false;
+    }
 
     MainService.getAdvList(CommonService.authParams({code: "index_banner"})).success(function (data) {
       if (data.status == 1) {
@@ -159,11 +161,11 @@ angular.module('starter.controllers', [])
       }).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-          CommonService.getStateName();   //跳转页面
           var info = data.data.info;
           localStorage.setItem("login_name", info.login_name);
           localStorage.setItem("mid", info.mid)
           localStorage.setItem("token", info.token)
+          CommonService.getStateName();   //跳转页面
         } else {
           CommonService.platformPrompt(data.info, 'close');
         }
