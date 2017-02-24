@@ -33,7 +33,8 @@
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
-        "cordova-plugin-imagepicker": {
+        "cordova-plugin-image-picker": {
+            "PHOTO_LIBRARY_USAGE_DESCRIPTION": " ",
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
         "cordova-plugin-inappbrowser": {
@@ -49,6 +50,10 @@
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
         "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-wechat": {
+            "WECHATAPPID": "wx7a6a63e9ee94e24d",
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
         "cordova-plugin-whitelist": {
@@ -67,6 +72,9 @@
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-webserver": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         }
     }
