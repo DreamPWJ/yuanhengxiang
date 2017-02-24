@@ -57,7 +57,10 @@
         <param name="android-package" value="nl.xservices.plugins.Toast" />
       </feature>
     </config-file>
-
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <!-- 悬浮框权限 -->
+      <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    </config-file>
     <source-file src="src/android/nl/xservices/plugins/Toast.java" target-dir="src/nl/xservices/plugins"/>
   </platform>
 
@@ -80,7 +83,7 @@
         <feature name="Toast" value="Toast" />
       </config-file>
   </platform>
-  
+
   <!-- windows -->
   <platform name="windows">
     <js-module src="src/windows/toastProxy.js" name="ToastProxy">
@@ -90,5 +93,5 @@
       <feature name="Toast" value="Toast" />
     </config-file>
   </platform>
-  
+
 </plugin>
