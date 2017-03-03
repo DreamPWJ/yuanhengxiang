@@ -1319,11 +1319,28 @@ angular.module('starter.controllers', [])
     //提交问卷调查
     $scope.addAnswerSubmit = function () {
       console.log($scope.choice);
-      /*      var params = {question_id: 1}
-       QuestionService.addAnswer(CommonService.authParams(params)).success(function (data) {
-       console.log(data);
-       CommonService.platformPrompt(data.info, 'close');
-       })*/
+      var answers = [];
+      angular.forEach($scope.choice, function (item, index) {
+        var json = {};
+        angular.forEach($scope.questionList, function (items) {
+          if (items.id == index) {
+            json.id = index;
+            json.title = items.name;
+            json.answer = items.answer[item];
+          }
+        })
+
+
+        answers.push(json)
+      })
+
+      var params = CommonService.authParams({question_id: 1});
+      params.answer = answers;
+      console.log(params);
+      QuestionService.addAnswer(params).success(function (data) {
+        console.log(data);
+        CommonService.platformPrompt(data.info, 'close');
+      })
     }
 
 
