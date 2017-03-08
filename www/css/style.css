@@ -125,6 +125,10 @@
   border-bottom: none;
 }
 
+.item {
+  border-color: rgba(221, 221, 221, 0.5) !important;
+}
+
 .fixed-bottom {
   position: fixed;
   bottom: 0;
