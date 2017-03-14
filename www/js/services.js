@@ -268,7 +268,7 @@ angular.module('starter.services', [])
 
           $cordovaCamera.getPicture(options).then(function (imageUrl) {
             $scope.imageUploadCount = 1;
-            imageUrl=imageUrl.split("?")[0];
+            imageUrl = imageUrl.split("?")[0];
             $scope.imageList.push(imageUrl);
             AccountService.addFiles($scope, {filenames: filenames}, imageUrl);
 
@@ -956,8 +956,11 @@ angular.module('starter.services', [])
 
             // 缓存当前城市
             window.localStorage[cache_currentCity] = angular.toJson(c);
-
-            $ionicHistory.goBack();
+            $scope.modal1.hide();
+            //重新定位
+            $scope.cityName = c.name;//定位地址
+            $scope.setLocation(c.name);
+            //  $ionicHistory.goBack();
           }
 
           function alphabetMove(pPositionY) {
@@ -1101,7 +1104,7 @@ angular.module('starter.services', [])
     }
   })
 
-  .service('ShoppingCartService', function ($q, $http, YuanHenXiang) { //购物车服务类
+  .service('ShoppingCartService', function ($q, $http, YuanHenXiang, CommonService) { //购物车服务类
     return {
       getCartList: function (params) { //获取购物车商品
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
@@ -1118,6 +1121,9 @@ angular.module('starter.services', [])
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       },
       addToCart: function (params) { //加入购物商品
+        if (!CommonService.isLogin(false)) { //没有登录不允许加入购物车
+          return false;
+        }
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
         promise = $http({
@@ -1709,12 +1715,26 @@ angular.module('starter.services', [])
   })
   .service('SignInService', function ($q, $http, YuanHenXiang) { //签到相关的接口
     return {
-      signIn: function (params) { //签到
+      signInList: function (params) { //签到列表
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
         promise = $http({
           method: 'POST',
           url: YuanHenXiang.api + "/SignIn/index",
+          data: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
+      signIn: function (params) { //签到
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/SignIn/gotoSignIn",
           data: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了

@@ -24,9 +24,9 @@ angular.module('starter.controllers', [])
 
   //APP首页面
   .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, CityService, SearchService, $ionicHistory, $timeout, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
-    if (!CommonService.isLogin(true)) {//判断是否登录
-      return false;
-    }
+    /*    if (!CommonService.isLogin(true)) {//判断是否登录
+     return false;
+     }*/
 
     MainService.getAdvList(CommonService.authParams({code: "index_banner"})).success(function (data) {
       if (data.status == 1) {
@@ -95,6 +95,7 @@ angular.module('starter.controllers', [])
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearHistory();
+
     })
     //搜索modal
     CommonService.customModal($scope, 'templates/search.html');
@@ -1282,22 +1283,47 @@ angular.module('starter.controllers', [])
       $scope.monthdays = d.getDate();
     }
 
-    //获取问卷调查
-    var params = {}
-    SignInService.getSignInLog(CommonService.authParams(params)).success(function (data) {
-      console.log(data);
-      if (data.status == 1) {
-        $scope.signInList = data.data.lists;
-      } else {
-        CommonService.platformPrompt(data.info, 'close');
-      }
-    })
+    //获取签到列表
+    $scope.signInList = function () {
+      var params = {}
+      SignInService.signInList(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.signInInfo = data.data.info;
+          $scope.signInLists = data.data.lists;
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      })
+    }
+
+    $scope.signInList();
+
+    //获取签到记录
+    $scope.getSignInLog = function () {
+      var params = {}
+      SignInService.getSignInLog(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.signInLogs = data.data.lists;
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      })
+    }
+
+    $scope.getSignInLog();
 
     //签到
     $scope.signIn = function () {
-      var params = {date: "2017-02-22"}
+      var params = {}
       SignInService.signIn(CommonService.authParams(params)).success(function (data) {
-        CommonService.platformPrompt(data.info, 'close');
+        console.log(data);
+        if (data.status == 1) {
+
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
       })
     }
 
