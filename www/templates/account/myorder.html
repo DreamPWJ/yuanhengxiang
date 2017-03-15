@@ -38,11 +38,15 @@
               </p>
             </a>
             <ion-item class="item-divider light-bg text-right item-borderless">
-              <h2 class="grey">共 {{item.total_goods_qty}} 件商品 合计: <span class="assertive"> {{item.real_amount}} 元</span></h2>
+              <h2 class="grey">共 {{item.total_goods_qty}} 件商品 合计: <span class="assertive"> {{item.real_amount}} 元</span>
+              </h2>
             </ion-item>
             <ion-item class="row row-horizontal-around item-borderless">
-              <button class="col-20 col-offset-50 button button-positive button-outline button-small " ng-click="cancelOrder(item.order_no)">取消订单</button>
-              <button class="col-20  button button-positive button-outline button-small" ng-click="modal.show()">付款
+              <button class="col-20 col-offset-50 button button-positive button-outline button-small "
+                      ng-click="cancelOrder(item.order_no)">取消订单
+              </button>
+              <button class="col-20  button button-positive button-outline button-small"
+                      ng-click="openPayModal(item.order_no)">付款
               </button>
             </ion-item>
             <p></p>

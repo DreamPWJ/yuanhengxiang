@@ -1809,6 +1809,64 @@ angular.module('starter.services', [])
       }
     }
   })
+  .service('AliPayService', function ($q, $http, YuanHenXiang) { //支付宝接口服务定义
+    return {
+      aliPay: function (payInfo) {
+        /*
+         tradeNo 这个是支付宝需要的商家支付单号，应该是一个自己生成唯一的ID号
+         subject 这个字段会显示在支付宝付款的页面
+         body 订单详情，没找到会显示哪里
+         price 价格，支持两位小数
+         function(successResults){} 是成功之后的回调函数
+         function(errorResults){} 是失败之后的回调函数
+         */
+        /*        window.alipay.pay({
+         tradeNo: tradeNo,
+         subject:subject ,
+         body: body,
+         price: price,
+         notifyUrl: "http://muying.tuokemao.com/Service/Pay/aliPayNotify"
+         }, function (successResults) {
+         alert("success==" + successResults)
+         }, function (errorResults) {
+         alert("error==" + errorResults)
+         });*/
+        //第一步：订单在服务端签名生成订单信息，具体请参考官网进行签名处理
+        var payInfo = payInfo;
+
+        //第二步：调用支付插件
+        cordova.plugins.AliPay.pay(payInfo, function success(e) {
+          alert(JSON.parse(e))
+        }, function error(e) {
+          alert(JSON.parse(e))
+        });
+
+        //e.resultStatus  状态代码  e.result  本次操作返回的结果数据 e.memo 提示信息
+        //e.resultStatus  9000  订单支付成功 ;8000 正在处理中  调用function success
+        //e.resultStatus  4000  订单支付失败 ;6001  用户中途取消 ;6002 网络连接出错  调用function error
+        //当e.resultStatus为9000时，请去服务端验证支付结果
+        /**
+         * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
+         * detail.htm?spm=0.0.0.0.xdvAU6&treeId=59&articleId=103665&
+         * docType=1) 建议商户依赖异步通知
+         */
+      },
+      orderAlipayPay: function (params) { //商品订单支付宝支付
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'POST',
+          url: YuanHenXiang.api + "/Pay/orderAlipayPay",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      }
+    }
+  })
   .service('WeiXinService', function ($q, $http, YuanHenXiang) { //微信 JS SDK 接口服务定义
     return {
       isWeiXin: function isWeiXin() { //判断是否是微信内置浏览器

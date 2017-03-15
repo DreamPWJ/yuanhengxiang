@@ -531,7 +531,7 @@ angular.module('starter.controllers', [])
   })
 
   //我的订单
-  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService, WeiXinService, OrderService, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
+  .controller('MyOrderCtrl', function ($scope, $rootScope, CommonService, WeiXinService, AliPayService, OrderService, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     CommonService.customModal($scope, 'templates/modal/paymodal.html');
     $scope.tabIndex = 0;//当前tabs页
 
@@ -641,7 +641,11 @@ angular.module('starter.controllers', [])
       })
     }
     $scope.getOrdersList();
-
+    //打开支付选项modal
+    $scope.openPayModal = function (orderno) {
+      $scope.modal.show();
+      $scope.orderno = orderno;
+    }
     //确认支付
     $scope.affirmPay = function () {
       if ($scope.pay.choice == "A") {//微信支付
@@ -650,8 +654,17 @@ angular.module('starter.controllers', [])
         })
       } else if ($scope.pay.choice == "B") {//支付宝支付
 
-      }
+        var params = {order_no: $scope.orderno};
+        AliPayService.orderAlipayPay(CommonService.authParams(params)).success(function (data) {
+          console.log(data);
+          if (data.status == 1) {
+            AliPayService.aliPay(data.data)
+          } else {
+            CommonService.platformPrompt(data.info, 'close');
+          }
 
+        })
+      }
     }
 
     //取消订单
@@ -1276,16 +1289,16 @@ angular.module('starter.controllers', [])
     $scope.daycount = date.getDate();
     //今天是星期几
     $scope.week = "日一二三四五六".charAt(new Date().getDay());
-    $scope.mouthfirstdayweek = "7123456".charAt(new Date($scope.year,parseInt($scope.mouth-1,10),1).getDay());
+    $scope.mouthfirstdayweek = "7123456".charAt(new Date($scope.year, parseInt($scope.mouth - 1, 10), 1).getDay());
     console.log($scope.mouthfirstdayweek);
     //获取当月总共有多少天
     $scope.getDaysInOneMonth = function (year, month) {
       month = parseInt(month, 10);
       var d = new Date(year, month, 0);
       $scope.monthdays = d.getDate();
-      $scope.monthdaysarry=[];
-      for(var i=1;i<=$scope.monthdays;i++){
-        $scope.monthdaysarry.push({days:i,isSignIn:0})
+      $scope.monthdaysarry = [];
+      for (var i = 1; i <= $scope.monthdays; i++) {
+        $scope.monthdaysarry.push({days: i, isSignIn: 0})
       }
 
     }
@@ -1321,10 +1334,10 @@ angular.module('starter.controllers', [])
           CommonService.platformPrompt(data.info, 'close');
         }
       }).then(function () {
-        angular.forEach($scope.signInLogs,function (item,index) {
-          angular.forEach($scope.monthdaysarry,function (items,indexs) {
-            if(new Date(item.time*1000).getDate()==items.days){
-              $scope.monthdaysarry[indexs].isSignIn=1;
+        angular.forEach($scope.signInLogs, function (item, index) {
+          angular.forEach($scope.monthdaysarry, function (items, indexs) {
+            if (new Date(item.time * 1000).getDate() == items.days) {
+              $scope.monthdaysarry[indexs].isSignIn = 1;
             }
           })
 
