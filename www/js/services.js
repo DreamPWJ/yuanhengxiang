@@ -1836,7 +1836,7 @@ angular.module('starter.services', [])
 
         //第二步：调用支付插件
         cordova.plugins.AliPay.pay(payInfo, function success(e) {
-          alert(JSON.parse(e))
+
         }, function error(e) {
           alert(JSON.parse(e))
         });
@@ -1913,8 +1913,9 @@ angular.module('starter.services', [])
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
         promise = $http({
-          method: 'GET',
-          url: YuanHenXiang.api + "/weixin/weixinPay/" + params.orderNo + "/" + params.totalprice + "/" + params.descrip
+          method: 'POST',
+          url: YuanHenXiang.api + "/Pay/orderWechatPay",
+          data: params
         }).success(function (data) {
           deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
         }).error(function (err) {
@@ -1924,15 +1925,14 @@ angular.module('starter.services', [])
       },
       weixinPay: function (data) {//微信原生SDK支付
         var params = {
-          partnerid: data.appId,     //公众号名称，由商户传入
-          prepayid: data.package.replace("prepay_id=", ""), // prepay id
-          noncestr: data.nonceStr, //随机串
-          timestamp: data.timeStamp, //时间戳，自1970年以来的秒数
-          sign: data.paySign //微信签名
+          partnerid: data.partnerid,     //公众号名称，由商户传入
+          prepayid: data.prepayid.replace("prepay_id=", ""), // prepay id
+          noncestr: data.noncestr, //随机串
+          timestamp: data.timestamp, //时间戳，自1970年以来的秒数
+          sign: data.sign //微信签名
         };
-
         Wechat.sendPaymentRequest(params, function () {
-          alert("微信支付成功！");
+
         }, function (reason) {
           alert("微信支付失败: " + reason);
         });

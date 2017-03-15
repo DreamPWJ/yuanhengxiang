@@ -648,17 +648,21 @@ angular.module('starter.controllers', [])
     }
     //确认支付
     $scope.affirmPay = function () {
+      var params = {order_no: $scope.orderno};
       if ($scope.pay.choice == "A") {//微信支付
-        WeiXinService.getweixinPayData().success(function (data) {
-          WeiXinService.weixinPay(data);
+        WeiXinService.getweixinPayData(CommonService.authParams(params)).success(function (data) {
+          console.log(data);
+          if (data.status == 1) {
+            WeiXinService.weixinPay(data.data.info);
+          } else {
+            CommonService.platformPrompt(data.info, 'close');
+          }
         })
       } else if ($scope.pay.choice == "B") {//支付宝支付
-
-        var params = {order_no: $scope.orderno};
         AliPayService.orderAlipayPay(CommonService.authParams(params)).success(function (data) {
           console.log(data);
           if (data.status == 1) {
-            AliPayService.aliPay(data.data)
+            AliPayService.aliPay(data.data.info)
           } else {
             CommonService.platformPrompt(data.info, 'close');
           }
