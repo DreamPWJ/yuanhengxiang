@@ -1276,12 +1276,20 @@ angular.module('starter.controllers', [])
     $scope.daycount = date.getDate();
     //今天是星期几
     $scope.week = "日一二三四五六".charAt(new Date().getDay());
+    $scope.mouthfirstdayweek = "7123456".charAt(new Date($scope.year,parseInt($scope.mouth-1,10),1).getDay());
+    console.log($scope.mouthfirstdayweek);
     //获取当月总共有多少天
     $scope.getDaysInOneMonth = function (year, month) {
       month = parseInt(month, 10);
       var d = new Date(year, month, 0);
       $scope.monthdays = d.getDate();
+      $scope.monthdaysarry=[];
+      for(var i=1;i<=$scope.monthdays;i++){
+        $scope.monthdaysarry.push({days:i,isSignIn:0})
+      }
+
     }
+    $scope.getDaysInOneMonth($scope.year, $scope.mouth);
 
     //获取签到列表
     $scope.signInList = function () {
@@ -1301,7 +1309,10 @@ angular.module('starter.controllers', [])
 
     //获取签到记录
     $scope.getSignInLog = function () {
-      var params = {}
+      var params = {
+        p: 1,//页码
+        num: 31
+      }
       SignInService.getSignInLog(CommonService.authParams(params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
@@ -1309,6 +1320,16 @@ angular.module('starter.controllers', [])
         } else {
           CommonService.platformPrompt(data.info, 'close');
         }
+      }).then(function () {
+        angular.forEach($scope.signInLogs,function (item,index) {
+          angular.forEach($scope.monthdaysarry,function (items,indexs) {
+            if(new Date(item.time*1000).getDate()==items.days){
+              $scope.monthdaysarry[indexs].isSignIn=1;
+            }
+          })
+
+
+        })
       })
     }
 
@@ -1320,10 +1341,10 @@ angular.module('starter.controllers', [])
       SignInService.signIn(CommonService.authParams(params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-
-        } else {
-          CommonService.platformPrompt(data.info, 'close');
+          $scope.signInInfo.signIn++;
+          $scope.signInInfo.isSignIn == 1;
         }
+        CommonService.platformPrompt(data.info, 'close');
       })
     }
 

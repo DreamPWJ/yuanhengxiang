@@ -8,9 +8,9 @@
   </ion-nav-title>
   <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="signin">
     <div class="row row-center light signin-header">
-      <span  class="col text-right">如何赚积分</span>
+      <span class="col text-right">如何赚积分</span>
       <span class="col text-center" ng-click="signIn()"><span class="signin-day positive">
-        <p>已签到</p><p>{{signInInfo.signIn}}次</p> </span></span>
+        <p>{{signInInfo.isSignIn>0?'已':'未'}}签到</p><p>{{signInInfo.signIn}}次</p> </span></span>
       <span class="col text-left">如何花积分</span>
     </div>
     <p class="text-center"><span class="integral-num">当前 {{signInInfo.currentPoint}} 积分</span></p>
@@ -29,54 +29,17 @@
           <strong class="col">五</strong>
           <strong class="col positive">六</strong>
           <strong class="col positive">日</strong></p>
-        <p class="row text-center">
-          <span class="col grey">25</span>
-          <span class="col grey">26</span>
-          <span class="col grey">27</span>
-          <span class="col grey">28</span>
-          <span class="col grey">29</span>
-          <span class="col positive">30</span>
-          <span class="col positive">31</span></p>
-        <p class="row text-center">
-          <span class="col ">1</span>
-          <span class="col  active">2</span>
-          <span class="col active">3</span>
-          <span class="col active">4</span>
-          <span class="col ">5</span>
-          <span class="col positive">6</span>
-          <span class="col positive">7</span></p>
-        <p class="row text-center">
-          <span class="col ">8</span>
-          <span class="col  ">9</span>
-          <span class="col ">10</span>
-          <span class="col ">11</span>
-          <span class="col active">12</span>
-          <span class="col positive">13</span>
-          <span class="col positive">14</span></p>
-        <p class="row text-center">
-          <span class="col active">15</span>
-          <span class="col  ">16</span>
-          <span class="col ">17</span>
-          <span class="col ">18</span>
-          <span class="col ">19</span>
-          <span class="col positive">20</span>
-          <span class="col positive">21</span></p>
-        <p class="row text-center">
-          <span class="col ">22</span>
-          <span class="col  ">23</span>
-          <span class="col ">24</span>
-          <span class="col active">25</span>
-          <span class="col ">26</span>
-          <span class="col positive">27</span>
-          <span class="col positive">28</span></p>
-        <p class="row text-center">
-          <span class="col ">29</span>
-          <span class="col  ">30</span>
-          <span class="col active">31</span>
-          <span class="col grey">1</span>
-          <span class="col grey">2</span>
-          <span class="col positive">3</span>
-          <span class="col positive">4</span></p>
+
+        <p class="row text-center row-wrap">
+          <span ng-if="mouthfirstdayweek>1" class="days"></span>
+          <span ng-if="mouthfirstdayweek>2" class="days"></span>
+          <span ng-if="mouthfirstdayweek>3" class="days"></span>
+          <span ng-if="mouthfirstdayweek>4" class="days"></span>
+          <span ng-if="mouthfirstdayweek>5" class="days"></span>
+          <span ng-if="mouthfirstdayweek>6" class="days"></span>
+          <span ng-if="mouthfirstdayweek>7" class="days"></span>
+          <span ng-repeat="item in monthdaysarry" class="days" ng-class="{true:'active'}[item.isSignIn==1]">{{item.days}}</span>
+
         <div class="padding">
           <a ng-href="#/login" nav-direction=forward class="button button-positive full-image ">退出登录</a>
         </div>
