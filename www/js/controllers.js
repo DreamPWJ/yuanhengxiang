@@ -539,15 +539,28 @@ angular.module('starter.controllers', [])
     $scope.pay = { //支付相关
       choice: "A"//选择支付方式默认微信
     }
+    //左右滑动列表
     $scope.slideChanged = function (index) {
       $scope.tabIndex = index;
-    };
+      $scope.pagecreated = 0;
+      $scope.pagepayed = 0;
+      $scope.pagecomplete = 0;
+      $scope.pagerightsin = 0;
+      $scope.createdList = [];
+      $scope.payedList = [];
+      $scope.completeList = [];
+      $scope.rightsinList = [];
 
+      $scope.getOrdersList(); //获取订单数据
+
+    };
+   //点击选项卡
     $scope.selectedTab = function (index) {
       $scope.tabIndex = index;
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-myorderlist").slide(index)
     }
+
     //未支付订单
     $scope.pagecreated = 0;
     $scope.totalcreated = 1;
@@ -564,7 +577,7 @@ angular.module('starter.controllers', [])
     $scope.pagerightsin = 0;
     $scope.totalrightsin = 1;
     $scope.rightsinList = [];
-    $scope.getOrdersList = function () {
+    $scope.getOrdersList = function () { //获取订单数据
       if (arguments != [] && arguments[0] == 0) {
         if ($scope.tabIndex == 0) {  //未支付订单数据
           $scope.pagecreated = 0;
@@ -601,7 +614,7 @@ angular.module('starter.controllers', [])
         num: 10,
         order_status: $scope.tabIndex == 0 ? "created" : ($scope.tabIndex == 1 ? "payed" : ($scope.tabIndex == 2 ? "complete" : "rights_in"))
       }
-
+      console.log($scope.params);
       OrderService.myOrder(CommonService.authParams($scope.params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
@@ -654,6 +667,7 @@ angular.module('starter.controllers', [])
           console.log(data);
           if (data.status == 1) {
             WeiXinService.weixinPay(data.data.info);
+            $scope.modal.hide();
           } else {
             CommonService.platformPrompt(data.info, 'close');
           }
@@ -662,7 +676,8 @@ angular.module('starter.controllers', [])
         AliPayService.orderAlipayPay(CommonService.authParams(params)).success(function (data) {
           console.log(data);
           if (data.status == 1) {
-            AliPayService.aliPay(data.data.info)
+            AliPayService.aliPay(data.data.info);
+            $scope.modal.hide();
           } else {
             CommonService.platformPrompt(data.info, 'close');
           }

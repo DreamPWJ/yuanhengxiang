@@ -21,6 +21,10 @@
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
         <ion-refresher on-refresh="getOrdersList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
+        <div ng-if="createdList.length==0" class="isNotDataHint">
+          <i class="icon ion-sad"></i>
+          <p>暂无未付单</p>
+        </div>
         <ion-list>
           <div ng-repeat="item in createdList ">
             <ion-item class="row">
@@ -59,89 +63,120 @@
     </ion-slide>
     <ion-slide>
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <ion-refresher on-refresh="getOrdersList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
+        <div ng-if="payedList.length==0" class="isNotDataHint">
+          <i class="icon ion-sad"></i>
+          <p>暂无已支付单</p>
+        </div>
         <ion-list>
-          <ion-item class="row">
-            <h2 class="col">2016.12.11 14:57</h2>
-            <h2 class="col positive text-right">买家已支付</h2>
-          </ion-item>
-          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale stable-bg">
-            <img ng-src="img/main/cp@3.jpg" alt="">
-            <h2>都市型婴儿四轮推车遮阳车</h2>
-            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车车罩</p>
-            <p class="row row-center"><span class="col-75 energized">￥<strong>49.</strong><span
-              class="energized">00</span></span> <span class="item-note">数量 : 1件</span></p>
-          </a>
+          <div ng-repeat="item in payedList ">
+            <ion-item class="row">
+              <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
+              <h2 class="col positive text-right">买家已支付</h2>
+            </ion-item>
+            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
+               class="item item-thumbnail-left main-hot-sale stable-bg">
+              <img ng-src="{{items.image}}" alt="">
+              <h2>{{items.goods_name}}</h2>
+              <p class="text-wrap">{{items.goods_intro}}</p>
+              <p class="row row-center"><span
+                class="col-75 energized">￥<strong>{{items.goods_price.split('.')[0] }}.</strong><span
+                class="energized">{{items.goods_price.split('.')[1] }}</span></span> <span class="item-note">数量 : {{items.goods_qty}}件</span>
+              </p>
+            </a>
 
-          <ion-item class="item-divider light-bg text-right item-borderless">
-            <h2 class="grey">共 1 件商品 合计: <span class="assertive"> 1800.00 元</span></h2>
-          </ion-item>
-          <ion-item class="row row-horizontal-around item-borderless">
-            <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
-            <button class="col-20  button button-positive button-outline button-small">确认收货</button>
-          </ion-item>
+            <ion-item class="item-divider light-bg text-right item-borderless">
+              <h2 class="grey">共 {{item.total_goods_qty}} 件商品 合计: <span
+                class="assertive"> {{item.real_amount}}  元</span></h2>
+            </ion-item>
+            <ion-item class="row row-horizontal-around item-borderless">
+              <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
+              <button class="col-20  button button-positive button-outline button-small">确认收货</button>
+            </ion-item>
+            <p></p>
+          </div>
         </ion-list>
-        <p></p>
-        <ion-list>
-          <ion-item class="row">
-            <h2 class="col">2016.12.11 14:57</h2>
-            <h2 class="col positive text-right">买家已支付</h2>
-          </ion-item>
-          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale stable-bg">
-            <img ng-src="img/main/cp@3.jpg" alt="">
-            <h2>都市型婴儿四轮推车遮阳车</h2>
-            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车车罩</p>
-            <p class="row row-center"><span class="col-75 energized">￥<strong>49.</strong><span
-              class="energized">00</span></span> <span class="item-note">数量 : 1件</span></p>
-          </a>
-
-          <ion-item class="item-divider light-bg text-right item-borderless">
-            <h2 class="grey">共 1 件商品 合计: <span class="assertive"> 1800.00 元</span></h2>
-          </ion-item>
-          <ion-item class="row row-horizontal-around item-borderless">
-            <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
-            <button class="col-20  button button-positive button-outline button-small">确认收货</button>
-          </ion-item>
-        </ion-list>
+        <ion-infinite-scroll on-infinite="getOrdersList()" ng-if="totalpayed > pagepayed" immediate-check="false">
       </ion-content>
     </ion-slide>
 
     <ion-slide>
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <ion-refresher on-refresh="getOrdersList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
-
+        <div ng-if="completeList.length==0" class="isNotDataHint">
+          <i class="icon ion-sad"></i>
+          <p>暂无已签收单</p>
+        </div>
         <ion-list>
-          <ion-item class="row">
-            <h2 class="col">2016.12.11 14:57</h2>
-            <h2 class="col positive text-right">买家已签收</h2>
-          </ion-item>
-          <a ng-href="#/productdetails" nav-direction=forward class="item item-thumbnail-left main-hot-sale stable-bg">
-            <img ng-src="img/main/cp@3.jpg" alt="">
-            <h2>都市型婴儿四轮推车遮阳车</h2>
-            <p class="text-wrap">德国品牌海外直供德国直邮Buga-boo Bee3都市型婴儿四轮推车车罩</p>
-            <p class="row row-center"><span class="col-75 energized">￥<strong>49.</strong><span
-              class="energized">00</span></span> <span class="item-note">数量 : 1件</span></p>
-          </a>
+          <div ng-repeat="item in completeList ">
+            <ion-item class="row">
+              <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
+              <h2 class="col positive text-right">买家已签收</h2>
+            </ion-item>
+            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
+               class="item item-thumbnail-left main-hot-sale stable-bg">
+              <img ng-src="{{items.image}}" alt="">
+              <h2>{{items.goods_name}}</h2>
+              <p class="text-wrap">{{items.goods_intro}}</p>
+              <p class="row row-center"><span
+                class="col-75 energized">￥<strong>{{items.goods_price.split('.')[0] }}.</strong><span
+                class="energized">{{items.goods_price.split('.')[1] }}</span></span> <span class="item-note">数量 : {{items.goods_qty}}件</span>
+              </p>
+            </a>
 
-          <ion-item class="item-divider light-bg text-right item-borderless">
-            <h2 class="grey">共 1 件商品 合计: <span class="assertive"> 1800.00 元</span></h2>
-          </ion-item>
-          <ion-item class="row row-horizontal-around item-borderless">
-            <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
-            <button class="col-20  button button-positive button-outline button-small" ui-sref="evaluate">评价</button>
-          </ion-item>
+            <ion-item class="item-divider light-bg text-right item-borderless">
+              <h2 class="grey">共 {{item.total_goods_qty}} 件商品 合计: <span class="assertive"> {{item.real_amount}} 元</span>
+              </h2>
+            </ion-item>
+            <ion-item class="row row-horizontal-around item-borderless">
+              <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
+              <button class="col-20  button button-positive button-outline button-small" ui-sref="evaluate">评价</button>
+            </ion-item>
+            <p></p>
+          </div>
         </ion-list>
+        <ion-infinite-scroll on-infinite="getOrdersList()" ng-if="totalcomplete > pagecomplete" immediate-check="false">
       </ion-content>
     </ion-slide>
     <ion-slide>
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
+        <ion-refresher on-refresh="getOrdersList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
-        <div ng-if="true" class="isNotDataHint">
+        <div ng-if="rightsinList.length==0" class="isNotDataHint">
           <i class="icon ion-sad"></i>
           <p>暂无退货单</p>
         </div>
+        <ion-list>
+          <div ng-repeat="item in rightsinList">
+            <ion-item class="row">
+              <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
+              <h2 class="col positive text-right">买家已签收</h2>
+            </ion-item>
+            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
+               class="item item-thumbnail-left main-hot-sale stable-bg">
+              <img ng-src="{{items.image}}" alt="">
+              <h2>{{items.goods_name}}</h2>
+              <p class="text-wrap">{{items.goods_intro}}</p>
+              <p class="row row-center"><span
+                class="col-75 energized">￥<strong>{{items.goods_price.split('.')[0] }}.</strong><span
+                class="energized">{{items.goods_price.split('.')[1] }}</span></span> <span class="item-note">数量 : {{items.goods_qty}}件</span>
+              </p>
+            </a>
 
+            <ion-item class="item-divider light-bg text-right item-borderless">
+              <h2 class="grey">共 {{item.total_goods_qty}} 件商品 合计: <span class="assertive"> {{item.real_amount}} 元</span>
+              </h2>
+            </ion-item>
+            <ion-item class="row row-horizontal-around item-borderless">
+              <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
+              <button class="col-20  button button-positive button-outline button-small" >退货</button>
+            </ion-item>
+            <p></p>
+          </div>
         </ion-list>
+        <ion-infinite-scroll on-infinite="getOrdersList()" ng-if="totalrightsin > pagerightsin" immediate-check="false">
       </ion-content>
     </ion-slide>
   </ion-slide-box>
