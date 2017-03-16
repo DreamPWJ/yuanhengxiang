@@ -1456,7 +1456,6 @@ angular.module('starter.controllers', [])
         score: $scope.evaluateinfo.star,
         image: $scope.imgsPicAddr
       }
-      alert(JSON.stringify(params));
       GoodService.addGoodsComment(CommonService.authParams(params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
