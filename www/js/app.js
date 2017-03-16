@@ -382,7 +382,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       })
       //评价
       .state('evaluate', {
-        url: '/evaluate',
+        url: '/evaluate/:orderno',
+        cache:false,
+        cache:false,
         templateUrl: 'templates/account/evaluate.html',
         controller: 'EvaluateCtrl'
       })

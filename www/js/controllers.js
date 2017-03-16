@@ -554,7 +554,7 @@ angular.module('starter.controllers', [])
       $scope.getOrdersList(); //获取订单数据
 
     };
-   //点击选项卡
+    //点击选项卡
     $scope.selectedTab = function (index) {
       $scope.tabIndex = index;
       //滑动的索引和速度
@@ -1424,12 +1424,52 @@ angular.module('starter.controllers', [])
 
 
   })
+
+  //评价
+  .controller('EvaluateCtrl', function ($scope, CommonService, GoodService, OrderService, $ionicHistory, $stateParams) {
+    $scope.evaluateinfo = {};//评论信息
+    $scope.imgsPicAddr = [];//图片信息数组
+    $scope.imageList = [];  //上传图片数组集合
+    $scope.uploadActionSheet = function () {
+      CommonService.uploadActionSheet($scope, "upload", false);
+    }
+
+    var params = {order_no: $stateParams.orderno}
+    OrderService.orderInfo(CommonService.authParams(params)).success(function (data) {
+      console.log(data);
+      if (data.status == 1) {
+        $scope.evaluate = data.data.lists[0];
+      } else {
+        CommonService.platformPrompt(data.info, 'close');
+      }
+
+    })
+    //点击等级星号
+    $scope.evaluatestar = function (stars) {
+      $scope.evaluateinfo.star = stars;
+    };
+    //提交评论
+    $scope.submitevalute = function () {
+      var params = {
+        goods_id: $scope.evaluate.goods_id,
+        content: $scope.evaluateinfo.Memo,
+        score: $scope.evaluateinfo.star,
+        image: $scope.imgsPicAddr
+      }
+      alert(JSON.stringify(params));
+      GoodService.addGoodsComment(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $ionicHistory.goBack();
+        }
+        CommonService.platformPrompt(data.info, 'close');
+      })
+    }
+
+  })
+
   //上传头像
   .controller('UploadHeadCtrl', function ($scope, CommonService) {
 
-
-  })
-  //评价
-  .controller('EvaluateCtrl', function ($scope, CommonService) {
 
   })

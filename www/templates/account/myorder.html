@@ -92,7 +92,7 @@
             </ion-item>
             <ion-item class="row row-horizontal-around item-borderless">
               <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
-              <button class="col-20  button button-positive button-outline button-small">确认收货</button>
+              <button class="col-20  button button-positive button-outline button-small" ui-sref="evaluate({orderno:item.order_no})">评价</button>
             </ion-item>
             <p></p>
           </div>
@@ -132,7 +132,7 @@
             </ion-item>
             <ion-item class="row row-horizontal-around item-borderless">
               <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
-              <button class="col-20  button button-positive button-outline button-small" ui-sref="evaluate">评价</button>
+              <button class="col-20  button button-positive button-outline button-small" ui-sref="evaluate({orderno:item.order_no})">评价</button>
             </ion-item>
             <p></p>
           </div>
