@@ -183,7 +183,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
       //产品分类主页面
       .state('tab.classify', {
-        url: '/classify',
+        url: '/classify/:index',
         nativeTransitions: null,
         views: {
           'tab-classify': {

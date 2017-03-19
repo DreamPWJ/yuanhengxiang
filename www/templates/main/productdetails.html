@@ -23,30 +23,30 @@
           <del class="original-price">原价:{{goodsInfo.original_price | currency :"￥"}}</del>
         </h2>
       </ion-item>
-      <p></p>
+<!--      <p></p>
       <a ng-href="" class="item item-icon-left item-icon-right item-borderless">
         <i class="icon ion-location positive"></i>
         <h2><span class="grey">送至</span> {{deliveryAddress.province + deliveryAddress.city + deliveryAddress.area +
           deliveryAddress.address}}</h2>
         <i class="icon ion-ios-arrow-right grey"></i>
-      </a>
+      </a>-->
       <p></p>
       <a ng-href="" class="item  item-icon-right item-borderless">
         <h2 class="grey">评价</h2>
-        <i class="icon ion-ios-arrow-right grey"></i>
+<!--        <i class="icon ion-ios-arrow-right grey"></i>-->
       </a>
       <div class="item item-avatar" ng-repeat="item in goodsCommentList">
         <img ng-src="img/account/header.png" alt="用户头像">
         <h2>萧十一郎 <span class="item-note">{{item.time * 1000| date : "yyyy-MM-hh HH:mm:ss"}}</span></h2>
         <p class="text-wrap">{{item.content}}</p>
       </div>
-      <a ng-click="getGoodsCommentList()" class="item   text-center">
+      <div class="item" ng-if="goodsCommentList.length==0">暂无评论</div>
+      <a ng-if="goodsCommentList.length!=0" ng-click="getGoodsCommentList()" class="item   text-center">
         <h2 class="positive">查看全部评论 <i class="icon ion-ios-arrow-right "></i></h2>
       </a>
       <p></p>
-      <a ng-href="" class="item  item-icon-right item-borderless">
+      <a ng-href="" class="item   item-borderless">
         <h2 class="grey">商品详情</h2>
-        <i class="icon ion-ios-arrow-right grey"></i>
       </a>
       <div class="item item-body item-image">
         <div ng-bind-html="goodsInfo.description"></div>

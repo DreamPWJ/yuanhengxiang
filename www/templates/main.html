@@ -9,13 +9,13 @@
     <ion-slide-box show-pager="true" does-continue="true" auto-play="true" slide-interval="3000"
                    delegate-handle="slideboximgs" id="main-slide">
       <ion-slide ng-repeat="item in banner">
-        <img ng-click="windowOpen(item.link)" ng-src="{{item.image}}"  alt="{{item.name}}"
+        <img ui-sref="productdetails({id:item.id})" ng-src="{{item.image}}"  alt="{{item.name}}"
              class="full-image"/>
       </ion-slide>
     </ion-slide-box>
 
     <div class="main-list row row-wrap light-bg  text-center main-list-first">
-      <a ng-repeat="item in indexData.category" ng-href="#/productlist/1/{{item.id}}" nav-direction=forward
+      <a ng-repeat="item in indexData.category" ng-href="#/tab/classify/{{$index}}" nav-direction=forward
          class="col-25  subdued"><img ng-src="{{item.image}}" alt="">
         <p>{{item.name}}</p>
       </a>

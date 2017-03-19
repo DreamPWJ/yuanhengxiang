@@ -31,6 +31,7 @@ angular.module('starter.controllers', [])
     MainService.getAdvList(CommonService.authParams({code: "index_banner"})).success(function (data) {
       if (data.status == 1) {
         $scope.banner = data.data.lists;
+        console.log($scope.banner);
         //ng-repeat遍历生成一个个slide块的时候，执行完成页面是空白的 手动在渲染之后更新一下，在控制器注入$ionicSlideBoxDelegate，然后渲染数据之后
         $timeout(function () {
           $ionicSlideBoxDelegate.$getByHandle("slideboximgs").update();
@@ -39,10 +40,7 @@ angular.module('starter.controllers', [])
           /*            console.log($ionicSlideBoxDelegate.$getByHandle("slideboximgs").slidesCount());*/
         }, 100)
       }
-      //在外部浏览器打开连接
-      $scope.windowOpen = function (url) {
-        CommonService.windowOpen(url)
-      }
+
     })
 
     //获取首页数据
@@ -178,9 +176,8 @@ angular.module('starter.controllers', [])
   })
 
   //产品分类主页面
-  .controller('ClassifyCtrl', function ($scope, $rootScope, CommonService, GoodService) {
-    // $scope.classifyinfo = ['奶粉尿裤', '洗护哺育', '辅食营养', '孕妈专区', '家纺服饰', '童装童鞋'];
-    $scope.classifyindex = 0;//选中产品分类标示
+  .controller('ClassifyCtrl', function ($scope, $rootScope, $stateParams, CommonService, GoodService) {
+    $scope.classifyindex = $stateParams.index;//选中产品分类标示
     CommonService.customModal($scope, 'templates/search.html');
     //获取产品分类
     $scope.getClassify = function () {
@@ -192,7 +189,7 @@ angular.module('starter.controllers', [])
           CommonService.platformPrompt(data.info, 'close');
         }
       }).then(function () {
-        $scope.getClassifyDetails(0);
+        $scope.getClassifyDetails($scope.classifyindex);
       })
     }
     $scope.getClassify()
@@ -709,6 +706,7 @@ angular.module('starter.controllers', [])
       if (data.status == 1) {
         $scope.userinfo = data.data.info;
         localStorage.setItem("userinfo", data.data.info);
+        $rootScope.userinfo=data.data.info;
       }
     })
     //退出登录清除缓存
@@ -1006,6 +1004,7 @@ angular.module('starter.controllers', [])
     CommonService.customModal($scope, 'templates/modal/addressmodal.html');
     $scope.imgsPicAddr = [];//图片信息数组
     $scope.imageList = [];  //上传图片数组集合
+    $scope.imgsPicAddr.push($rootScope.userinfo.url);//默认显示头像l
     $scope.uploadActionSheet = function () {
       CommonService.uploadActionSheet($scope, "upload", true);
     }
