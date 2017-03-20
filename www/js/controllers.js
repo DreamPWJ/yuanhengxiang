@@ -672,7 +672,7 @@ angular.module('starter.controllers', [])
         WeiXinService.getweixinPayData(CommonService.authParams(params)).success(function (data) {
           console.log(data);
           if (data.status == 1) {
-            WeiXinService.weixinPay($scope,data.data.info);
+            WeiXinService.weixinPay($scope, data.data.info);
             $scope.modal.hide();
           } else {
             CommonService.platformPrompt(data.info, 'close');
@@ -682,7 +682,7 @@ angular.module('starter.controllers', [])
         AliPayService.orderAlipayPay(CommonService.authParams(params)).success(function (data) {
           console.log(data);
           if (data.status == 1) {
-            AliPayService.aliPay($scope,data.data.info);
+            AliPayService.aliPay($scope, data.data.info);
             $scope.modal.hide();
           } else {
             CommonService.platformPrompt(data.info, 'close');
@@ -707,8 +707,19 @@ angular.module('starter.controllers', [])
   })
 
   //我的订单详情
-  .controller('OrderDetailsCtrl', function ($scope, $rootScope, $stateParams, CommonService) {
-    console.log($stateParams.orderno);
+  .controller('OrderDetailsCtrl', function ($scope, $rootScope, $stateParams, CommonService, OrderService) {
+
+    var params = {order_no: $stateParams.orderno}
+    OrderService.orderInfo(CommonService.authParams(params)).success(function (data) {
+      console.log(data);
+      if (data.status == 1) {
+        $scope.orderdetails = data.data.lists;
+        $scope.orderInfo = data.data.orderInfo;
+      } else {
+        CommonService.platformPrompt(data.info, 'close');
+      }
+    })
+
   })
   //我的设置页面
   .controller('AccountCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
