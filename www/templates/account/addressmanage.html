@@ -14,7 +14,7 @@
       <p></p>
       <div ng-repeat="item in addresslist">
         <ion-item >
-          <div class="row"><i class="col-10 icon ion-disc " ng-class="{false:'grey',true:'positive'}[selectindex==$index]" ></i>
+          <div class="row"><i class="col-10 icon ion-disc " ng-click="selectAddress($index,item)" ng-class="{false:'grey',true:'positive'}[selectindex==$index]" ></i>
             <p ng-click="selectAddress($index,item)" class="padding-right col-70"> {{item.province + item.city + item.area +item.address}}</p>
             <a ng-href="#/addaddress/{{item.id}}"  class="col-10 grey  icon ion-ios-compose-outline text-center"></a>
             <a ng-click="deleteAddress(item.id,$index)" class=" col-10 icon ion-ios-trash-outline grey text-center"></a>

@@ -31,7 +31,7 @@
               <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
               <h2 class="col positive text-right">等待买家支付</h2>
             </ion-item>
-            <a ng-repeat="items in item.goodsList" ng-href="#/orderdetails/{{item.order_no}}" nav-direction=forward
+            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
                class="item item-thumbnail-left main-hot-sale stable-bg">
               <img ng-src="{{items.image}}" alt="">
               <h2>{{items.goods_name}}</h2>
@@ -46,7 +46,11 @@
               </h2>
             </ion-item>
             <ion-item class="row row-horizontal-around item-borderless">
-              <button class="col-20 col-offset-50 button button-positive button-outline button-small "
+              <a ng-href="#/orderdetails/{{item.order_no}}"
+                 class="col-20 col-offset-33 button button-positive button-outline button-small "
+              >查看订单
+              </a>
+              <button class="col-20  button button-positive button-outline button-small "
                       ng-click="cancelOrder(item.order_no)">取消订单
               </button>
               <button class="col-20  button button-positive button-outline button-small"
@@ -75,7 +79,7 @@
               <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
               <h2 class="col positive text-right">买家已支付</h2>
             </ion-item>
-            <a ng-repeat="items in item.goodsList" ng-href="#/orderdetails/{{item.order_no}}" nav-direction=forward
+            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
                class="item item-thumbnail-left main-hot-sale stable-bg">
               <img ng-src="{{items.image}}" alt="">
               <h2>{{items.goods_name}}</h2>
@@ -91,7 +95,8 @@
                 class="assertive"> {{item.real_amount}}  元</span></h2>
             </ion-item>
             <ion-item class="row row-horizontal-around item-borderless">
-              <button class="col-20 col-offset-75 button button-positive button-outline button-small ">查看物流</button>
+              <a ng-href="#/orderdetails/{{item.order_no}}"
+                 class="col-20 col-offset-75 button button-positive button-outline button-small ">查看订单</a>
             </ion-item>
             <p></p>
           </div>
@@ -114,7 +119,7 @@
               <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
               <h2 class="col positive text-right">买家已完成</h2>
             </ion-item>
-            <a ng-repeat="items in item.goodsList" ng-href="#/orderdetails/{{item.order_no}}" nav-direction=forward
+            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
                class="item item-thumbnail-left main-hot-sale stable-bg">
               <img ng-src="{{items.image}}" alt="">
               <h2>{{items.goods_name}}</h2>
@@ -130,9 +135,10 @@
               </h2>
             </ion-item>
             <ion-item class="row row-horizontal-around item-borderless">
-              <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
+              <a ng-href="#/orderdetails/{{item.order_no}}"
+                 class="col-20 col-offset-50 button button-positive button-outline button-small ">查看订单</a>
               <button class="col-20  button button-positive button-outline button-small"
-                      ui-sref="evaluate({orderno:item.order_no})">评价
+                      ui-sref="evaluate({orderno:item.order_no})">申请退款
               </button>
             </ion-item>
             <p></p>
@@ -155,7 +161,7 @@
               <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
               <h2 class="col positive text-right">买家已签收</h2>
             </ion-item>
-            <a ng-repeat="items in item.goodsList" ng-href="#/orderdetails/{{item.order_no}}" nav-direction=forward
+            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
                class="item item-thumbnail-left main-hot-sale stable-bg">
               <img ng-src="{{items.image}}" alt="">
               <h2>{{items.goods_name}}</h2>
@@ -171,8 +177,9 @@
               </h2>
             </ion-item>
             <ion-item class="row row-horizontal-around item-borderless">
-              <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
-              <button class="col-20  button button-positive button-outline button-small">退货</button>
+              <a ng-href="#/orderdetails/{{item.order_no}}"
+                 class="col-20 col-offset-75 button button-positive button-outline button-small ">查看订单</a>
+
             </ion-item>
             <p></p>
           </div>

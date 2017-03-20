@@ -212,6 +212,7 @@ angular.module('starter.controllers', [])
     $scope.scrollHeight = (window.innerHeight - 44 - 49) + 'px';
     $scope.scrollContentHeight = document.querySelector("#classify-scroll-content").clientHeight + 'px';
   })
+
   //产品列表页面
   .controller('ProductListCtrl', function ($scope, $rootScope, $stateParams, CommonService, GoodService, ShoppingCartService, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     CommonService.customModal($scope, 'templates/search.html');
@@ -223,7 +224,6 @@ angular.module('starter.controllers', [])
 
     $scope.selectedTab = function (index) {
       $scope.tabIndex = index;
-      $scope.getGoodsList(0);
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-productlist").slide(index)
     }
@@ -558,17 +558,7 @@ angular.module('starter.controllers', [])
     //左右滑动列表
     $scope.slideChanged = function (index) {
       $scope.tabIndex = index;
-      $scope.pagecreated = 0;
-      $scope.pagepayed = 0;
-      $scope.pagecomplete = 0;
-      $scope.pagerightsin = 0;
-      $scope.createdList = [];
-      $scope.payedList = [];
-      $scope.completeList = [];
-      $scope.rightsinList = [];
-
-      $scope.getOrdersList(); //获取订单数据
-
+      $scope.getOrdersList(0); //获取订单数据
     };
     //点击选项卡
     $scope.selectedTab = function (index) {
@@ -682,7 +672,7 @@ angular.module('starter.controllers', [])
         WeiXinService.getweixinPayData(CommonService.authParams(params)).success(function (data) {
           console.log(data);
           if (data.status == 1) {
-            WeiXinService.weixinPay(data.data.info);
+            WeiXinService.weixinPay($scope,data.data.info);
             $scope.modal.hide();
           } else {
             CommonService.platformPrompt(data.info, 'close');
@@ -692,7 +682,7 @@ angular.module('starter.controllers', [])
         AliPayService.orderAlipayPay(CommonService.authParams(params)).success(function (data) {
           console.log(data);
           if (data.status == 1) {
-            AliPayService.aliPay(data.data.info);
+            AliPayService.aliPay($scope,data.data.info);
             $scope.modal.hide();
           } else {
             CommonService.platformPrompt(data.info, 'close');
@@ -707,6 +697,9 @@ angular.module('starter.controllers', [])
       var params = {order_no: orderno};
       OrderService.cancelOrder(CommonService.authParams(params)).success(function (data) {
         console.log(data);
+        if (data.status == 1) {
+          $scope.getOrdersList(0);//刷新订单
+        }
         CommonService.platformPrompt(data.info, 'close');
       })
     }
@@ -714,7 +707,7 @@ angular.module('starter.controllers', [])
   })
 
   //我的订单详情
-  .controller('OrderDetailsCtrl', function ($scope, $rootScope,$stateParams,CommonService) {
+  .controller('OrderDetailsCtrl', function ($scope, $rootScope, $stateParams, CommonService) {
     console.log($stateParams.orderno);
   })
   //我的设置页面

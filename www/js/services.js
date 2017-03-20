@@ -1811,7 +1811,7 @@ angular.module('starter.services', [])
   })
   .service('AliPayService', function ($q, $http, YuanHenXiang) { //支付宝接口服务定义
     return {
-      aliPay: function (payInfo) {
+      aliPay: function ($scope, payInfo) {
         /*
          tradeNo 这个是支付宝需要的商家支付单号，应该是一个自己生成唯一的ID号
          subject 这个字段会显示在支付宝付款的页面
@@ -1836,7 +1836,7 @@ angular.module('starter.services', [])
 
         //第二步：调用支付插件
         cordova.plugins.AliPay.pay(payInfo, function success(e) {
-
+          $scope.selectedTab(1);//切换到已支付
         }, function error(e) {
           alert(JSON.parse(e))
         });
@@ -1923,7 +1923,7 @@ angular.module('starter.services', [])
         });
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
       },
-      weixinPay: function (data) {//微信原生SDK支付
+      weixinPay: function ($scope, data) {//微信原生SDK支付
         var params = {
           partnerid: data.partnerid,     //公众号名称，由商户传入
           prepayid: data.prepayid.replace("prepay_id=", ""), // prepay id
@@ -1932,7 +1932,7 @@ angular.module('starter.services', [])
           sign: data.sign //微信签名
         };
         Wechat.sendPaymentRequest(params, function () {
-
+          $scope.selectedTab(1);//切换到已支付
         }, function (reason) {
           alert("微信支付失败: " + reason);
         });
