@@ -10,7 +10,7 @@
     <div class="row row-horizontal-around text-center">
       <span class="col-15 {{tabIndex==0?'active':''}}" ng-click="selectedTab(0)">未支付 </span>
       <span class="col-15 {{tabIndex==1?'active':''}}" ng-click="selectedTab(1)">已支付</span>
-      <span class="col-15 {{tabIndex==2?'active':''}}" ng-click="selectedTab(2)">已签收</span>
+      <span class="col-15 {{tabIndex==2?'active':''}}" ng-click="selectedTab(2)">已完成</span>
       <span class="col-15 {{tabIndex==3?'active':''}}" ng-click="selectedTab(3)">退单 </span>
     </div>
 
@@ -31,7 +31,7 @@
               <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
               <h2 class="col positive text-right">等待买家支付</h2>
             </ion-item>
-            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
+            <a ng-repeat="items in item.goodsList" ng-href="#/orderdetails/{{item.order_no}}" nav-direction=forward
                class="item item-thumbnail-left main-hot-sale stable-bg">
               <img ng-src="{{items.image}}" alt="">
               <h2>{{items.goods_name}}</h2>
@@ -75,7 +75,7 @@
               <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
               <h2 class="col positive text-right">买家已支付</h2>
             </ion-item>
-            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
+            <a ng-repeat="items in item.goodsList" ng-href="#/orderdetails/{{item.order_no}}" nav-direction=forward
                class="item item-thumbnail-left main-hot-sale stable-bg">
               <img ng-src="{{items.image}}" alt="">
               <h2>{{items.goods_name}}</h2>
@@ -106,15 +106,15 @@
         <p></p>
         <div ng-if="completeList.length==0" class="isNotDataHint">
           <i class="icon ion-sad"></i>
-          <p>暂无已签收单</p>
+          <p>暂无已完成单</p>
         </div>
         <ion-list>
           <div ng-repeat="item in completeList ">
             <ion-item class="row">
               <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
-              <h2 class="col positive text-right">买家已签收</h2>
+              <h2 class="col positive text-right">买家已完成</h2>
             </ion-item>
-            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
+            <a ng-repeat="items in item.goodsList" ng-href="#/orderdetails/{{item.order_no}}" nav-direction=forward
                class="item item-thumbnail-left main-hot-sale stable-bg">
               <img ng-src="{{items.image}}" alt="">
               <h2>{{items.goods_name}}</h2>
@@ -131,7 +131,9 @@
             </ion-item>
             <ion-item class="row row-horizontal-around item-borderless">
               <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
-              <button class="col-20  button button-positive button-outline button-small" ui-sref="evaluate({orderno:item.order_no})">评价</button>
+              <button class="col-20  button button-positive button-outline button-small"
+                      ui-sref="evaluate({orderno:item.order_no})">评价
+              </button>
             </ion-item>
             <p></p>
           </div>
@@ -153,7 +155,7 @@
               <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
               <h2 class="col positive text-right">买家已签收</h2>
             </ion-item>
-            <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
+            <a ng-repeat="items in item.goodsList" ng-href="#/orderdetails/{{item.order_no}}" nav-direction=forward
                class="item item-thumbnail-left main-hot-sale stable-bg">
               <img ng-src="{{items.image}}" alt="">
               <h2>{{items.goods_name}}</h2>
@@ -170,7 +172,7 @@
             </ion-item>
             <ion-item class="row row-horizontal-around item-borderless">
               <button class="col-20 col-offset-50 button button-positive button-outline button-small ">查看物流</button>
-              <button class="col-20  button button-positive button-outline button-small" >退货</button>
+              <button class="col-20  button button-positive button-outline button-small">退货</button>
             </ion-item>
             <p></p>
           </div>

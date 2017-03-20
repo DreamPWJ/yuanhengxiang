@@ -30,7 +30,7 @@
         <h2>{{indexData.hotGoods[0].goods_name}}</h2>
         <p class="text-wrap">{{indexData.hotGoods[0].goods_intro}}</p>
         <p class="row row-center"><span class="col-75 energized">￥<strong>{{indexData.hotGoods[0].price.toString().split('.')[0]}}.</strong><span>{{indexData.hotGoods[0].price.toString().split('.')[1]}}</span></span>
-          <i class="col iconfont icon-gouwuche positive text-right"></i></p>
+          <i class="col iconfont icon-gouwuche positive text-right" ng-click="addToCart(indexData.hotGoods[0].id,$event)"></i></p>
       </a>
       <ion-item>
         <ion-scroll ng-style="{width:scrollWidth}" delegate-handle="main-scroll" direction="x" zooming="true"
@@ -41,7 +41,7 @@
               <img ng-src="{{item.image}}" class="full-image" alt=""/>
               <p class="text-wrap" style="word-break:break-all;">{{item.goods_name}}</p>
               <p class="row row-center"><strong class="energized">{{item.price |currency :"￥"}}</strong>
-                <i class="col iconfont icon-gouwuche positive text-right"></i></p>
+                <i class="col iconfont icon-gouwuche positive text-right" ng-click="addToCart(item.id,$event)"></i></p>
             </a>
           </div>
         </ion-scroll>
@@ -57,7 +57,7 @@
         <p class="text-wrap">{{item.goods_intro}}</p>
         <p class="row row-center"><span
           class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span>{{item.price.toString().split('.')[1]}}</span></span>
-          <i class="col iconfont icon-gouwuche positive text-right"></i></p>
+          <i class="col iconfont icon-gouwuche positive text-right" ng-click="addToCart(item.id,$event)"></i></p>
       </a>
 
     </ion-list>

@@ -32,7 +32,7 @@
             <p class="text-wrap">{{item.goods_name}}</p>
             <p class="row row-center"><span class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span
               class="energized">{{item.price.toString().split('.')[1]}}</span></span> <i
-              class="col iconfont icon-gouwuche positive text-right"></i></p>
+              class="col iconfont icon-gouwuche positive text-right" ng-click="addToCart(item.id,$event)"></i></p>
           </a>
 
         </ion-list>
@@ -52,7 +52,7 @@
             <p class="text-wrap">{{item.goods_name}}</p>
             <p class="row row-center"><span class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span
               class="energized">{{item.price.toString().split('.')[1]}}</span></span> <i
-              class="col iconfont icon-gouwuche positive text-right"></i></p>
+              class="col iconfont icon-gouwuche positive text-right" ng-click="addToCart(item.id,$event)"></i></p>
           </a>
 
         </ion-list>
@@ -72,7 +72,7 @@
             <p class="text-wrap">{{item.goods_name}}</p>
             <p class="row row-center"><span class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span
               class="energized">{{item.price.toString().split('.')[1]}}</span></span> <i
-              class="col iconfont icon-gouwuche positive text-right"></i></p>
+              class="col iconfont icon-gouwuche positive text-right" ng-click="addToCart(item.id,$event)"></i></p>
           </a>
 
 

@@ -1,0 +1,41 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button button-clear ion-ios-arrow-left" ng-click="$ionicGoBack()">
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">订单详情</h1>
+  </ion-nav-title>
+  <ion-content overflow-scroll="false" class="stable-bg" has-bouncing="true" id="orderdetails">
+    <ion-list>
+      <a ng-href="" class="item item-icon-left item-icon-right item-borderless address">
+        <i class="icon ion-ios-location-outline"></i>
+        <h2>{{deliveryAddress.consignee}} <span class="padding-left">{{deliveryAddress.tel}}</span></h2>
+        <p class="text-wrap">{{deliveryAddress.province + deliveryAddress.city + deliveryAddress.area +
+          deliveryAddress.address}}</p>
+        <i class="icon ion-ios-arrow-right grey"></i>
+      </a>
+
+    </ion-list>
+    <p></p>
+    <ion-list>
+      <ion-item class="item-divider light-bg">商品清单</ion-item>
+      <ion-item ng-repeat="item in reviewOrder.cartArr | filter : {checked:true} "
+                class="item-thumbnail-left  shoppingcart-list">
+        <img ng-src="{{item.scGoodsInfo.image}}" alt="" ui-sref="productdetails" nav-direction=forward>
+        <h2>{{item.scGoodsInfo.goods_name}}</h2>
+        <p class="text-wrap">{{item.scGoodsInfo.goods_intro}}</p>
+        <p class="row row-center"><span class="col-75 energized">￥<strong>{{item.price.split('.')[0] }}.</strong><span
+          class="energized">{{item.price.split('.')[1] }}</span></span> <span
+          class="item-note">数量 : {{item.goods_qty}}件</span></p>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar class="shoppingcart-footer-bar">
+    <div class="row row-no-padding row-center  ">
+      <span class="col-60 padding-left">总金额 :<span class="assertive">￥ <strong>{{reviewOrder.goodsAmount.toString().split('.')[0] }}.</strong><i>{{reviewOrder.goodsAmount.toString().split('.')[1] }}</i></span></span>
+      </button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

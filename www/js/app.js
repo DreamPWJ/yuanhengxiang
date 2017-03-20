@@ -237,6 +237,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
       })
 
+      //我的订单详情
+      .state('orderdetails', {
+        url: '/orderdetails/:orderno',
+        templateUrl: 'templates/account/orderdetails.html',
+        controller: 'OrderDetailsCtrl'
+
+      })
+
       //我的账号
       .state('tab.account', {
         url: '/account',
@@ -383,10 +391,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //评价
       .state('evaluate', {
         url: '/evaluate/:orderno',
-        cache:false,
-        cache:false,
+        cache: false,
         templateUrl: 'templates/account/evaluate.html',
         controller: 'EvaluateCtrl'
+      })
+      //我的收藏
+      .state('collect', {
+        url: '/collect',
+        cache: false,
+        templateUrl: 'templates/account/collect.html',
+        controller: 'CollectCtrl'
       })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/main');

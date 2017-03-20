@@ -1,17 +1,18 @@
-<ion-modal-view>
-  <ion-content class="stable-bg no-nav-header" overflow-scroll="false">
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button button-clear ion-ios-arrow-left" nav-direction=back native-ui-sref="tab.main"
+            native-options="{type: 'slide',direction: 'right'}">
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">商品收藏</h1>
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button class="button iconfont icon-seach  button-clear grey" ng-click="modal.show()"></button>
+  </ion-nav-buttons>
 
-    <div class="bar item-input-inset light-bg ">
-      <button class="button button-clear icon ion-ios-arrow-left grey" ng-click="modal.hide()">
-      </button>
-      <label class="item-input-wrapper light-bg">
-        <!--       <i class="iconfont icon-seach   placeholder-icon"></i>-->
-        <input type="search" class="search" autofocus placeholder="请输入关键字" ng-model="searchcontent"/>
-      </label>
-      <button class="button iconfont icon-seach  button-clear grey" ng-click="searchGoods(searchcontent)">
+  <ion-content class="stable-bg " overflow-scroll="false">
 
-      </button>
-    </div>
     <p></p>
     <ion-list>
       <a ng-repeat="item in searchList" ng-click="modal.hide()" ng-href="#/productdetails/{{item.id}}"
@@ -28,4 +29,4 @@
     <!--    <ion-infinite-scroll on-infinite="searchGoods()" ng-if="total > page" immediate-check="false">
         </ion-infinite-scroll>-->
   </ion-content>
-</ion-modal-view>
+</ion-view>

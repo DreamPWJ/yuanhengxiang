@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
 
 
   //APP首页面
-  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, CityService, SearchService, $ionicHistory, $timeout, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
+  .controller('MainCtrl', function ($scope, $rootScope, CommonService, MainService, CityService, SearchService, ShoppingCartService, $ionicHistory, $timeout, YuanHenXiang, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     /*    if (!CommonService.isLogin(true)) {//判断是否登录
      return false;
      }*/
@@ -139,6 +139,16 @@ angular.module('starter.controllers', [])
       })
     }
 
+    $scope.addToCart = function (goodsid, $event) { //加入购物车
+      $event.preventDefault();
+      var params = {
+        goods_id: goodsid
+      };
+      ShoppingCartService.addToCart(CommonService.authParams(params)).success(function (data) {
+        CommonService.platformPrompt(data.info, 'close');
+      })
+    }
+
     $scope.scrollWidth = window.innerWidth + 'px';
     $scope.scrollContentWidth = document.querySelector("#main-scroll").clientWidth + 'px';
 
@@ -203,7 +213,7 @@ angular.module('starter.controllers', [])
     $scope.scrollContentHeight = document.querySelector("#classify-scroll-content").clientHeight + 'px';
   })
   //产品列表页面
-  .controller('ProductListCtrl', function ($scope, $rootScope, $stateParams, CommonService, GoodService, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
+  .controller('ProductListCtrl', function ($scope, $rootScope, $stateParams, CommonService, GoodService, ShoppingCartService, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     CommonService.customModal($scope, 'templates/search.html');
     $scope.tabIndex = 0;//当前tabs页
     $scope.slideChanged = function (index) {
@@ -300,6 +310,15 @@ angular.module('starter.controllers', [])
     }
     $scope.getGoodsList();
 
+    $scope.addToCart = function (goodsid, $event) { //加入购物车
+      $event.preventDefault();
+      var params = {
+        goods_id: goodsid
+      };
+      ShoppingCartService.addToCart(CommonService.authParams(params)).success(function (data) {
+        CommonService.platformPrompt(data.info, 'close');
+      })
+    }
   })
   //产品详情页面
   .controller('ProductDetailsCtrl', function ($scope, $rootScope, $stateParams, $state, GoodService, CommonService, ShoppingCartService, AccountService, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicTabsDelegate) {
@@ -693,6 +712,11 @@ angular.module('starter.controllers', [])
     }
 
   })
+
+  //我的订单详情
+  .controller('OrderDetailsCtrl', function ($scope, $rootScope,$stateParams,CommonService) {
+    console.log($stateParams.orderno);
+  })
   //我的设置页面
   .controller('AccountCtrl', function ($scope, $rootScope, $state, CommonService, AccountService) {
     $scope.settings = {
@@ -706,7 +730,7 @@ angular.module('starter.controllers', [])
       if (data.status == 1) {
         $scope.userinfo = data.data.info;
         localStorage.setItem("userinfo", data.data.info);
-        $rootScope.userinfo=data.data.info;
+        $rootScope.userinfo = data.data.info;
       }
     })
     //退出登录清除缓存
@@ -1465,7 +1489,11 @@ angular.module('starter.controllers', [])
     }
 
   })
+  //我的收藏
+  .controller('CollectCtrl', function ($scope, CommonService) {
 
+
+  })
   //上传头像
   .controller('UploadHeadCtrl', function ($scope, CommonService) {
 
