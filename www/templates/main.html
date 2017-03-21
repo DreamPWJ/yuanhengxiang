@@ -9,7 +9,7 @@
     <ion-slide-box show-pager="true" does-continue="true" auto-play="true" slide-interval="3000"
                    delegate-handle="slideboximgs" id="main-slide">
       <ion-slide ng-repeat="item in banner">
-        <img ui-sref="productdetails({id:item.id})" ng-src="{{item.image}}"  alt="{{item.name}}"
+        <img ui-sref="productdetails({id:item.link})" ng-src="{{item.image}}"  alt="{{item.name}}"
              class="full-image"/>
       </ion-slide>
     </ion-slide-box>

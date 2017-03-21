@@ -390,7 +390,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       })
       //评价
       .state('evaluate', {
-        url: '/evaluate/:orderno',
+        url: '/evaluate/:orderno/:goodsid',
         cache: false,
         templateUrl: 'templates/account/evaluate.html',
         controller: 'EvaluateCtrl'

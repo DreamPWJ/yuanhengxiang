@@ -8,14 +8,18 @@
     <h1 class="title">商品收藏</h1>
   </ion-nav-title>
   <ion-nav-buttons side="right">
-    <button class="button iconfont icon-seach  button-clear grey" ng-click="modal.show()"></button>
+    <button class="button iconfont icon-seach  button-clear grey" ng-click=""></button>
   </ion-nav-buttons>
 
-  <ion-content class="stable-bg " overflow-scroll="false">
-
+  <ion-content class="stable-bg " overflow-scroll="false" has-bouncing="true">
+    <ion-refresher on-refresh="getCollect(0)" pulling-text="下拉刷新"></ion-refresher>
     <p></p>
+    <div ng-if="collectList.length==0" class="isNotDataHint">
+      <i class="icon ion-sad"></i>
+      <p>暂无收藏商品</p>
+    </div>
     <ion-list>
-      <a ng-repeat="item in searchList" ng-click="modal.hide()" ng-href="#/productdetails/{{item.id}}"
+      <a ng-repeat="item in collectList" ng-href="#/productdetails/{{item.id}}"
          nav-direction=forward
          class="item item-thumbnail-left main-hot-sale">
         <img ng-src="{{item.image}}" alt="">
@@ -23,10 +27,10 @@
         <p class="text-wrap">{{item.goods_intro}}</p>
         <p class="row row-center"><span
           class="col-75 energized">￥<strong>{{item.price.toString().split('.')[0]}}.</strong><span>{{item.price.toString().split('.')[1]}}</span></span>
-          <i class="col iconfont icon-gouwuche positive text-right" ng-click="addToCart(item.id,$event)"></i></p>
+          <i class="col iconfont icon-lajixiang grey text-right" ng-click="deleteCollect(item.id,$event)"></i></p>
       </a>
     </ion-list>
-    <!--    <ion-infinite-scroll on-infinite="searchGoods()" ng-if="total > page" immediate-check="false">
-        </ion-infinite-scroll>-->
+    <ion-infinite-scroll on-infinite="getCollect()" ng-if="total > page" immediate-check="false">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

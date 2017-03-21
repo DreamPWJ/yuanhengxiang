@@ -1129,11 +1129,11 @@ angular.module('starter.controllers', [])
         console.log(data);
         if (data.status == 1) {
           $scope.isNotData = false;
-          if (data.data.list == null || data.data.list.length == 0) {
+          if (data.data.lists == null || data.data.lists.length == 0) {
             $scope.isNotData = true;
             return
           }
-          angular.forEach(data.data.list, function (item) {
+          angular.forEach(data.data.lists, function (item) {
             $scope.myincomeList.push(item);
           })
           $scope.totalincome = data.data.pageInfo.totalPages;
@@ -1166,11 +1166,11 @@ angular.module('starter.controllers', [])
         console.log(data);
         if (data.status == 1) {
           $scope.isNotData = false;
-          if (data.data.list == null || data.data.list.length == 0) {
+          if (data.data.lists == null || data.data.lists.length == 0) {
             $scope.isNotData = true;
             return
           }
-          angular.forEach(data.data.list, function (item) {
+          angular.forEach(data.data.lists, function (item) {
             $scope.withdrawList.push(item);
           })
           $scope.totalwithdraw = data.data.pageInfo.totalPages;
@@ -1214,11 +1214,11 @@ angular.module('starter.controllers', [])
         console.log(data);
         if (data.status == 1) {
           $scope.isNotData = false;
-          if (data.data.list == null || data.data.list.length == 0) {
+          if (data.data.lists == null || data.data.lists.length == 0) {
             $scope.isNotData = true;
             return
           }
-          angular.forEach(data.data.list, function (item) {
+          angular.forEach(data.data.lists, function (item) {
             $scope.myCouponList.push(item);
           })
           $scope.total = data.data.pageInfo.totalPages;
@@ -1253,11 +1253,11 @@ angular.module('starter.controllers', [])
         console.log(data);
         if (data.status == 1) {
           $scope.isNotData = false;
-          if (data.data.list == null || data.data.list.length == 0) {
+          if (data.data.lists == null || data.data.lists.length == 0) {
             $scope.isNotData = true;
             return
           }
-          angular.forEach(data.data.list, function (item) {
+          angular.forEach(data.data.lists, function (item) {
             $scope.invitationList.push(item);
           })
           $scope.total = data.data.pageInfo.totalPages;
@@ -1292,12 +1292,12 @@ angular.module('starter.controllers', [])
         console.log(data);
         if (data.status == 1) {
           $scope.isNotData = false;
-          if (data.data.list == null || data.data.list.length == 0) {
+          if (data.data.lists == null || data.data.lists.length == 0) {
             $scope.isNotData = true;
             return
           }
           $scope.total_point = data.data.total_point;//当前积分
-          angular.forEach(data.data.list, function (item) {
+          angular.forEach(data.data.lists, function (item) {
             $scope.myNtegralList.push(item);
           })
           $scope.total = data.data.pageInfo.totalPages;
@@ -1461,7 +1461,7 @@ angular.module('starter.controllers', [])
       CommonService.uploadActionSheet($scope, "upload", false);
     }
 
-    var params = {order_no: $stateParams.orderno}
+    var params = {order_no: $stateParams.orderno, goods_id: $stateParams.goodsid}
     OrderService.orderInfo(CommonService.authParams(params)).success(function (data) {
       console.log(data);
       if (data.status == 1) {
@@ -1494,9 +1494,56 @@ angular.module('starter.controllers', [])
 
   })
   //我的收藏
-  .controller('CollectCtrl', function ($scope, CommonService) {
+  .controller('CollectCtrl', function ($scope, CommonService, GoodService, $ionicScrollDelegate) {
+    //我的收藏
+    $scope.collectList = [];
+    $scope.page = 0;
+    $scope.total = 1;
+    $scope.getCollect = function () {
+      if (arguments != [] && arguments[0] == 0) {
+        $scope.page = 0;
+        $scope.collectList = [];
+      }
+      $scope.page++;
+      $scope.params = {
+        p: $scope.page,//页码
+        num: 10
+      }
+      GoodService.getCollectGoodsList(CommonService.authParams($scope.params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          $scope.isNotData = false;
+          if (data.data.lists == null || data.data.lists.length == 0) {
+            $scope.isNotData = true;
+            return
+          }
+          angular.forEach(data.data.lists, function (item) {
+            $scope.collectList.push(item);
+          })
+          $scope.total = data.data.pageInfo.totalPages;
+          $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+      }).finally(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      })
+    }
+    $scope.getCollect();
 
-
+    $scope.deleteCollect = function (id,$event) { //取消收藏商品
+      $event.preventDefault();
+      var params = {
+        id: id
+      };
+      GoodService.deleteCollect(CommonService.authParams(params)).success(function (data) {
+        if (data.status == 1) {
+          $scope.getCollect(0);
+        }
+        CommonService.platformPrompt(data.info, 'close');
+      })
+    }
   })
   //上传头像
   .controller('UploadHeadCtrl', function ($scope, CommonService) {

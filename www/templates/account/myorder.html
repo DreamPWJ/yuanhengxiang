@@ -124,6 +124,7 @@
               <img ng-src="{{items.image}}" alt="">
               <h2>{{items.goods_name}}</h2>
               <p class="text-wrap">{{items.goods_intro}}</p>
+              <p class=" text-right"> <span ui-sref="evaluate({'orderno':item.order_no})" ng-disabled="items.is_comment==1"  ng-class="{true:'positive',false:'grey'}[items.is_comment==0]">{{items.is_comment==0?"去评论":"已评论"}}</span></p>
               <p class="row row-center"><span
                 class="col-75 energized">￥<strong>{{items.goods_price.split('.')[0] }}.</strong><span
                 class="energized">{{items.goods_price.split('.')[1] }}</span></span> <span class="item-note">数量 : {{items.goods_qty}}件</span>
@@ -138,7 +139,7 @@
               <a ng-href="#/orderdetails/{{item.order_no}}"
                  class="col-20 col-offset-50 button button-positive button-outline button-small ">查看订单</a>
               <button class="col-20  button button-positive button-outline button-small"
-                      ui-sref="evaluate({orderno:item.order_no})">申请退款
+                      ui-sref="evaluate({orderno:item.order_no,goodsid:items.goods_id})">申请退款
               </button>
             </ion-item>
             <p></p>
