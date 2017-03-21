@@ -1400,8 +1400,8 @@ angular.module('starter.controllers', [])
       SignInService.signIn(CommonService.authParams(params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
-          $scope.signInInfo.signIn++;
-          $scope.signInInfo.isSignIn == 1;
+          $scope.signInList();
+          $scope.getSignInLog();
         }
         CommonService.platformPrompt(data.info, 'close');
       })
