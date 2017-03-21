@@ -43,6 +43,10 @@
         "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
+        "cordova-plugin-offbye-alipay": {
+            "PARTNER_ID": "2088621160130266",
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
         "cordova-plugin-screen-orientation": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
@@ -53,7 +57,7 @@
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
         "cordova-plugin-wechat": {
-            "WECHATAPPID": "wx7a6a63e9ee94e24d",
+            "WECHATAPPID": "wx3f324c2e57788389",
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
         "cordova-plugin-whitelist": {
@@ -72,9 +76,6 @@
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.mall.yuanhengxiang"
-        },
-        "cordova-plugin-webserver": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         }
     }
