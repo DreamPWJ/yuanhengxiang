@@ -53,6 +53,10 @@
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
+        "cordova-plugin-wechat": {
+            "WECHATAPPID": "wx3f324c2e57788389",
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
@@ -62,16 +66,19 @@
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
-        "phonegap-plugin-barcodescanner": {
+        "jpush-phonegap-plugin": {
+            "APP_KEY": "515ed7892df541ca30ce4362",
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         },
-        "cordova-plugin-wechat": {
-            "WECHATAPPID": "wx3f324c2e57788389",
+        "phonegap-plugin-barcodescanner": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.mall.yuanhengxiang"
+        },
+        "cordova-plugin-jcore": {
             "PACKAGE_NAME": "com.mall.yuanhengxiang"
         }
     }

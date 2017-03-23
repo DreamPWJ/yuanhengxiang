@@ -89,6 +89,24 @@ angular.module('starter.controllers', [])
       })
     });
 
+    //获取极光推送registrationID
+    var getRegistrationID = function () {
+      window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
+    };
+
+    var onGetRegistrationID = function (data) {
+      try {
+        console.log("JPushPlugin:registrationID is " + data);
+
+        if (data.length == 0) {
+          var t1 = window.setTimeout(getRegistrationID, 1000);
+        }
+        localStorage.setItem("jPushRegistrationID", data)
+      } catch (exception) {
+        console.log(exception);
+      }
+    };
+    window.setTimeout(getRegistrationID, 1000);
 
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
@@ -1532,7 +1550,7 @@ angular.module('starter.controllers', [])
     }
     $scope.getCollect();
 
-    $scope.deleteCollect = function (id,$event) { //取消收藏商品
+    $scope.deleteCollect = function (id, $event) { //取消收藏商品
       $event.preventDefault();
       var params = {
         id: id

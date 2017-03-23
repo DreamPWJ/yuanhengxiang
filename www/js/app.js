@@ -89,29 +89,30 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
 
       //启动极光推送服务
-      /*    try {
-       window.plugins.jPushPlugin.init();
-       } catch (e) {
-       console.log(e);
-       }
-       // System events
-       document.addEventListener("resume", resume, false);
-       function resume() {
-       if (window.plugins.jPushPlugin.isPlatformIOS()) {
-       window.plugins.jPushPlugin.setBadge(0);
-       window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
-       } else if (device.platform == "Android") {
-       window.plugins.jPushPlugin.setLatestNotificationNum(3);
-       window.plugins.jPushPlugin.clearAllNotification();
-       }
-       }
-       //点击极光推送跳转到相应页面
-       document.addEventListener("jpush.openNotification", function (data) {
+      try {
+        window.plugins.jPushPlugin.init();
+      } catch (e) {
+        console.log(e);
+      }
+      // System events
+      document.addEventListener("resume", resume, false);
+      function resume() {
+        if (window.plugins.jPushPlugin.isPlatformIOS()) {
+          window.plugins.jPushPlugin.setBadge(0);
+          window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
+        } else if (device.platform == "Android") {
+          window.plugins.jPushPlugin.setLatestNotificationNum(3);
+          window.plugins.jPushPlugin.clearAllNotification();
+        }
+      }
 
-       }, false)*/
+      //点击极光推送跳转到相应页面
+      document.addEventListener("jpush.openNotification", function (data) {
+
+      }, false)
 
       //调试模式，这样报错会在应用中弹出一个遮罩层显示错误信息
-      //window.plugins.jPushPlugin.setDebugMode(true);
+      window.plugins.jPushPlugin.setDebugMode(true);
 
     });
   })
