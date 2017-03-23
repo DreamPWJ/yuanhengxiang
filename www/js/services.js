@@ -859,9 +859,9 @@ angular.module('starter.services', [])
         var d = "";
         $http({
           method: 'GET',
-          url: "templates/data/city.json"
+          url: YuanHenXiang.api + "/City/getAllLetterCity" //templates/data/city.json
         }).success(function (data) {
-          d = data;
+          d = data.data.lists;
         }).error(function (data, header, config, status) {
           console.log(status);
         }).then(function () {
@@ -894,38 +894,46 @@ angular.module('starter.services', [])
 
           //添加热门城市、暂时没用到
           $scope.cities = newCities;
-          $scope.hotCities = [
-            {
-              "name": "北京",
-              "pinyin": "beijing",
-              "index": "B"
-            },
-            {
-              "name": "上海",
-              "pinyin": "shanghai",
-              "index": "S"
-            },
-            {
-              "name": "广州",
-              "pinyin": "guangzhou",
-              "index": "G"
-            },
-            {
-              "name": "深圳",
-              "pinyin": "shenzhen",
-              "index": "S"
-            },
-            {
-              "name": "重庆",
-              "pinyin": "chongqing",
-              "index": "C"
-            },
-            {
-              "name": "武汉",
-              "pinyin": "wuhan",
-              "index": "W"
-            }
-          ]
+          $http({
+            method: 'GET',
+            url: YuanHenXiang.api + "/City/getHotCity"
+          }).success(function (data) {
+            $scope.hotCities = data.data.lists;
+          }).error(function (data, header, config, status) {
+            console.log(status);
+          })
+          /*          $scope.hotCities = [
+           {
+           "name": "北京",
+           "pinyin": "beijing",
+           "index": "B"
+           },
+           {
+           "name": "上海",
+           "pinyin": "shanghai",
+           "index": "S"
+           },
+           {
+           "name": "广州",
+           "pinyin": "guangzhou",
+           "index": "G"
+           },
+           {
+           "name": "深圳",
+           "pinyin": "shenzhen",
+           "index": "S"
+           },
+           {
+           "name": "重庆",
+           "pinyin": "chongqing",
+           "index": "C"
+           },
+           {
+           "name": "武汉",
+           "pinyin": "wuhan",
+           "index": "W"
+           }
+           ]*/
 
           // 城市搜索
           $scope.$watch("city.cityText", function (newVal, oldVal, e) {
