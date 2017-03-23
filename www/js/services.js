@@ -892,7 +892,7 @@ angular.module('starter.services', [])
             }
           }, this);
 
-          //添加热门城市、暂时没用到
+          //添加热门城市
           $scope.cities = newCities;
           $http({
             method: 'GET',
@@ -937,7 +937,6 @@ angular.module('starter.services', [])
 
           // 城市搜索
           $scope.$watch("city.cityText", function (newVal, oldVal, e) {
-            console.log(newVal);
             if (!newVal || newVal == "") {
               $scope.filterCities = [];
               return;
@@ -959,7 +958,6 @@ angular.module('starter.services', [])
           })
 
           $scope.citySelected = function (c) {
-            console.log(JSON.stringify(c));
             $scope.currentCity = c;
 
             // 缓存当前城市

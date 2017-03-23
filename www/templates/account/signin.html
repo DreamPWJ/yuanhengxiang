@@ -16,34 +16,36 @@
     <p class="text-center"><span class="integral-num">当前 {{signInInfo.currentPoint}} 积分</span></p>
 
     <div class="card">
-      <p class="row row-horizontal-around row-center text-center stable-bg"><span class="col-10">  <i
-        class="icon ion-ios-arrow-back grey" style="font-size: 1.5rem"></i></span>
+      <p class="row row-horizontal-around row-center text-center stable-bg">
+        <!-- <span class="col-10">
+ <i  class="icon ion-ios-arrow-back grey" style="font-size: 1.5rem"></i></span>-->
         <strong class="col">{{year}}年{{mouth}}月份</strong>
-        <span class="col-10"> <i class="icon ion-ios-arrow-forward grey" style="font-size: 1.5rem"></i></span></p>
+        <!--        <span class="col-10"> <i class="icon ion-ios-arrow-forward grey" style="font-size: 1.5rem"></i></span></p>-->
       <div id="sign-date">
-        <p class="row text-center">
-          <strong class="col">一</strong>
-          <strong class="col">二</strong>
-          <strong class="col">三</strong>
-          <strong class="col">四</strong>
-          <strong class="col">五</strong>
-          <strong class="col positive">六</strong>
-          <strong class="col positive">日</strong></p>
+      <p class="row text-center">
+        <strong class="col">一</strong>
+        <strong class="col">二</strong>
+        <strong class="col">三</strong>
+        <strong class="col">四</strong>
+        <strong class="col">五</strong>
+        <strong class="col positive">六</strong>
+        <strong class="col positive">日</strong></p>
 
-        <p class="row text-center row-wrap">
-          <span ng-if="mouthfirstdayweek>1" class="days"></span>
-          <span ng-if="mouthfirstdayweek>2" class="days"></span>
-          <span ng-if="mouthfirstdayweek>3" class="days"></span>
-          <span ng-if="mouthfirstdayweek>4" class="days"></span>
-          <span ng-if="mouthfirstdayweek>5" class="days"></span>
-          <span ng-if="mouthfirstdayweek>6" class="days"></span>
-          <span ng-if="mouthfirstdayweek>7" class="days"></span>
-          <span ng-repeat="item in monthdaysarry" class="days" ng-class="{true:'active'}[item.isSignIn==1]">{{item.days}}</span>
+      <p class="row text-center row-wrap">
+        <span ng-if="mouthfirstdayweek>1" class="days"></span>
+        <span ng-if="mouthfirstdayweek>2" class="days"></span>
+        <span ng-if="mouthfirstdayweek>3" class="days"></span>
+        <span ng-if="mouthfirstdayweek>4" class="days"></span>
+        <span ng-if="mouthfirstdayweek>5" class="days"></span>
+        <span ng-if="mouthfirstdayweek>6" class="days"></span>
+        <span ng-if="mouthfirstdayweek>7" class="days"></span>
+        <span ng-repeat="item in monthdaysarry" class="days"
+              ng-class="{true:'active'}[item.isSignIn==1]">{{item.days}}</span>
 
-        <div class="padding">
-          <a ng-href="#/login" nav-direction=forward class="button button-positive full-image ">退出登录</a>
-        </div>
+      <div class="padding">
+        <a ng-href="#/login" nav-direction=forward class="button button-positive full-image ">退出登录</a>
       </div>
+    </div>
     </div>
   </ion-content>
 </ion-view>
