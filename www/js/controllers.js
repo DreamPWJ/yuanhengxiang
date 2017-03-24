@@ -653,6 +653,26 @@ angular.module('starter.controllers', [])
       OrderService.myOrder(CommonService.authParams($scope.params)).success(function (data) {
         console.log(data);
         if (data.status == 1) {
+          $scope.isNotDataCreated = false;
+          $scope.isNotDataApayed = false;
+          $scope.isNotDataComplete = false;
+          $scope.isNotDataRightsin = false;
+          if (data.data.lists == null || data.data.lists.length == 0) {
+            if ($scope.tabIndex == 0) {
+              $scope.isNotDataCreated = true;
+            }
+            if ($scope.tabIndex == 1) {
+              $scope.isNotDataApayed = true;
+            }
+            if ($scope.tabIndex == 2) {
+              $scope.isNotDataComplete = true;
+            }
+            if ($scope.tabIndex == 3) {
+              $scope.isNotDataRightsin = true;
+            }
+
+            return
+          }
           angular.forEach(data.data.lists, function (item) {
             if ($scope.tabIndex == 0) {  //未支付订单数据
               $scope.createdList.push(item);

@@ -28,3 +28,5 @@ cordova plugin add cordova-plugin-wechat --variable wechatappid=wx3f324c2e577883
 
 
 ionic plugin add https://github.com/raistlinzx/cordova-plugin-sharesdk.git
+
+QQ：https://github.com/iVanPan/Cordova_QQ

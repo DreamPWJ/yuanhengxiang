@@ -21,7 +21,7 @@
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
         <ion-refresher on-refresh="getOrdersList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
-        <div ng-if="createdList.length==0" class="isNotDataHint">
+        <div ng-if="isNotDataCreated" class="isNotDataHint">
           <i class="icon ion-sad"></i>
           <p>暂无未付单</p>
         </div>
@@ -69,7 +69,7 @@
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
         <ion-refresher on-refresh="getOrdersList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
-        <div ng-if="payedList.length==0" class="isNotDataHint">
+        <div ng-if="isNotDataApayed" class="isNotDataHint">
           <i class="icon ion-sad"></i>
           <p>暂无已支付单</p>
         </div>
@@ -109,7 +109,7 @@
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
         <ion-refresher on-refresh="getOrdersList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
-        <div ng-if="completeList.length==0" class="isNotDataHint">
+        <div ng-if="isNotDataComplete" class="isNotDataHint">
           <i class="icon ion-sad"></i>
           <p>暂无已完成单</p>
         </div>
@@ -152,7 +152,7 @@
       <ion-content overflow-scroll="false" class="has-tabs-top stable-bg" has-bouncing="true">
         <ion-refresher on-refresh="getOrdersList(0)" pulling-text="下拉刷新"></ion-refresher>
         <p></p>
-        <div ng-if="rightsinList.length==0" class="isNotDataHint">
+        <div ng-if="isNotDataRightsin" class="isNotDataHint">
           <i class="icon ion-sad"></i>
           <p>暂无退货单</p>
         </div>
