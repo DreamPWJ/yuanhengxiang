@@ -440,14 +440,14 @@ angular.module('starter.controllers', [])
       })
     }
     //微信分享
-    $scope.weixinShare = function () {
+    $scope.weixinShare = function (type) {
       Wechat.share({
         text: "元亨祥邀请码分享测试",
-        scene: Wechat.Scene.SESSION
+        scene: type == 0 ? Wechat.Scene.SESSION : Wechat.Scene.TIMELINE
       }, function () {
         CommonService.platformPrompt("微信分享成功", 'close');
       }, function (reason) {
-        CommonService.platformPrompt("分享失败:" + reason, 'close');
+        CommonService.platformPrompt("微信分享失败:" + reason, 'close');
       });
     }
 
