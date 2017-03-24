@@ -25,3 +25,6 @@ private_key: MIICXgIBAAKBgQDGV9drXlgm1GeUKYoyX0kncIwxvyTnVonLqeof1IESWKZayutCDmM
 cordova plugin add https://github.com/offbye/cordova-plugin-alipay.git --variable PARTNER_ID=2088621160130266
 
 cordova plugin add cordova-plugin-wechat --variable wechatappid=wx3f324c2e57788389
+
+
+ionic plugin add https://github.com/raistlinzx/cordova-plugin-sharesdk.git

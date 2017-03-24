@@ -6,9 +6,9 @@
   <ion-nav-title>
     <h1 class="title">产品详情</h1>
   </ion-nav-title>
-  <ion-nav-buttons side="right">
+<!--  <ion-nav-buttons side="right">
     <button class="button iconfont icon-seach  button-clear grey" ng-click="modal.show()"></button>
-  </ion-nav-buttons>
+  </ion-nav-buttons>-->
   <ion-content overflow-scroll="false" class="stable-bg" id="productdetails">
     <ion-slide-box show-pager="true" does-continue="true" auto-play="true" slide-interval="3000"
                    delegate-handle="productdetails-slideboximgs" id="productdetails-slide">
@@ -17,11 +17,12 @@
       </ion-slide>
     </ion-slide-box>
     <ion-list>
-      <ion-item>
+      <ion-item class="item-icon-right">
         <h2 class="text-wrap">{{goodsInfo.goods_name}}</h2>
         <h2 class="padding-top"><span class="price assertive"><i>￥</i><span>{{goodsInfo.price.toString().split('.')[0]}}.</span><i>{{goodsInfo.price.toString().split('.')[1]}}</i></span>
           <del class="original-price">原价:{{goodsInfo.original_price | currency :"￥"}}</del>
         </h2>
+        <i class="icon ion-android-share-alt grey share" ng-click="modal.show()"><p>分享</p> </i>
       </ion-item>
 <!--      <p></p>
       <a ng-href="" class="item item-icon-left item-icon-right item-borderless">

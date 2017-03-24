@@ -340,7 +340,8 @@ angular.module('starter.controllers', [])
   })
   //产品详情页面
   .controller('ProductDetailsCtrl', function ($scope, $rootScope, $stateParams, $state, GoodService, CommonService, ShoppingCartService, AccountService, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicTabsDelegate) {
-    CommonService.customModal($scope, 'templates/search.html');
+    /*    CommonService.customModal($scope, 'templates/search.html');*/
+    CommonService.customModal($scope, 'templates/modal/share.html');
     $scope.getGoodsInfo = function () { //获取商品详情
       GoodService.getGoodsInfo(CommonService.authParams({id: $stateParams.id})).success(function (data) {
         if (data.status == 1) {
@@ -438,7 +439,17 @@ angular.module('starter.controllers', [])
         CommonService.platformPrompt(data.info, 'close');
       })
     }
-
+    //微信分享
+    $scope.weixinShare = function () {
+      Wechat.share({
+        text: "元亨祥邀请码分享测试",
+        scene: Wechat.Scene.SESSION
+      }, function () {
+        CommonService.platformPrompt("微信分享成功", 'close');
+      }, function (reason) {
+        CommonService.platformPrompt("分享失败:" + reason, 'close');
+      });
+    }
 
   })
   //购物车主界面

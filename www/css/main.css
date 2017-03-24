@@ -67,7 +67,7 @@
   margin: 0 0.3rem;
 }
 
-#main-scroll > a:last-of-type{
+#main-scroll > a:last-of-type {
   margin-right: 1rem;
 }
 
@@ -140,6 +140,10 @@
   padding-left: 1.5rem;
 }
 
+#productdetails .share {
+  font-size: 1.3rem;
+}
+
 .productdetails-footer-bar .tabs {
   margin: 0;
   padding: 0;
@@ -171,7 +175,7 @@
   font-size: 1rem !important;
 }
 
-#revieworder a.address, #orderdetails a.address{
+#revieworder a.address, #orderdetails a.address {
   background: url('../img/account/state@1.png') #ffffff repeat-x bottom;
   background-size: 25% 0.3rem;
 }
@@ -250,7 +254,7 @@
   }
 }
 
-#paymodal {
+#paymodal{
   min-height: 50% !important;
   height: 50%;
   top: 50%;
@@ -262,6 +266,18 @@
   margin-left: 0.6rem;
 }
 
+#share {
+  min-height: 30% !important;
+  height: 30%;
+  top: 70%;
+  bottom: 0;
+}
+#share .row{
+  height: 5rem;
+}
+#share .row .iconfont{
+  font-size: 2.5rem;
+}
 .search {
   background-color: #f8f8f8 !important;
   border-radius: 0.3rem;
