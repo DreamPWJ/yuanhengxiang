@@ -237,19 +237,38 @@ angular.module('starter.controllers', [])
     CommonService.ionicPopover($scope, 'my-product.html', 1);//综合
     CommonService.ionicPopover($scope, 'my-brand.html', 2);//品牌
     $scope.tabIndex = 0;//当前tabs页
+    $scope.orderby = "default";//排序 默认综合
+    $scope.synthesizeradio = "default";//默认选择选中综合
+    $scope.brandId="";//品牌id
+
+    //获取品牌列表
+    var params = {};
+    GoodService.getBrand(CommonService.authParams(params)).success(function (data) {
+      console.log(data);
+      if (data.status == 1) {
+        $scope.brandlist = data.data.lists;
+      } else {
+        CommonService.platformPrompt(data.info, 'close');
+      }
+    })
+
     $scope.slideChanged = function (index) {
       $scope.tabIndex = index;
       $scope.getGoodsList(0);
     };
 
-    $scope.selectedTab = function (index, $event) {
+    $scope.selectedTab = function (index, $event, orderby) {
       if (index == 0) {
         $scope.popover1.show($event)
       }
       if (index == 2) {
-        $scope.popover2.show($event)
+        $scope.popover2.show($event);
+
       }
+
       $scope.tabIndex = index;
+      $scope.orderby = orderby || "default";
+
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-productlist").slide(index)
     }
@@ -267,14 +286,13 @@ angular.module('starter.controllers', [])
     $scope.totalprice = 1;
     $scope.priceList = [];
     $scope.getGoodsList = function () {
-      var orderby = "default";//排序 默认综合
+
       if (arguments != [] && arguments[0] == 0) {
         if ($scope.tabIndex == 0) {  //产品综合数据
           $scope.pagesynthesize = 0;
           $scope.synthesizeList = [];
         }
         if ($scope.tabIndex == 1) {  //产品销量数据
-          orderby = "sales";//排序
           $scope.pagesales = 0;
           $scope.salesList = [];
         }
@@ -299,8 +317,8 @@ angular.module('starter.controllers', [])
         num: 10,
         type: $stateParams.type,
         id: $stateParams.id,
-        brand_id: "",//品牌ID
-        order_by: orderby //0 综合 1 销量 2 品牌
+        brand_id:$scope.tabIndex==2?$scope.brandId:"",//品牌ID
+        order_by: $scope.orderby //0 综合 1 销量 2 品牌
       }
       console.log($scope.params);
       GoodService.getGoodsList(CommonService.authParams($scope.params)).success(function (data) {
@@ -320,12 +338,14 @@ angular.module('starter.controllers', [])
           })
           if ($scope.tabIndex == 0) {  //产品综合数据
             $scope.totalsynthesize = data.data.pageInfo.totalPages;
+            $scope.popover1.hide();
           }
           if ($scope.tabIndex == 1) {  //产品销量数据
             $scope.totalsales = data.data.pageInfo.totalPages;
           }
           if ($scope.tabIndex == 2) {  //产品品牌数据
             $scope.totalprice = data.data.pageInfo.totalPages;
+            $scope.popover2.hide();
           }
 
           $ionicScrollDelegate.resize();//添加数据后页面不能及时滚动刷新造成卡顿
@@ -347,6 +367,18 @@ angular.module('starter.controllers', [])
       ShoppingCartService.addToCart(CommonService.authParams(params)).success(function (data) {
         CommonService.platformPrompt(data.info, 'close');
       })
+    }
+    //选择综合条件排序
+    $scope.selectSynthesize = function (orderby) {
+      $scope.orderby = orderby || "default";
+      $scope.synthesizeradio = orderby || "default";
+      $scope.getGoodsList(0);
+    }
+    //选择品牌
+    $scope.selectBrand = function (brandId) {
+      console.log(brandId);
+      $scope.brandId=brandId;
+      $scope.getGoodsList(0);
     }
   })
   //产品详情页面
