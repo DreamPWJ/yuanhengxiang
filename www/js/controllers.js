@@ -234,13 +234,21 @@ angular.module('starter.controllers', [])
   //产品列表页面
   .controller('ProductListCtrl', function ($scope, $rootScope, $stateParams, CommonService, GoodService, ShoppingCartService, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
     CommonService.customModal($scope, 'templates/search.html');
+    CommonService.ionicPopover($scope, 'my-product.html', 1);//综合
+    CommonService.ionicPopover($scope, 'my-brand.html', 2);//品牌
     $scope.tabIndex = 0;//当前tabs页
     $scope.slideChanged = function (index) {
       $scope.tabIndex = index;
       $scope.getGoodsList(0);
     };
 
-    $scope.selectedTab = function (index) {
+    $scope.selectedTab = function (index, $event) {
+      if (index == 0) {
+        $scope.popover1.show($event)
+      }
+      if (index == 2) {
+        $scope.popover2.show($event)
+      }
       $scope.tabIndex = index;
       //滑动的索引和速度
       $ionicSlideBoxDelegate.$getByHandle("slidebox-productlist").slide(index)
@@ -254,21 +262,23 @@ angular.module('starter.controllers', [])
     $scope.pagesales = 0;
     $scope.totalsales = 1;
     $scope.salesList = [];
-    //产品价格数据
+    //产品品牌数据
     $scope.pageprice = 0;
     $scope.totalprice = 1;
     $scope.priceList = [];
     $scope.getGoodsList = function () {
+      var orderby = "default";//排序 默认综合
       if (arguments != [] && arguments[0] == 0) {
         if ($scope.tabIndex == 0) {  //产品综合数据
           $scope.pagesynthesize = 0;
           $scope.synthesizeList = [];
         }
         if ($scope.tabIndex == 1) {  //产品销量数据
+          orderby = "sales";//排序
           $scope.pagesales = 0;
           $scope.salesList = [];
         }
-        if ($scope.tabIndex == 2) {  //产品价格数据
+        if ($scope.tabIndex == 2) {  //产品品牌数据
           $scope.pageprice = 0;
           $scope.priceList = [];
         }
@@ -280,7 +290,7 @@ angular.module('starter.controllers', [])
       if ($scope.tabIndex == 1 || $scope.pagesales == 0) {  //产品销量数据
         $scope.pagesales++;
       }
-      if ($scope.tabIndex == 2 || $scope.pageprice == 0) {  //产品价格数据
+      if ($scope.tabIndex == 2 || $scope.pageprice == 0) {  //产品品牌数据
         $scope.pageprice++;
       }
 
@@ -289,7 +299,8 @@ angular.module('starter.controllers', [])
         num: 10,
         type: $stateParams.type,
         id: $stateParams.id,
-        order_by: $scope.tabIndex //0 综合 1 销量 2 价格
+        brand_id: "",//品牌ID
+        order_by: orderby //0 综合 1 销量 2 品牌
       }
       console.log($scope.params);
       GoodService.getGoodsList(CommonService.authParams($scope.params)).success(function (data) {
@@ -302,7 +313,7 @@ angular.module('starter.controllers', [])
             if ($scope.tabIndex == 1) {  //产品销量数据
               $scope.salesList.push(item);
             }
-            if ($scope.tabIndex == 2) {  //产品价格数据
+            if ($scope.tabIndex == 2) {  //产品品牌数据
               $scope.priceList.push(item);
             }
 
@@ -313,7 +324,7 @@ angular.module('starter.controllers', [])
           if ($scope.tabIndex == 1) {  //产品销量数据
             $scope.totalsales = data.data.pageInfo.totalPages;
           }
-          if ($scope.tabIndex == 2) {  //产品价格数据
+          if ($scope.tabIndex == 2) {  //产品品牌数据
             $scope.totalprice = data.data.pageInfo.totalPages;
           }
 
@@ -1597,5 +1608,8 @@ angular.module('starter.controllers', [])
   //上传头像
   .controller('UploadHeadCtrl', function ($scope, CommonService) {
 
+
+  })
+  .controller('MyPopover', function ($scope, $rootScope, $state, CommonService) {
 
   })

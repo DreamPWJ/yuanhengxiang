@@ -91,33 +91,34 @@ angular.module('starter.services', [])
         });
       }
       ,
-      ionicPopover: function ($scope, templateUrl) {
+      ionicPopover: function ($scope, templateUrl, index) {//页面出现多个Popover框的情况 进行命名区别 index 可以为1.2.3
+        index = index == undefined ? "" : index;
         $ionicPopover.fromTemplateUrl('templates/popover/' + templateUrl, {
           scope: $scope,
         }).then(function (popover) {
-          $scope.popover = popover;
+          $scope["popover" + index] = popover;
         });
         $scope.openPopover = function ($event) {
-          $scope.popover.show($event);
+          $scope["popover" + index].show($event);
           //动态计算popover高度
           $rootScope.popoversize = document.querySelectorAll("#mypopover a").length * 55 + 'px';
         };
         $scope.closePopover = function () {
-          $scope.popover.hide();
+          $scope["popover" + index].hide();
         };
         //Cleanup the popover when we're done with it! 清除浮动框
         $scope.$on('$destroy', function () {
-          $scope.popover.remove();
+          $scope["popover" + index].remove();
         });
         $scope.$on('$ionicView.leave', function () {
-          $scope.popover.hide();
+          $scope["popover" + index].hide();
         });
         // 在隐藏浮动框后执行
-        $scope.$on('popover.hidden', function () {
+        $scope.$on('popover' + index + '.hidden', function () {
           // Execute action
         });
         // 移除浮动框后执行
-        $scope.$on('popover.removed', function () {
+        $scope.$on('popover' + index + '.removed', function () {
           // Execute action
         });
       },
@@ -1020,8 +1021,22 @@ angular.module('starter.services', [])
           deferred.reject(err);// 声明执行失败，即服务器返回错误
         });
         return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
-      }
-      ,
+      },
+      getBrand: function (params) { //获取品牌列表
+        var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
+        var promise = deferred.promise
+        promise = $http({
+          method: 'GET',
+          cache: true,//cache:true告诉$http service要在$http的默认缓存中缓存特定的请求响应结果
+          url: YuanHenXiang.api + "/Goods/getBrand",
+          params: params
+        }).success(function (data) {
+          deferred.resolve(data);// 声明执行成功，即http请求数据成功，可以返回数据了
+        }).error(function (err) {
+          deferred.reject(err);// 声明执行失败，即服务器返回错误
+        });
+        return promise; // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      },
       getGoodsList: function (params) { //分类ID或品牌ID获取商品列表
         var deferred = $q.defer();// 声明延后执行，表示要去监控后面的执行
         var promise = deferred.promise
