@@ -1,14 +1,14 @@
 <ion-popover-view id="my-product" >
   <ion-content overflow-scroll="false">
     <ion-list>
-      <ion-radio ng-model="synthesizeradio"  icon="ion-android-done"
+      <ion-radio ng-model="synthesizeradio" ng-value="'default'"  icon="ion-android-done"
                  ng-change="selectSynthesize('default')">综合
       </ion-radio>
-      <ion-radio ng-model="synthesizeradio"  icon="ion-android-done"
-                 ng-change="selectSynthesize('price_up')">价格从低到高
+      <ion-radio ng-model="synthesizeradio" ng-value="'price_down'"  icon="ion-android-done"
+                 ng-change="selectSynthesize('price_down')">价格从低到高
       </ion-radio>
-      <ion-radio ng-model="synthesizeradio"  icon="ion-android-done"
-                 ng-change="selectSynthesize('price_down')">价格从高到低
+      <ion-radio ng-model="synthesizeradio"  ng-value="'price_up'" icon="ion-android-done"
+                 ng-change="selectSynthesize('price_up')">价格从高到低
       </ion-radio>
     </ion-list>
   </ion-content>
