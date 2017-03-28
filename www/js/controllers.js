@@ -242,7 +242,7 @@ angular.module('starter.controllers', [])
     $scope.brandId="";//品牌id
 
     //获取品牌列表
-    var params = {};
+    var params = {id:$stateParams.id};//分类id
     GoodService.getBrand(CommonService.authParams(params)).success(function (data) {
       console.log(data);
       if (data.status == 1) {
