@@ -239,10 +239,10 @@ angular.module('starter.controllers', [])
     $scope.tabIndex = 0;//当前tabs页
     $scope.orderby = "default";//排序 默认综合
     $scope.synthesizeradio = "default";//默认选择选中综合
-    $scope.brandId="";//品牌id
+    $scope.brandId = "";//品牌id
 
     //获取品牌列表
-    var params = {id:$stateParams.id};//分类id
+    var params = {id: $stateParams.id};//分类id
     GoodService.getBrand(CommonService.authParams(params)).success(function (data) {
       console.log(data);
       if (data.status == 1) {
@@ -317,7 +317,7 @@ angular.module('starter.controllers', [])
         num: 10,
         type: $stateParams.type,
         id: $stateParams.id,
-        brand_id:$scope.tabIndex==2?$scope.brandId:"",//品牌ID
+        brand_id: $scope.tabIndex == 2 ? $scope.brandId : "",//品牌ID
         order_by: $scope.orderby //0 综合 1 销量 2 品牌
       }
       console.log($scope.params);
@@ -377,7 +377,7 @@ angular.module('starter.controllers', [])
     //选择品牌
     $scope.selectBrand = function (brandId) {
       console.log(brandId);
-      $scope.brandId=brandId;
+      $scope.brandId = brandId;
       $scope.getGoodsList(0);
     }
   })
@@ -849,8 +849,9 @@ angular.module('starter.controllers', [])
 
   })
   //注册页面
-  .controller('RegisterCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService, $cordovaDevice) {
+  .controller('RegisterCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService, $cordovaDevice, YuanHenXiang, $ionicScrollDelegate) {
     $scope.user = {};//定义用户对象
+    CommonService.customModal($scope, 'templates/modal/addressmodal.html');
     $scope.paracont = "获取验证码"; //初始发送按钮中的文字
     $scope.paraclass = false; //控制验证码的disable
     $scope.checkphone = function (mobilephone) {//检查手机号
@@ -873,23 +874,28 @@ angular.module('starter.controllers', [])
         })
       }
     }
+    //提交注册
     $scope.registerSubmit = function () {
       if ($scope.verify != $scope.user.verify) {
         CommonService.platformPrompt("输入验证码不正确", 'close');
         return;
       }
-      if (ionic.Platform.isWebView()) { //获取设备UUID
-        var uuid = $cordovaDevice.getUUID();
-      } else {
-        var uuid = "43a561a7658ae5b1";
+      if ($scope.user.password != $scope.user.reNewPwd) {
+        CommonService.platformPrompt("两次输入的密码不一致", 'close');
+        return;
       }
-      AccountService.register({
-        mobile: $scope.user.mobile,
-        password: EncodingService.md5($scope.user.password),
-        code: $scope.user.code,
-        verify: $scope.user.verify,
-        udid: uuid
-      }).success(function (data) {
+      var udid = "";
+      if (ionic.Platform.isWebView()) { //获取设备UUID
+        udid = $cordovaDevice.getUUID();
+      } else {
+        udid = "43a561a7658ae5b1";
+      }
+      var date = $scope.user.birthday;
+      $scope.user.birthday = date ? (new Date(date.setDate(date.getDate() + 1))).toISOString().slice(0, 10) : "";
+      $scope.user.password = EncodingService.md5($scope.user.password);
+      $scope.user.udid = udid;
+      console.log($scope.user);
+      AccountService.register($scope.user).success(function (data) {
         console.log(data);
         if (data.status == 1) {
           $state.go("login");
@@ -900,6 +906,39 @@ angular.module('starter.controllers', [])
         CommonService.platformPrompt("注册失败", 'close');
       })
     }
+
+    //获取省市县
+    $scope.getAddressPCCList = function (adcode) {
+      if (isNaN(adcode) && adcode) {
+        $scope.addresspcd = $scope.user.province + $scope.user.city + $scope.user.area;
+        $scope.user.address = adcode;
+        $scope.modal.hide();
+        return;
+      }
+      AccountService.getDistrict({
+        key: YuanHenXiang.gaoDeKey,
+        keywords: adcode || "",
+        showbiz: false
+      }).success(function (data) {
+        $scope.addressinfo = data.districts[0].districts;
+        $scope.level = data.districts[0].level;
+        if ($scope.level == "province") {
+          $scope.user.province = data.districts[0].name;
+        } else if ($scope.level == "city") {
+          $scope.user.city = data.districts[0].name;
+        } else if ($scope.level == "district") {
+          $scope.user.area = data.districts[0].name;
+        }
+        $ionicScrollDelegate.scrollTop()
+      }).error(function () {
+        CommonService.platformPrompt("获取添加地址省市县失败", 'close');
+      })
+    }
+    $scope.openModal = function () {
+      $scope.modal.show();
+      $scope.getAddressPCCList();
+    }
+
   })
 
   //重置密码页面

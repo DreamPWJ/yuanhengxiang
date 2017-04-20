@@ -12,14 +12,6 @@
           <input type="number" placeholder="请输入手机号码" ng-model="user.mobile"
                  check-form ng-blur="checkForm(user.mobile,'手机号输入不正确','mobilephone','')"   ng-change="checkphone(user.mobile)"   ng-maxlength="11" required/>
         </label>
-        <label class="item item-input">
-          <span class="input-label "> 密码 </span>
-          <input type="password" placeholder="请输入密码" ng-model="user.password" required/>
-        </label>
-        <label class="item item-input">
-          <span class="input-label"> 邀请码 </span>
-          <input type="number" placeholder="请输入邀请码" ng-model="user.code" />
-        </label>
         <div class="item item-input">
           <span class="input-label"> 验证码 </span>
           <span class="row row-no-padding">
@@ -27,6 +19,51 @@
             <button class="button button-small button-positive  col-33 " ng-class="{false:'button-outline'}[paraclass]" ng-click="getVerifyCode()">{{paracont}}</button>
           </span>
         </div>
+        <label class="item item-input">
+          <span class="input-label "> 密码 </span>
+          <input type="password" placeholder="请输入密码" ng-model="user.password" required/>
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label "> 确认密码 </span>
+          <input type="password" placeholder="请再次输入密码" ng-model="user.reNewPwd" required/>
+        </label>
+        <label class="item item-input ">
+          <span class="input-label"> 父母姓名 </span>
+          <input type="text" ng-model="user.name" placeholder="请输入父/母姓名">
+        </label>
+
+        <label class="item item-input ">
+          <span class="input-label"> 宝宝姓名 </span>
+          <input type="text" ng-model="user.baby_name" placeholder="请输入宝宝姓名">
+        </label>
+        <div class="item">
+          <div class="row row-no-padding row-center radio">
+            <span class="input-label col-30"> 宝宝性别 </span>
+            <label class="col-25"><input type="radio" name="sex" ng-model="user.sex" value="1"/> <i
+              class=" icon ion-disc"></i> 男宝</label>
+            <label class="col-25"><input type="radio" name="sex" ng-model="user.sex" value="2"/> <i
+              class=" icon ion-disc"></i> 女宝</label>
+          </div>
+        </div>
+        <label class="item item-input ">
+          <span class="input-label"> 宝宝生日 </span>
+          <input type="date" ng-model="user.birthday" placeholder="请选择宝宝生日">
+        </label>
+        <label class="item item-input " ng-click="openModal()">
+          <span class="input-label"> 所在地区 </span>
+          <p class="{{addresspcd?'dark':'grey'}}">{{addresspcd?addresspcd:"请选择地区信息"}}</p>
+        </label>
+        <label class="item item-input ">
+          <span class="input-label"> 收货地址 </span>
+          <textarea class="col-60" rows="1" ng-model="user.address" placeholder="请输入收货地址"></textarea>
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label"> 邀请码 </span>
+          <input type="number" placeholder="请输入邀请码" ng-model="user.code" />
+        </label>
+
       </div>
       <div class="padding">
         <button class="button button-positive full-image"  ng-disabled="!(registerForm.$valid&&verify)"  ng-click="registerSubmit()">立即注册</button>

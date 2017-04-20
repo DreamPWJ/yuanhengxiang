@@ -24,20 +24,20 @@
         </label>
         <div class="item">
           <div class="row row-no-padding row-center radio">
-            <span class="input-label col-30"> 性别 </span>
+            <span class="input-label col-30"> 宝宝性别 </span>
             <label class="col-25"><input type="radio" name="sex" ng-model="userinfo.sex" value="0"/> <i
-              class=" icon ion-disc"></i> 男生</label>
+              class=" icon ion-disc"></i> 男宝</label>
             <label class="col-25"><input type="radio" name="sex" ng-model="userinfo.sex" value="1"/> <i
-              class=" icon ion-disc"></i> 女生</label>
+              class=" icon ion-disc"></i> 女宝</label>
           </div>
         </div>
         <label class="item item-input ">
-          <span class="input-label"> 出生日期 </span>
-          <input type="date" ng-model="userinfo.birthday" placeholder="请选择出生日期">
+          <span class="input-label"> 宝宝生日 </span>
+          <input type="date" ng-model="userinfo.birthday" placeholder="请选择宝宝生日">
         </label>
         <label class="item item-input " ng-click="openModal()">
-          <span class="input-label"> 地址 </span>
-          <p class="{{addresspcd?'dark':'grey'}}">{{addresspcd?addresspcd:"选择地区信息"}}</p>
+          <span class="input-label"> 所在地区 </span>
+          <p class="{{addresspcd?'dark':'grey'}}">{{addresspcd?addresspcd:"请选择地区信息"}}</p>
         </label>
         <label class="item item-input ">
           <span class="input-label"> 详细地址 </span>
