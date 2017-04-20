@@ -33,7 +33,7 @@
             <input type="number" class="col text-center " ng-model="item.goods_qty"/>
             <i class="col icon ion-ios-plus positive " ng-click="addnum($index,item.id)"></i></p>
           <label class="checkbox">
-            <input type="checkbox" ng-checked="false" ng-model="item.checked">
+            <input type="checkbox" ng-checked="item.checked" ng-model="item.checked">
           </label>
         </ion-item>
         <p></p>
@@ -43,7 +43,7 @@
   <ion-footer-bar class="shoppingcart-footer-bar">
     <div class="row row-no-padding row-center ">
       <label class="row  row-center col-25 padding-left all-select checkbox">
-        <input type="checkbox" ng-model="isSelectAll" ng-click="selectAll(isSelectAll)"/>
+        <input type="checkbox" ng-model="shoppingcar.isSelectAll" ng-checked="shoppingcar.isSelectAll" ng-click="selectAll(shoppingcar.isSelectAll)"/>
         <span class="padding-left">全选</span>
 
       </label>

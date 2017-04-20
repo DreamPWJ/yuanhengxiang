@@ -498,7 +498,7 @@ angular.module('starter.controllers', [])
   //购物车主界面
   .controller('ShoppingCartCtrl', function ($scope, $rootScope, $state, CommonService, ShoppingCartService) {
     $scope.shoppingcar = {
-      isSelectAll: false,//是否全部选择
+      isSelectAll: true,//是否全部选择
       showDelete: false,//删除按钮是否显示
       totalnum: 0,//总购买数量
       totalPrice: 0//总价格
@@ -515,7 +515,7 @@ angular.module('starter.controllers', [])
           }
           $scope.shoppingcartdata = data.data.info;
           angular.forEach($scope.shoppingcartdata.cartArr, function (item, index) {
-            $scope.shoppingcartdata.cartArr[index].checked = false;
+            $scope.shoppingcartdata.cartArr[index].checked = true;
             $scope.shoppingcartdata.cartArr[index].goods_qty = Number(item.goods_qty)
           })
         } else {
@@ -559,12 +559,14 @@ angular.module('starter.controllers', [])
       })
       return $scope.shoppingcar.totalPrice;
     }
+
     //全部选择
     $scope.selectAll = function (isSelectAll) {
       angular.forEach($scope.shoppingcartdata.cartArr, function (item, index) {
         item.checked = isSelectAll;
       })
     }
+
     //删除购物车
     $scope.deleteShoppingCart = function (index, id) {
       $scope.shoppingcartdata.cartArr.splice(index, 1);
@@ -851,6 +853,7 @@ angular.module('starter.controllers', [])
   //注册页面
   .controller('RegisterCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService, $cordovaDevice, YuanHenXiang, $ionicScrollDelegate) {
     $scope.user = {};//定义用户对象
+    $scope.user.sex = 1;
     CommonService.customModal($scope, 'templates/modal/addressmodal.html');
     $scope.paracont = "获取验证码"; //初始发送按钮中的文字
     $scope.paraclass = false; //控制验证码的disable
@@ -1160,6 +1163,7 @@ angular.module('starter.controllers', [])
   .controller('OrganizingDataCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, YuanHenXiang, $ionicScrollDelegate) {
     //用户信息
     $scope.userinfo = {};
+    $scope.userinfo.sex = 0;
     CommonService.customModal($scope, 'templates/modal/addressmodal.html');
     $scope.imgsPicAddr = [];//图片信息数组
     $scope.imageList = [];  //上传图片数组集合

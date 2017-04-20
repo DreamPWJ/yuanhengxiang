@@ -48,7 +48,7 @@
         </div>
         <label class="item item-input ">
           <span class="input-label"> 宝宝生日 </span>
-          <input type="date" ng-model="user.birthday" placeholder="请选择宝宝生日">
+          <input type="date" ng-model="user.birthday" placeholder="请选择宝宝生日" required>
         </label>
         <label class="item item-input " ng-click="openModal()">
           <span class="input-label"> 所在地区 </span>
@@ -56,12 +56,12 @@
         </label>
         <label class="item item-input ">
           <span class="input-label"> 收货地址 </span>
-          <textarea class="col-60" rows="1" ng-model="user.address" placeholder="请输入收货地址"></textarea>
+          <textarea class="col-60" rows="1" ng-model="user.address" placeholder="请输入收货地址" required></textarea>
         </label>
 
         <label class="item item-input">
           <span class="input-label"> 邀请码 </span>
-          <input type="number" placeholder="请输入邀请码" ng-model="user.code" />
+          <input type="number" placeholder="请输入邀请码" ng-model="user.code" required/>
         </label>
 
       </div>
