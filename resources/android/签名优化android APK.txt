@@ -30,3 +30,12 @@ cordova plugin add cordova-plugin-wechat --variable wechatappid=wx3f324c2e577883
 ionic plugin add https://github.com/raistlinzx/cordova-plugin-sharesdk.git
 
 QQ：https://github.com/iVanPan/Cordova_QQ
+
+
+#其他应用打开启动app配置url AndroidManifest.xml中配置URL Schemes 主Activity中增加一个intent-filter 就是表示App可以响应"yuanhengxiang://"开头的URL
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="yuanhengxiang" />
+            </intent-filter>
