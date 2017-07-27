@@ -89,24 +89,22 @@ angular.module('starter.controllers', [])
       })
     });
 
-    //获取极光推送registrationID
-    var getRegistrationID = function () {
-      window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
-    };
 
     var onGetRegistrationID = function (data) {
       try {
-        console.log("JPushPlugin:registrationID is " + data);
 
         if (data.length == 0) {
-          var t1 = window.setTimeout(getRegistrationID, 1000);
+          window.setTimeout(getRegistrationID, 1000);
+          return;
         }
         localStorage.setItem("jPushRegistrationID", data)
       } catch (exception) {
         console.log(exception);
       }
     };
-    window.setTimeout(getRegistrationID, 1000);
+
+    //获取极光推送registrationID
+    window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
 
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
