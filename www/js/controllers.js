@@ -89,24 +89,24 @@ angular.module('starter.controllers', [])
       })
     });
 
+    //获取极光推送registrationID
+    var getRegistrationID = function () {
+      window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
+    };
 
     var onGetRegistrationID = function (data) {
       try {
+        console.log("JPushPlugin:registrationID is " + data);
 
         if (data.length == 0) {
-          window.setTimeout(getRegistrationID, 1000);
-          return;
+          var t1 = window.setTimeout(getRegistrationID, 1000);
         }
         localStorage.setItem("jPushRegistrationID", data)
       } catch (exception) {
         console.log(exception);
       }
     };
-
-    //获取极光推送registrationID
-    if (ionic.Platform.isWebView() &&  !localStorage.getItem("jPushRegistrationID")) { //包含cordova插件的应用
-      window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
-    }
+    window.setTimeout(getRegistrationID, 1000);
 
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
