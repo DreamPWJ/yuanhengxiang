@@ -104,7 +104,9 @@ angular.module('starter.controllers', [])
     };
 
     //获取极光推送registrationID
-    window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
+    if (ionic.Platform.isWebView() &&  !localStorage.getItem("jPushRegistrationID")) { //包含cordova插件的应用
+      window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
+    }
 
     //在首页中清除导航历史退栈
     $scope.$on('$ionicView.afterEnter', function () {
