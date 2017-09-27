@@ -39,7 +39,7 @@
             <a ng-repeat="item in indexData.hotGoods" ng-if="$index!=0" ng-href="#/productdetails/{{item.id}}"
                nav-direction=forward>
               <img ng-src="{{item.image}}" class="full-image" alt=""/>
-              <p class="text-wrap" style="word-break:break-all;">{{item.goods_name}}</p>
+              <p class="text-wrap text-center" style="word-break:break-all;">{{item.goods_name}}</p>
               <p class="row row-center"><strong class="energized">{{item.price |currency :"￥"}}</strong>
                 <i class="col iconfont icon-gouwuche positive text-right" ng-click="addToCart(item.id,$event)"></i></p>
             </a>
