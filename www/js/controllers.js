@@ -543,7 +543,7 @@ angular.module('starter.controllers', [])
     }
     // 减少数量
     $scope.minusnum = function ($index, id) {
-      if ($scope.shoppingcartdata.cartArr[$index].goods_qty == 0)return;
+      if ($scope.shoppingcartdata.cartArr[$index].goods_qty == 0) return;
       $scope.shoppingcartdata.cartArr[$index].goods_qty--;
       $scope.updateCart($scope.shoppingcartdata.cartArr[$index].goods_qty, id)
     }
@@ -1547,8 +1547,7 @@ angular.module('starter.controllers', [])
   .controller('QuestionnaireCtrl', function ($scope, CommonService, QuestionService) {
     $scope.choice = [];//选择变量
     //获取问卷调查
-    var params = {question_id: 1}
-    QuestionService.getQuestion(CommonService.authParams(params)).success(function (data) {
+    QuestionService.getQuestion(CommonService.authParams({})).success(function (data) {
       console.log(data);
       if (data.status == 1) {
         $scope.questionList = data.data.lists;
@@ -1575,8 +1574,8 @@ angular.module('starter.controllers', [])
         answers.push(json)
       })
 
-      var params = CommonService.authParams({question_id: 1});
-      params.answer = answers;
+      var params = CommonService.authParams({question_id: $scope.questionList[0].question_id});
+      params.answer = JSON.stringify(answers);
       console.log(params);
       QuestionService.addAnswer(params).success(function (data) {
         console.log(data);
