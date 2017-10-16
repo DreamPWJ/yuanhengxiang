@@ -12,12 +12,12 @@
       <div class="col-20 padding-left">
         <img ng-if="userinfo.url" ng-src="{{userinfo.url}}" onerror="this.src='img/head.jpg'" alt=""/>
       </div>
-      <div class="col-60 userinfo-details">
+      <div class="col-55 userinfo-details">
         <strong class="light">{{userinfo.name}} <i>{{userinfo.level}} 级会员</i></span>
         </strong>
         <p><span ui-sref="myincome">余额 : {{userinfo.balance}}</span></p>
       </div>
-      <div class="col-20">
+      <div class="col-25 nowrap">
         <a ng-href="#/myntegral" nav-direction=forward class="light subdued">领取积分 <i
           class="icon ion-ios-arrow-forward"></i>
         </a>
