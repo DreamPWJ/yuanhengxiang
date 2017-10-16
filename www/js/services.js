@@ -294,16 +294,19 @@ angular.module('starter.services', [])
         }
         CommonService = this;
         var posOptions = {timeout: 10000, enableHighAccuracy: false};
-        $cordovaGeolocation
-          .getCurrentPosition(posOptions)
-          .then(function (position) {
-            localStorage.setItem("longitude", position.coords.longitude);//经度
-            localStorage.setItem("latitude", position.coords.latitude);//纬度
-            callback.call(this);
-          }, function (err) {
-            callback.call(this);
-            // CommonService.platformPrompt("获取定位失败", 'close');
-          });
+        document.addEventListener("deviceready", function () {
+          $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+            .then(function (position) {
+              localStorage.setItem("longitude", position.coords.longitude);//经度
+              localStorage.setItem("latitude", position.coords.latitude);//纬度
+              callback.call(this);
+            }, function (err) {
+              callback.call(this);
+              // CommonService.platformPrompt("获取定位失败", 'close');
+            });
+        }, false);
+
       },
       isLogin: function (flag) {//判断是否登录
         if (!localStorage.getItem("token")) {
