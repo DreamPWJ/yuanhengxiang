@@ -294,7 +294,7 @@ angular.module('starter.services', [])
         }
         CommonService = this;
         var posOptions = {timeout: 10000, enableHighAccuracy: false};
-      /*  document.addEventListener("deviceready", function () {*/
+        document.addEventListener("deviceready", function () {
           $cordovaGeolocation
             .getCurrentPosition(posOptions)
             .then(function (position) {
@@ -305,7 +305,7 @@ angular.module('starter.services', [])
               callback.call(this);
               // CommonService.platformPrompt("获取定位失败", 'close');
             });
-/*        }, false);*/
+        }, false);
 
       },
       isLogin: function (flag) {//判断是否登录
