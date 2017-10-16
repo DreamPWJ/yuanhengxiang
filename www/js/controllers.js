@@ -73,21 +73,25 @@ angular.module('starter.controllers', [])
 
 
     //获取定位信息
-    $scope.cityName = "深圳";//默认地址
-    CommonService.getLocation(function () {
-      //获取首页地理位置城市名称
-      MainService.getCurrentCityName({
-        key: YuanHenXiang.gaoDeKey,
-        location: Number(localStorage.getItem("longitude")).toFixed(6) + "," + Number(localStorage.getItem("latitude")).toFixed(6)
-      }).success(function (data) {
-        if (data.status == 1) {
-          var addressComponent = data.regeocode.addressComponent;
-          $scope.cityName = addressComponent.city ? addressComponent.city.replace("市", "") : addressComponent.province.replace("市", "");
-        }
-      }).finally(function () {
-        $scope.setLocation($scope.cityName);
-      })
-    });
+    document.addEventListener("deviceready", function () {
+      $scope.cityName = "深圳";//默认地址
+      CommonService.getLocation(function () {
+        //获取首页地理位置城市名称
+        MainService.getCurrentCityName({
+          key: YuanHenXiang.gaoDeKey,
+          location: Number(localStorage.getItem("longitude")).toFixed(6) + "," + Number(localStorage.getItem("latitude")).toFixed(6)
+        }).success(function (data) {
+          if (data.status == 1) {
+            var addressComponent = data.regeocode.addressComponent;
+            $scope.cityName = addressComponent.city ? addressComponent.city.replace("市", "") : addressComponent.province.replace("市", "");
+          }
+        }).finally(function () {
+          $scope.setLocation($scope.cityName);
+        })
+      });
+
+    }, false);
+
 
     //获取极光推送registrationID
     var getRegistrationID = function () {
