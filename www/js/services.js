@@ -303,7 +303,7 @@ angular.module('starter.services', [])
               callback.call(this);
             }, function (err) {
               callback.call(this);
-              // CommonService.platformPrompt("获取定位失败", 'close');
+             CommonService.platformPrompt("获取定位失败", 'close');
             });
         }, false);
 
