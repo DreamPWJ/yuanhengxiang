@@ -1,5 +1,5 @@
 <ion-popover-view id="my-brand" style="width: 97%;height: {{brandlist.length*55}}px;" ng-controller="MyPopover">
-  <ion-content overflow-scroll="false">
+  <ion-content style="height:78vh " overflow-scroll="false">
     <ion-list>
       <div ng-repeat="item in brandlist">
       <ion-radio ng-model="brandId"  icon="ion-android-done" ng-change="selectBrand(item.id)">{{item.name}}
