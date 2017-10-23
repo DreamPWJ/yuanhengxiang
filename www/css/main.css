@@ -22,7 +22,7 @@
 }
 
 #productdetails-slide.slider, #productdetails-slide.slider img {
-  height: 15rem !important;
+  height: 100vw !important;
 }
 
 .slider-pager-page {
