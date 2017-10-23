@@ -30,16 +30,16 @@
         </label>
         <label class="item item-input ">
           <span class="input-label"> 父母姓名 </span>
-          <input type="text" ng-model="user.name" placeholder="请输入父/母姓名">
+          <input type="text" ng-model="user.name" placeholder="请输入父/母姓名(可选)">
         </label>
 
         <label class="item item-input ">
           <span class="input-label"> 宝宝姓名 </span>
-          <input type="text" ng-model="user.baby_name" placeholder="请输入宝宝姓名">
+          <input type="text" ng-model="user.baby_name" placeholder="请输入宝宝姓名(可选)">
         </label>
         <div class="item">
           <div class="row row-no-padding row-center radio">
-            <span class="input-label col-30"> 宝宝性别 </span>
+            <span class="input-label col-30"> 宝宝性别(可选) </span>
             <label class="col-25"><input type="radio" name="sex" ng-model="user.sex" value="1"/> <i
               class=" icon ion-disc"></i> 男宝</label>
             <label class="col-25"><input type="radio" name="sex" ng-model="user.sex" value="2"/> <i
@@ -48,20 +48,20 @@
         </div>
         <label class="item item-input ">
           <span class="input-label"> 宝宝生日 </span>
-          <input type="date" ng-model="user.birthday" placeholder="请选择宝宝生日" required>
+          <input type="date" ng-model="user.birthday" placeholder="请选择宝宝生日(可选)" >
         </label>
         <label class="item item-input " ng-click="openModal()">
           <span class="input-label"> 所在地区 </span>
-          <p class="{{addresspcd?'dark':'grey'}}">{{addresspcd?addresspcd:"请选择地区信息"}}</p>
+          <p class="{{addresspcd?'dark':'grey'}}">{{addresspcd?addresspcd:"请选择地区信息(可选)"}}</p>
         </label>
         <label class="item item-input ">
           <span class="input-label"> 收货地址 </span>
-          <textarea class="col-60" rows="1" ng-model="user.address" placeholder="请输入收货地址" required></textarea>
+          <textarea class="col-60" rows="1" ng-model="user.address" placeholder="请输入收货地址(可选)" ></textarea>
         </label>
 
         <label class="item item-input">
           <span class="input-label"> 邀请码 </span>
-          <input type="number" placeholder="请输入邀请码" ng-model="user.code" required/>
+          <input type="number" placeholder="请输入邀请码(可选)" ng-model="user.code" />
         </label>
 
       </div>

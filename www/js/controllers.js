@@ -855,7 +855,7 @@ angular.module('starter.controllers', [])
   //注册页面
   .controller('RegisterCtrl', function ($scope, $rootScope, $state, CommonService, AccountService, EncodingService, $cordovaDevice, YuanHenXiang, $ionicScrollDelegate) {
     $scope.user = {};//定义用户对象
-    $scope.user.sex = 1;
+    $scope.user.sex = 0;
     CommonService.customModal($scope, 'templates/modal/addressmodal.html');
     $scope.paracont = "获取验证码"; //初始发送按钮中的文字
     $scope.paraclass = false; //控制验证码的disable
