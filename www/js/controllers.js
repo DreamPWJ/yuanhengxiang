@@ -1179,9 +1179,9 @@ angular.module('starter.controllers', [])
       console.log(data);
       if (data.status == 1) {
         var userdata = data.data.info;
-        $scope.head_img=userdata.head_img;
         $scope.addresspcd=userdata.province+userdata.city+userdata.area
         $scope.userinfo={
+          head_img:userdata.head_img,
           name:userdata.name,
           baby_name:userdata.baby_name,
           sex:userdata.sex,
@@ -1223,9 +1223,10 @@ angular.module('starter.controllers', [])
       $scope.getAddressPCCList();
     }
 
-    $scope.userinfo.head_img = $scope.imgsPicAddr[0];//头像图片存储返回的url
+
     //完善资料保存
     $scope.organizingdataSave = function () {
+      $scope.userinfo.head_img = $scope.imgsPicAddr[0];//头像图片存储返回的url
       var date = $scope.userinfo.birthday;
       $scope.userinfo.birthday = (new Date(date.setDate(date.getDate() + 1))).toISOString().slice(0, 10);
       AccountService.memberInfo(CommonService.authParams($scope.userinfo)).success(function (data) {
