@@ -1169,10 +1169,28 @@ angular.module('starter.controllers', [])
     CommonService.customModal($scope, 'templates/modal/addressmodal.html');
     $scope.imgsPicAddr = [];//图片信息数组
     $scope.imageList = [];  //上传图片数组集合
-    $scope.imgsPicAddr.push($rootScope.userinfo.url);//默认显示头像l
+    /*$scope.imgsPicAddr.push($rootScope.userinfo.url);*///默认显示头像l
     $scope.uploadActionSheet = function () {
       CommonService.uploadActionSheet($scope, "upload", true);
     }
+    //获取会员信息
+    var params = {};
+    AccountService.getMemberInfo(CommonService.authParams(params)).success(function (data) {
+      console.log(data);
+      if (data.status == 1) {
+        var userdata = data.data.info;
+        $scope.head_img=userdata.head_img;
+        $scope.addresspcd=userdata.province+userdata.city+userdata.area
+        $scope.userinfo={
+          name:userdata.name,
+          baby_name:userdata.baby_name,
+          sex:userdata.sex,
+          birthday:new Date(userdata.birthday),
+          address:userdata.address,
+          id_card:Number(userdata.id_card),
+        }
+      }
+    })
     //获取省市县
     $scope.getAddressPCCList = function (adcode) {
       if (isNaN(adcode) && adcode) {
