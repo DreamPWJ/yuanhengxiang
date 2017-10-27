@@ -1186,8 +1186,11 @@ angular.module('starter.controllers', [])
           baby_name:userdata.baby_name,
           sex:userdata.sex,
           birthday:new Date(userdata.birthday),
+          province:userdata.province,
+          city:userdata.city,
+          area:userdata.area,
           address:userdata.address,
-          id_card:Number(userdata.id_card),
+          id_card:Number(userdata.id_card)
         }
       }
     })
@@ -1226,7 +1229,7 @@ angular.module('starter.controllers', [])
 
     //完善资料保存
     $scope.organizingdataSave = function () {
-      $scope.userinfo.head_img = $scope.imgsPicAddr[0];//头像图片存储返回的url
+      $scope.userinfo.head_img = $scope.imgsPicAddr[0]||$scope.userinfo.head_img;//头像图片存储返回的url
       var date = $scope.userinfo.birthday;
       $scope.userinfo.birthday = (new Date(date.setDate(date.getDate() + 1))).toISOString().slice(0, 10);
       AccountService.memberInfo(CommonService.authParams($scope.userinfo)).success(function (data) {
