@@ -89,7 +89,7 @@ angular.module('starter.controllers', [])
           $scope.setLocation($scope.cityName);
         })
       });
-    },1000)
+    }, 1000)
 
     //获取极光推送registrationID
     var getRegistrationID = function () {
@@ -1179,18 +1179,18 @@ angular.module('starter.controllers', [])
       console.log(data);
       if (data.status == 1) {
         var userdata = data.data.info;
-        $scope.addresspcd=userdata.province+userdata.city+userdata.area
-        $scope.userinfo={
-          head_img:userdata.head_img,
-          name:userdata.name,
-          baby_name:userdata.baby_name,
-          sex:userdata.sex,
-          birthday:new Date(userdata.birthday),
-          province:userdata.province,
-          city:userdata.city,
-          area:userdata.area,
-          address:userdata.address,
-          id_card:Number(userdata.id_card)
+        $scope.addresspcd = userdata.province + userdata.city + userdata.area
+        $scope.userinfo = {
+          head_img: userdata.head_img,
+          name: userdata.name,
+          baby_name: userdata.baby_name,
+          sex: userdata.sex,
+          birthday: new Date(userdata.birthday),
+          province: userdata.province,
+          city: userdata.city,
+          area: userdata.area,
+          address: userdata.address,
+          id_card: Number(userdata.id_card)
         }
       }
     })
@@ -1229,7 +1229,7 @@ angular.module('starter.controllers', [])
 
     //完善资料保存
     $scope.organizingdataSave = function () {
-      $scope.userinfo.head_img = $scope.imgsPicAddr[0]||$scope.userinfo.head_img;//头像图片存储返回的url
+      $scope.userinfo.head_img = $scope.imgsPicAddr[0] || $scope.userinfo.head_img;//头像图片存储返回的url
       var date = $scope.userinfo.birthday;
       $scope.userinfo.birthday = (new Date(date.setDate(date.getDate() + 1))).toISOString().slice(0, 10);
       AccountService.memberInfo(CommonService.authParams($scope.userinfo)).success(function (data) {
@@ -1651,6 +1651,27 @@ angular.module('starter.controllers', [])
     }
 
   })
+
+  //申请退款
+  .controller('RefundCtrl', function ($scope, CommonService, OrderService, $ionicHistory, $stateParams) {
+    $scope.refund = {}
+    $scope.submitRefund = function () {
+      var params = {
+        order_no: $stateParams.orderno,
+        refund_reason: $scope.refund.refund_reason
+      }
+      OrderService.applyRefund(CommonService.authParams(params)).success(function (data) {
+        console.log(data);
+        if (data.status == 1) {
+          CommonService.platformPrompt("申请退款成功", '');
+        } else {
+          CommonService.platformPrompt(data.info, 'close');
+        }
+
+      })
+    }
+  })
+
   //我的收藏
   .controller('CollectCtrl', function ($scope, CommonService, GoodService, $ionicScrollDelegate) {
     //我的收藏

@@ -1,0 +1,21 @@
+<ion-view>
+  <ion-nav-buttons side="left">
+    <button class="button button-clear ion-ios-arrow-left" ng-click="$ionicGoBack()">
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <h1 class="title">申请退款</h1>
+  </ion-nav-title>
+  <form name="refundform">
+    <ion-content overflow-scroll="false" class="has-button-footer stable-bg" has-bouncing="true" id="refund">
+      <div class="list padding-top list-borderless">
+        <label class="item item-input card item-borderless">
+          <textarea rows="5" ng-model="refund.refund_reason" placeholder="请填写退款原因" ng-maxlength="300" required></textarea>
+        </label>
+      </div>
+    </ion-content>
+    <div class="padding light-bg bottom-0" keyboard-attach>
+      <a class="button button-positive  full-image" ng-disabled="!refundform.$valid" ng-click="submitRefund()">确定退款</a>
+    </div>
+  </form>
+</ion-view>

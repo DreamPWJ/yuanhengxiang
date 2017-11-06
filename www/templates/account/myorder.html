@@ -138,7 +138,7 @@
             <ion-item class="row row-horizontal-around item-borderless">
               <a ng-href="#/orderdetails/{{item.order_no}}"
                  class="col-20 col-offset-50 button button-positive button-outline button-small ">查看订单</a>
-              <button class="col-20  button button-positive button-outline button-small"
+              <button class="col-20  button button-positive button-outline button-small" ui-sref="refund({orderno:item.order_no})"
                      >申请退款
               </button>
             </ion-item>

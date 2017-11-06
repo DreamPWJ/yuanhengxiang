@@ -96,6 +96,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
       // System events
       document.addEventListener("resume", resume, false);
+
       function resume() {
         if (window.plugins.jPushPlugin.isPlatformIOS()) {
           window.plugins.jPushPlugin.setBadge(0);
@@ -395,6 +396,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         cache: false,
         templateUrl: 'templates/account/evaluate.html',
         controller: 'EvaluateCtrl'
+      })
+      //申请退款
+      .state('refund', {
+        url: '/refund/:orderno',
+        cache: false,
+        templateUrl: 'templates/account/refund.html',
+        controller: 'RefundCtrl'
       })
       //我的收藏
       .state('collect', {
