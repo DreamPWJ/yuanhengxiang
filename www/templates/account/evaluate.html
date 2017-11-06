@@ -27,7 +27,7 @@
       <div class="padding-right text-right positive"><i class="icon ion-ios-camera camera" ng-click="uploadActionSheet()" ></i></div>
       <div class="row show-img row-wrap row-horizontal-center">
         <img ng-if="imgsPicAddr.length!=0"
-          ng-src="{{imgsPicAddr}}"  style="height: 12rem" class="col-80 padding">
+          ng-src="{{imgsPicAddr[imgsPicAddr.length-1]}}"  style="height: 12rem" class="col-80 padding">
       </div>
     </ion-content>
     <div class="padding light-bg bottom-0" keyboard-attach>

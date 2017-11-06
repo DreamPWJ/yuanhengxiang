@@ -1455,7 +1455,7 @@ angular.module('starter.controllers', [])
             $scope.isNotData = true;
             return
           }
-          $scope.total_point = data.data.total_point;//当前积分
+          $scope.total_point = data.data.totalPoint;//当前积分
           angular.forEach(data.data.lists, function (item) {
             $scope.myNtegralList.push(item);
           })
