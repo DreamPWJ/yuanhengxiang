@@ -23,7 +23,12 @@
           <textarea rows="5" ng-model="evaluateinfo.Memo" placeholder="分享您的购买心得" ng-maxlength="300" required></textarea>
         </label>
       </div>
+
       <div class="padding-right text-right positive"><i class="icon ion-ios-camera camera" ng-click="uploadActionSheet()" ></i></div>
+      <div class="row show-img row-wrap row-horizontal-center">
+        <img ng-if="imgsPicAddr.length!=0"
+          ng-src="{{imgsPicAddr}}"  style="height: 12rem" class="col-80 padding">
+      </div>
     </ion-content>
     <div class="padding light-bg bottom-0" keyboard-attach>
       <a class="button button-positive  full-image" ng-disabled="!evaluateform.$valid" ng-click="submitevalute()">提交评价</a>
