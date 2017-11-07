@@ -1190,7 +1190,7 @@ angular.module('starter.controllers', [])
           city: userdata.city,
           area: userdata.area,
           address: userdata.address,
-          id_card: Number(userdata.id_card)
+          id_card: userdata.id_card
         }
       }
     })
