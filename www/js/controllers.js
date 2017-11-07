@@ -896,7 +896,7 @@ angular.module('starter.controllers', [])
         udid = "43a561a7658ae5b1";
       }
       var date = $scope.user.birthday;
-      $scope.user.birthday = date ? (new Date(date.setDate(date.getDate() + 1))).toISOString().slice(0, 10) : "";
+      $scope.user.birthday = date ? (new Date(date.setDate(date.getDate()))).toISOString().slice(0, 10) : "";
       $scope.user.password = EncodingService.md5($scope.user.password);
       $scope.user.udid = udid;
       console.log($scope.user);
@@ -1231,7 +1231,7 @@ angular.module('starter.controllers', [])
     $scope.organizingdataSave = function () {
       $scope.userinfo.head_img = $scope.imgsPicAddr[0] || $scope.userinfo.head_img;//头像图片存储返回的url
       var date = $scope.userinfo.birthday;
-      $scope.userinfo.birthday = (new Date(date.setDate(date.getDate() + 1))).toISOString().slice(0, 10);
+      $scope.userinfo.birthday = (new Date(date.setDate(date.getDate()))).toISOString().slice(0, 10);
       AccountService.memberInfo(CommonService.authParams($scope.userinfo)).success(function (data) {
         if (data.status == 1) {
           $state.go("tab.account")
