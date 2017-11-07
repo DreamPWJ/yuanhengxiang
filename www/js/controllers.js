@@ -1636,6 +1636,7 @@ angular.module('starter.controllers', [])
     //提交评论
     $scope.submitevalute = function () {
       var params = {
+        order_no: $stateParams.orderno,
         goods_id: $scope.evaluate.goods_id,
         content: $scope.evaluateinfo.Memo,
         score: $scope.evaluateinfo.star,
