@@ -160,7 +160,7 @@
           <div ng-repeat="item in rightsinList">
             <ion-item class="row">
               <h2 class="col">{{item.create_time * 1000 | date:'yyyy.MM.dd HH:mm'}}</h2>
-              <h2 class="col positive text-right">买家已签收</h2>
+              <h2 class="col positive text-right">买家已退货</h2>
             </ion-item>
             <a ng-repeat="items in item.goodsList" ng-href="#/productdetails/{{items.goods_id}}" nav-direction=forward
                class="item item-thumbnail-left main-hot-sale stable-bg">
