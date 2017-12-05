@@ -19,6 +19,17 @@
                  ng-blur="checkForm(addrinfo.tel,'手机号输入不正确','mobilephone','')" ng-model="addrinfo.tel" required>
         </label>
 
+        <label class="item item-input ">
+          <span class="input-label"> 姓名 </span>
+          <input type="text" ng-model="addrinfo.name" placeholder="请输入姓名" required>
+        </label>
+
+        <label class="item item-input ">
+          <span class="input-label"> 身份证 </span>
+          <input type="text" placeholder="请输入身份证号码" check-form
+                 ng-blur="checkForm(addrinfo.id_card,'身份证输入不正确','identitycard','')"
+                 ng-model="addrinfo.id_card" minlength="15" maxlength="18" required>
+        </label>
 <!--
         <label class="item item-input ">
           <span class="input-label"> 邮箱 </span>
@@ -36,17 +47,6 @@
           <textarea class="col-60" rows="1" ng-model="addrinfo.address" placeholder="请输入详细地址" required></textarea>
         </label>
 
-        <label class="item item-input ">
-          <span class="input-label"> 姓名 </span>
-          <input type="text" ng-model="addrinfo.name" placeholder="请输入姓名" required>
-        </label>
-
-        <label class="item item-input ">
-          <span class="input-label"> 身份证 </span>
-          <input type="text" placeholder="请输入身份证号码" check-form
-                 ng-blur="checkForm(addrinfo.id_card,'身份证输入不正确','identitycard','')"
-                 ng-model="addrinfo.id_card" maxlength="18" required>
-        </label>
       </ion-list>
       <div class="padding">
         <button class="button button-positive full-image" ng-disabled="!(addaddress.$valid&&verify)" ng-click="addressSave()">
